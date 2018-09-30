@@ -163,6 +163,67 @@ var themeMenus = {};
         
           <section id="main">
   
+    <article id="post-de_ch8 storage index"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/09/30/de_ch8 storage index/">database:storage&amp;index</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2018/09/30/de_ch8 storage index/" class="article-date">
+	  <time datetime="2018-09-30T15:00:29.000Z" itemprop="datePublished">September 30, 2018</time>
+	</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div class="entry-thumbnail">
+            <a href="/2018/09/30/de_ch8 storage index/"><img width="250" height="175" src="/gallery/database/ch8_store&amp;index/store&amp;index.png" class="attachment-thumb-featured size-thumb-featured wp-post-image" alt=""></a>
+          </div>
+          <div class="entry-summary">
+          Storage and indexingData on external storageDisk: can retrieve random page at fixed cost,reading in consecutive pages is cheaper than reading in random order.  
+Tape: Can only read consecutive page...
+
+        
+          <p class="article-more-link">
+            <a href="/2018/09/30/de_ch8 storage index/#more">Continue Reading →</a>
+          </p>
+        </div>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/database/">database</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+    
+
+  
     <article id="post-Nearest Neighbor Methods"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -187,82 +248,19 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##Nearest Neighbor Methods##</p>
-<p>###political affiliation###<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""><br>very easy to understand<br>approach 1:<br> first initialize all training examples (xi,yi)<br>Classify a new test point x(test) by finding x(test) closest neighbor xi, and classify x(test) with label yi.</p>
-<p>comparing with eager algorithms, this is a lazy means learning that occur till test example is presented.</p>
-<p>###distance###<br>there are several ways to measure the distance bwteen training point x-trn and test point x-tst.<br>1 Euclidean distance<br>2 Manhattan distance<br>3 Minkowski distance<br>4 Mahalanobis distance(important)<br>5 weighted distance<br>etc, we can produce Voronoi diagram to better discribes zone of control<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""><br>tips: different measures of closeness produce different diagrams.</p>
-<p>mahalanobis distance is a useful measure of closeness between two point with n dimensions.It should deserve more discussion.</p>
-<p>###problem1:range###<br>definetely when we gather training data.we will see many features value with diferent range.<br>feature with lager range will become more important.(i don’t know why?)<br>But we can normalize feature value, making them share the same range.<br>here is the math.<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""></p>
-<p>###problem2:irrelevant inputs###<br>irrelevant inputs mean noise feature. noise feature add random perturbations to classifier. <img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""></p>
-<p>three approaches can handle this issue.<br>1 feature weighting:weight the feature then use a weighted-distance as distance metric (don’t know how to weight the feature,how to calculate each weight)<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt="">  </p>
-<p>2 metric learing: learn a metric(what metric should we learn?) use mahalanobis distance (should have more discussion)  </p>
-<p>3:smoothing:Find k nearest neighbors and have them vote for label, multiple neighbors can reduce the effects of noise.</p>
-<p>compute distance between all trn-point and new tst-point take O(nd) time. With n data set and d dimension.</p>
-<p>###k-Nearest Neighbor###<br>approach2:<br>1 initialize: store all trn examples (xi,yi)<br>2 find k trn-point xi such that xi are cloest to x-tst, and classify x-tst with majority label from neighbors set.  </p>
-<p>####problem a: selecting k####<br>when we got k=1 bias is low variance is high. when we got k=7 bias is high variance is low. there is a balance of selecting k.<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""> </p>
-<p>k-nn can easily handle multi-class data<br>like<br>1 handwriting recognition<br>2 satellite scene image analysis<br>3 EKG pattern classification  </p>
-<p>####problem b: nearest neighbors are too far away####<br>we can expect some very far away neighbors have the same weight of vote as neighbors that are closer to test point.<br>we can set weight wi=1/D(Xi,X-tst)<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""></p>
-<p>####problem c: irrelevant feature####<br>we can weight each feature based on its’ ability to reduce classification error.<br>(what’s mutual information)<br>or Metric learing, use Mahalanobis<br>distance metric.<br><img src="/Users/apple/Desktop/mechine learing/marsun.jpg" alt=""></p>
-<p>###Curse of Dimensionality###<br>just to remember as dimension increase.<br>1D we should go a distance of k/num<br>2D we should go a distance of sqrt(k/num)<br>3D …etc<br>So you konw its’ disability, weakpoint</p>
-<p>###k-Dimensional trees###<br> this is a space-partitioning data structure for organizing points in a k-dimensional space.  </p>
-<p> non-leaf node:  axis-aligned hyperplane that splits the space into two parts  </p>
-<p> leaf node: a k-dimensional point<br> The idea is that if new points to classify are evenly distributed<br>throughout the space, then the expected cost of classification is approximately (dlogn) operations, much smaller than (nd) operations.</p>
-<p>###Summery###<br>advantages:<br>•Model is extremely simple and intuitive<br>• Very easy to implement, can be very fast in practice<br>• Flexible decision boundaries<br>• Variable-sized hypothesis space</p>
-<p>disadvantages:<br>• Distance function must be carefully chosen<br>• Irrelevant features have a high impact and must be handled/removed<br>• Use feature weighting or metric learning<br>• Typically cannot handle high-dimensional spaces<br>• Memory and classification-time costs grow with dimensionality<br>• Use specialized data structures such as k-d trees to efficiently find<br>nearest neighbors</p>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/Machine-learning/">Machine learning</a>
-
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mechine-learing/">Mechine learing</a></li></ul>
-
-      
-            
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-    
-
-  
-    <article id="post-svm1"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2018/09/14/svm1/">Support Vector Machine</a>
-    </h1>
-  
+          <div class="entry-thumbnail">
+            <a href="/2018/09/14/Nearest Neighbor Methods/"><img width="250" height="175" src="/gallery/shoes.jpg" class="attachment-thumb-featured size-thumb-featured wp-post-image" alt=""></a>
+          </div>
+          <div class="entry-summary">
+          
+Nearest Neighbor Methodspolitical affiliationvery easy to understandapproach 1: first initialize all training examples (xi,yi)Classify a new test point x(test) by finding x(test) closest neighbor ...
 
-      </header>
-    
-    <div class="article-meta">
-      
-	Posted on <a href="/2018/09/14/svm1/" class="article-date">
-	  <time datetime="2018-09-14T12:00:29.000Z" itemprop="datePublished">September 14, 2018</time>
-	</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#support vector machines#</p>
-<p>##text categorization##<br><img src="/Users/apple/Desktop/mechine\ learing/marsun.jpg" alt=""><br>text categorization, bascially like google news feed.<br>1 how to deal with text categorization problems?</p>
-<p>capture frequency of words, not semantics,sentiment,or word order.build vector space model, where each document is represented as a vector of word statistics.<br>Except word-frequency, we could also use statistic like term-frequency and inverse document frequency(tf-idf)<br><img src="/Users/apple/Desktop/mechine\ learing/marsun.jpg" alt=""></p>
-<p>2why can we set margin y=2/||w|| ?<br>alpha=b-1 beta=b+1 to get y</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/09/14/Nearest Neighbor Methods/#more">Continue Reading →</a>
+          </p>
+        </div>
       
     </div>
     <footer class="entry-meta entry-footer">
@@ -272,7 +270,7 @@ var themeMenus = {};
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mechine-learing/">Mechine learing</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-learning/">Machine learning</a></li></ul>
 
       
             
@@ -551,11 +549,14 @@ sdwebimage的运用，系统默认头像功能
           <li class="clearfix">
 
             
-              <div class="widget-entry-summary" style="margin: 0;">
+              <div class="widget-entry-thumbnail">
+                <a href="/2018/09/30/de_ch8 storage index/" title=""><img width="50" height="50" src="/gallery/database/ch8_store&amp;index/store&amp;index.png" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title=""></a>
+              </div>
+              <div class="widget-entry-summary">
             
 
-              <h6 style="margin: 0;"><a href="/2018/09/14/Nearest Neighbor Methods/">Nearest Neighbor Methods</a></h6>
-              <span>September 14, 2018</span>
+              <h6 style="margin: 0;"><a href="/2018/09/30/de_ch8 storage index/">database:storage&amp;index</a></h6>
+              <span>September 30, 2018</span>
             </div>
 
           </li>
@@ -563,10 +564,13 @@ sdwebimage的运用，系统默认头像功能
           <li class="clearfix">
 
             
-              <div class="widget-entry-summary" style="margin: 0;">
+              <div class="widget-entry-thumbnail">
+                <a href="/2018/09/14/Nearest Neighbor Methods/" title=""><img width="50" height="50" src="/gallery/shoes.jpg" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title=""></a>
+              </div>
+              <div class="widget-entry-summary">
             
 
-              <h6 style="margin: 0;"><a href="/2018/09/14/svm1/">Support Vector Machine</a></h6>
+              <h6 style="margin: 0;"><a href="/2018/09/14/Nearest Neighbor Methods/">Nearest Neighbor Methods</a></h6>
               <span>September 14, 2018</span>
             </div>
 
@@ -605,7 +609,7 @@ sdwebimage的运用，系统默认头像功能
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/默认分类/">默认分类</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/默认分类/">默认分类</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -615,7 +619,7 @@ sdwebimage的运用，系统默认头像功能
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mechine-learing/">Mechine learing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-learning/">Machine learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -625,7 +629,7 @@ sdwebimage的运用，系统默认头像功能
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Mechine-learing/" style="font-size: 15px;">Mechine learing</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Machine-learning/" style="font-size: 10px;">Machine learning</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a>
     </div>
   </div>
 
