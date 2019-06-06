@@ -13,20 +13,28 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>Categories | ZhuangPark&#39;s blog</title>
+  <title>leetcode-1 | ZhuangPark&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+    <meta name="keywords" content="algorithms">
   
   
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://www.zhuangpark.top/categories/index.html">
+  
+  <meta name="description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
+<meta name="keywords" content="algorithms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-1">
+<meta property="og:url" content="https://www.zhuangpark.top/2019/06/05/leetcode-1/index.html">
 <meta property="og:site_name" content="ZhuangPark&#39;s blog">
+<meta property="og:description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-18T14:01:05.910Z">
+<meta property="og:image" content="https://www.zhuangpark.top/gallery/leetcode1/leetcode.png">
+<meta property="og:updated_time" content="2019-06-06T07:52:00.398Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
+<meta name="twitter:title" content="leetcode-1">
+<meta name="twitter:description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
+<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/leetcode1/leetcode.png">
   
     <link rel="alternate" href="/atom.xml" title="ZhuangPark&#39;s blog" type="application/atom+xml">
   
@@ -86,7 +94,7 @@ var themeMenus = {};
 </script>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   <header id="allheader" class="site-header" role="banner">
@@ -162,15 +170,25 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-leetcode-1" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="/gallery/leetcode1/leetcode.png" rel="gallery_cjwha7c2j000c58crj5fs2adh">
+        <img src="/gallery/leetcode1/leetcode.png" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
     
       <header class="article-header">
         
   
     <h1 class="thumb" itemprop="name">
-      categories
+      leetcode-1
     </h1>
   
 
@@ -178,8 +196,8 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	Posted on <a href="/categories/index.html" class="article-date">
-	  <time datetime="2018-06-18T14:01:05.000Z" itemprop="datePublished">June 18, 2018</time>
+	Posted on <a href="/2019/06/05/leetcode-1/" class="article-date">
+	  <time datetime="2019-06-05T18:21:00.000Z" itemprop="datePublished">June 6, 2019</time>
 	</a>
 
       
@@ -190,12 +208,24 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="leetcode-1-84-91-322-152"><a href="#leetcode-1-84-91-322-152" class="headerlink" title="leetcode 1(84,91,322,152)"></a>leetcode 1(84,91,322,152)</h1><h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><p>刷了几道leetcode。<br>84-Largest Rectangle in Histogram<br>91-Decode Ways<br>322-Coin_Change<br>152-Maximum Product Subarray<br><a id="more"></a><br>84 Largest Rectangle in Histogram<br>首先这个问题，非常好理解，就是给你一串数组比如<br>[2,1,5,6,2,3]来表达<br><img src="/gallery/leetcode-1/Rect.jpg" alt><br>然后找到最大的矩形面积<br><img src="/gallery/leetcode-1/Rect_max.jpg" alt><br>然后就通过两个数组，leftarray,rightarray,和一个循环来解决这个问题。 先初始化leftarray, righarray，然后选定好一个矩形，然后开始向左延申，如果遇到更矮的则停下，如果遇到比自己高的则继续，最终确定左边界为止，然后右边同理，确定左右边界之后，就是右边界-左边界=宽。 面积=高 X 宽。 然后选择一个最大的面积就完成了。  </p>
+<p>91 Decode Ways<br>首先这个问题，就是解码的意思，1-A， 2-B，3-C …etc<br>然后如果给数字226，则是（1）2-2-6（BBF） （2）22-6  （3)2-26 这三个可能性。<br>这里用的是递归，这里的递归有点像一棵树。<br><img src="/gallery/leetcode-1/tree1.jpg" alt><br>然后得到我们要的答案，当到达每个叶子节点的时候都给答案加1。<br>还有遇到0的情况，则马上把这个树的分支cut掉。<br><img src="/gallery/leetcode-1/tree2.jpg" alt><br>这就可以完成了。 基本上代码就是，确定cut的情况，还有达到叶子节点的情况，然后检查递归调用的条件，符合则调用，不符合则不调用。 这里数字需要低于等于26才可以调用递归函数。</p>
+<p>322 Coin_Change<br>这个问题，给一个amount=11, coins=[1,2,5] 结果是3，11=5+5+1, 就是用最少的硬币凑amount。 3个硬币，这是用最少的硬币凑够amount，这里用的就是dynamic program, 而这种还叫last step dynamic program。<br>有一个数组array, array[0],array[1],array[2]…..array[11]它代表着当amount等于11的时候最少用多少个硬币，然后确定一下array[0]=0，array[负数]=-1也就没有答案。 然后array[11] 有三个来源[1,2,5], 也就是[10,9,6],也就是凑够10再来一个1元硬币，凑够9元再来一个2元硬币，凑够6元再来个5元硬币，那么array[11]能多小，取决与array[10],array[9],array[6]的大小了。而array[10],array[9],array[6]你又已经知道了。<br>所以会变成一个树状的dp问题，从array[11]往下走到array[0]开始返回。</p>
+<p>代码结构：1 首先先确定这个递归调用树在哪些叶子结束，在0 负数 以及array[i]（i是叶子) 已经存在的情况下。 2开始循环访问Coin[1,2,5], 让Amount-Coin[i], 然后递归调用F(Amount-Coin[i]), 然后得到返回值进行比较，找到合法的最小的。<br><img src="/gallery/leetcode-1/tree3.jpg" alt>   </p>
+<p>152-Maximum Product Subarray  </p>
+<p>这里有个例子，[1,3,4,-1,2,10,-5], 求最大的相乘数字。 有两种情况，第一种就是就是全部都是正数，或者有偶数个负数，负数乘以负数得正。 还有当有奇数个负数的时候，负数相当于一个分割点，把连续正数分割。 比如[1,3,4,-1,2,10] 这里答案只能是[1,3,4]或者[2,10]。 也就是12和20。<br>所以需要两个用DP，而且需要两个数组Up,Down数组来存储，然后保存连续, 或者是分割相乘。<br>[1, 3, 4, -1, 2, 10, -5]<br>[1, 3, 12, -1]<br>[1, 3, 4, -12]<br>显示连乘，然后Up Down互换，然后X过于大，则X替换UP。 X过于小，则X替换Down。 最后比较Up和MAX，然后替换。 这里的思想在于，维护多个数组。 然后从底部开始，动态规划。</p>
+
       
     </div>
     <footer class="entry-meta entry-footer">
       
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>
+
       
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li></ul>
+
       
         <div id="donation_div"></div>
 
@@ -240,248 +270,30 @@ var a = new Donate({
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/28/大厂笔试面试整理(sde)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">interview 1 summary(大厂笔试面试1整理)</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
 <!-- Table of Contents -->
 
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
     
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode-1-84-91-322-152"><span class="nav-number">1.</span> <span class="nav-text">leetcode 1(84,91,322,152)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode"><span class="nav-number">1.1.</span> <span class="nav-text">leetcode</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    <div class="widget-wrap" style="margin: 20px 0;">
-	<div id="search-form-wrap">
-
-    <form class="search-form">
-        <label style="width: 75%;">
-            <span class="screen-reader-text">Search for:</span>
-            <input type="search" class="search-field" style="height: 42px;" placeholder=" Search…" value name="s" title="Search for:">
-        </label>
-        <input type="submit" class="search-form-submit" value="Search">
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something...">
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-</div>
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Connect With Us</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/TheZhuangPark" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://www.weibo.com/u/3968741444?is_all=1" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href="https://www.facebook.com/people/Zehong-Zhuang/100027140881540" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href title="Google-plus"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-     			  <li><a href title="Flickr"><i class="fa fa-flickr" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:zxz180009@utdallas.edu?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget_athemes_tabs">
-    <ul id="widget-tab" class="clearfix widget-tab-nav">
-      <li class="active"><a>Recent Posts</a></li>
-    </ul>
-    <div class="widget">
-      <ul>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-thumbnail">
-                <a href="/2019/06/05/leetcode-1/" title><img width="50" height="50" src="/gallery/leetcode1/leetcode.png" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title></a>
-              </div>
-              <div class="widget-entry-summary">
-            
-
-              <h6 style="margin: 0;"><a href="/2019/06/05/leetcode-1/">leetcode-1</a></h6>
-              <span>June 6, 2019</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-thumbnail">
-                <a href="/2019/05/28/大厂笔试面试整理(sde)/" title><img width="50" height="50" src="/gallery/interview1.jpg" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title></a>
-              </div>
-              <div class="widget-entry-summary">
-            
-
-              <h6 style="margin: 0;"><a href="/2019/05/28/大厂笔试面试整理(sde)/">interview 1 summary(大厂笔试面试1整理)</a></h6>
-              <span>May 28, 2019</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-thumbnail">
-                <a href="/2019/05/11/github/" title><img width="50" height="50" src="/gallery/git.png" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title></a>
-              </div>
-              <div class="widget-entry-summary">
-            
-
-              <h6 style="margin: 0;"><a href="/2019/05/11/github/">how to use github(如何使用github)</a></h6>
-              <span>May 12, 2019</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-thumbnail">
-                <a href="/2019/05/11/hexo/" title><img width="50" height="50" src="/gallery/hexo-github.png" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title></a>
-              </div>
-              <div class="widget-entry-summary">
-            
-
-              <h6 style="margin: 0;"><a href="/2019/05/11/hexo/">how to use hexo to build a blog(如何使用hexo搭建博客)</a></h6>
-              <span>May 12, 2019</span>
-            </div>
-
-          </li>
-        
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-thumbnail">
-                <a href="/2018/09/14/Nearest Neighbor Methods/" title><img width="50" height="50" src="/gallery/shoes.jpg" class="attachment-thumb-small size-thumb-small wp-post-image" alt="preview-16" title></a>
-              </div>
-              <div class="widget-entry-summary">
-            
-
-              <h6 style="margin: 0;"><a href="/2018/09/14/Nearest Neighbor Methods/">Nearest Neighbor Methods</a></h6>
-              <span>September 14, 2018</span>
-            </div>
-
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-learning/">Machine learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/algorithms/">algorithms</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/interview/">interview</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-learning/">Machine learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a><span class="tag-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Machine-learning/" style="font-size: 10px;">Machine learning</a> <a href="/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/interview/" style="font-size: 10px;">interview</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
         
       </div>
       <footer id="footer" class="site-footer">
