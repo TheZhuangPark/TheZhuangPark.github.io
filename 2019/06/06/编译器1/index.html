@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>leetcode-1 | ZhuangPark&#39;s blog</title>
+  <title>编译器1（compiler1) | ZhuangPark&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="algorithms">
@@ -21,20 +21,20 @@
   
   
   
-  <meta name="description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
+  <meta name="description" content="#Compiler 1  Compiler斯坦福的编译器课程">
 <meta name="keywords" content="algorithms">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-1">
-<meta property="og:url" content="https://www.zhuangpark.top/2019/06/05/leetcode-1/index.html">
+<meta property="og:title" content="编译器1（Compiler1)">
+<meta property="og:url" content="https://www.zhuangpark.top/2019/06/06/编译器1/index.html">
 <meta property="og:site_name" content="ZhuangPark&#39;s blog">
-<meta property="og:description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
+<meta property="og:description" content="#Compiler 1  Compiler斯坦福的编译器课程">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://www.zhuangpark.top/gallery/leetcode1/leetcode1.JPG">
-<meta property="og:updated_time" content="2019-06-06T22:51:07.426Z">
+<meta property="og:image" content="https://www.zhuangpark.top/gallery/compiler1/compiler1.jpg">
+<meta property="og:updated_time" content="2019-06-07T01:45:48.248Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode-1">
-<meta name="twitter:description" content="leetcode 1(84,91,322,152)leetcode刷了几道leetcode。84-Largest Rectangle in Histogram91-Decode Ways322-Coin_Change152-Maximum Product Subarray">
-<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/leetcode1/leetcode1.JPG">
+<meta name="twitter:title" content="编译器1（Compiler1)">
+<meta name="twitter:description" content="#Compiler 1  Compiler斯坦福的编译器课程">
+<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/compiler1/compiler1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="ZhuangPark&#39;s blog" type="application/atom+xml">
   
@@ -170,14 +170,14 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-leetcode-1" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-编译器1" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/gallery/leetcode1/leetcode1.JPG" rel="gallery_cjwlfrxq6000xuscrr2kicc5r">
-        <img src="/gallery/leetcode1/leetcode1.JPG" itemprop="image">
+      <a class="article-gallery-img fancybox" href="/gallery/compiler1/compiler1.jpg" rel="gallery_cjwlfrxqr0010uscrtwpznqls">
+        <img src="/gallery/compiler1/compiler1.jpg" itemprop="image">
       </a>
     
   </div>
@@ -188,7 +188,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" itemprop="name">
-      leetcode-1
+      编译器1（Compiler1)
     </h1>
   
 
@@ -196,8 +196,8 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	Posted on <a href="/2019/06/05/leetcode-1/" class="article-date">
-	  <time datetime="2019-06-05T18:21:00.000Z" itemprop="datePublished">June 6, 2019</time>
+	Posted on <a href="/2019/06/06/编译器1/" class="article-date">
+	  <time datetime="2019-06-06T12:45:00.000Z" itemprop="datePublished">June 6, 2019</time>
 	</a>
 
       
@@ -208,23 +208,20 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="leetcode-1-84-91-322-152"><a href="#leetcode-1-84-91-322-152" class="headerlink" title="leetcode 1(84,91,322,152)"></a>leetcode 1(84,91,322,152)</h1><h2 id="leetcode"><a href="#leetcode" class="headerlink" title="leetcode"></a>leetcode</h2><p>刷了几道leetcode。<br>84-Largest Rectangle in Histogram<br>91-Decode Ways<br>322-Coin_Change<br>152-Maximum Product Subarray<br><a id="more"></a><br>84 Largest Rectangle in Histogram<br>首先这个问题，非常好理解，就是给你一串数组比如<br>[2,1,5,6,2,3]来表达<br><img src="/gallery/leetcode-1/Rect.jpg" alt><br>然后找到最大的矩形面积<br><img src="/gallery/leetcode-1/Rect_max.JPG" alt><br>然后就通过两个数组，leftarray,rightarray,和一个循环来解决这个问题。 先初始化leftarray, righarray，然后选定好一个矩形，然后开始向左延申，如果遇到更矮的则停下，如果遇到比自己高的则继续，最终确定左边界为止，然后右边同理，确定左右边界之后，就是右边界-左边界=宽。 面积=高 X 宽。 然后选择一个最大的面积就完成了。  </p>
-<p>91 Decode Ways<br>首先这个问题，就是解码的意思，1-A， 2-B，3-C …etc<br>然后如果给数字226，则是（1）2-2-6（BBF） （2）22-6  （3)2-26 这三个可能性。<br>这里用的是递归，这里的递归有点像一棵树。<br><img src="/gallery/leetcode-1/tree1.JPG" alt><br>然后得到我们要的答案，当到达每个叶子节点的时候都给答案加1。<br>还有遇到0的情况，则马上把这个树的分支cut掉。<br><img src="/gallery/leetcode-1/tree2.JPG" alt><br>这就可以完成了。 基本上代码就是，确定cut的情况，还有达到叶子节点的情况，然后检查递归调用的条件，符合则调用，不符合则不调用。 这里数字需要低于等于26才可以调用递归函数。</p>
-<p>322 Coin_Change<br>这个问题，给一个amount=11, coins=[1,2,5] 结果是3，11=5+5+1, 就是用最少的硬币凑amount。 3个硬币，这是用最少的硬币凑够amount，这里用的就是dynamic program, 而这种还叫last step dynamic program。<br>有一个数组array, array[0],array[1],array[2]…..array[11]它代表着当amount等于11的时候最少用多少个硬币，然后确定一下array[0]=0，array[负数]=-1也就没有答案。 然后array[11] 有三个来源[1,2,5], 也就是[10,9,6],也就是凑够10再来一个1元硬币，凑够9元再来一个2元硬币，凑够6元再来个5元硬币，那么array[11]能多小，取决与array[10],array[9],array[6]的大小了。而array[10],array[9],array[6]你又已经知道了。<br>所以会变成一个树状的dp问题，从array[11]往下走到array[0]开始返回。</p>
-<p>代码结构：1 首先先确定这个递归调用树在哪些叶子结束，在0 负数 以及array[i]（i是叶子) 已经存在的情况下。 2开始循环访问Coin[1,2,5], 让Amount-Coin[i], 然后递归调用F(Amount-Coin[i]), 然后得到返回值进行比较，找到合法的最小的。<br><img src="/gallery/leetcode-1/tree3.JPG" alt>   </p>
-<p>152-Maximum Product Subarray  </p>
-<p>这里有个例子，[1,3,4,-1,2,10,-5], 求最大的相乘数字。 有两种情况，第一种就是就是全部都是正数，或者有偶数个负数，负数乘以负数得正。 还有当有奇数个负数的时候，负数相当于一个分割点，把连续正数分割。 比如[1,3,4,-1,2,10] 这里答案只能是[1,3,4]或者[2,10]。 也就是12和20。<br>所以需要两个用DP，而且需要两个数组Up,Down数组来存储，然后保存连续, 或者是分割相乘。<br>[1, 3, 4, -1, 2, 10, -5]<br>[1, 3, 12, -1]<br>[1, 3, 4, -12]<br>显示连乘，然后Up Down互换，然后X过于大，则X替换UP。 X过于小，则X替换Down。 最后比较Up和MAX，然后替换。 这里的思想在于，维护多个数组。 然后从底部开始，动态规划。</p>
+        <p>#Compiler 1 </p>
+<h2 id="Compiler"><a href="#Compiler" class="headerlink" title="Compiler"></a>Compiler</h2><p>斯坦福的编译器课程<br><a id="more"></a><br>对于编译器，和翻译器，它们是有区别的。<br>编译器就是把代码翻译器另一种语言的代码（通常更底层），然后压缩成二进制可执行程序。<br><img src="/gallery/compiler1/c1.JPG" alt><br>翻译器就更像我们日常用的，那种点run，然后在IDE把结果跑一下。<br><img src="/gallery/compiler1/c2.JPG" alt>  </p>
+<p>##Fortran1<br>历史上编译器是这样发展的，先是speedCoding, 但是这东西不太实用，但是又从这发展来FROTRAN1<br>,也就是一门中间语言，更容易给程序员玩的。而不是机器代码，编译代码，低级语言，低级语言通常上手难度非常高。相当于一个中间翻译。<br>FORTRAN1 有5个结构层。<br><img src="/gallery/compiler1/c3.JPG" alt><br>然后第一层，第二层，同时处理语言的语法方面。<br>第三层，语义分析通常处理比如 类型之类的分析。<br>第四层，优化速度，质量。<br>第五层，生成低级，次级的代码。  </p>
 
       
     </div>
     <footer class="entry-meta entry-footer">
       
 	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>
+    <a class="article-category-link" href="/categories/编译器-Compiler/">编译器(Compiler)</a>
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译器-Compiler/">编译器(Compiler),</a></li></ul>
 
       
         <div id="donation_div"></div>
@@ -272,19 +269,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2019/06/06/编译器1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          编译器1（Compiler1)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/05/28/大厂笔试面试整理(sde)/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/06/05/leetcode-1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">interview 1 summary(大厂笔试面试1整理)</div>
+      <div class="article-nav-title">leetcode-1</div>
     </a>
   
 </nav>
@@ -298,7 +286,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#leetcode-1-84-91-322-152"><span class="nav-number">1.</span> <span class="nav-text">leetcode 1(84,91,322,152)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode"><span class="nav-number">1.1.</span> <span class="nav-text">leetcode</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Compiler"><span class="nav-number">1.</span> <span class="nav-text">Compiler</span></a></li></ol>
     
     </div>
   </aside>
