@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>longest palindromic substring | ZhuangPark&#39;s blog</title>
+  <title>tow sum | ZhuangPark&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="algorithms">
@@ -21,19 +21,19 @@
   
   
   
-  <meta name="description" content="Longest Palindromic Substring(最长回文子字符串)最长回文子字符串">
+  <meta name="description" content="#Two Sum 两数之和">
 <meta name="keywords" content="algorithms">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Longest Palindromic Substring">
-<meta property="og:url" content="https://www.zhuangpark.top/2019/07/02/Longest Palindrome substring/index.html">
+<meta property="og:title" content="Tow Sum">
+<meta property="og:url" content="https://www.zhuangpark.top/2019/07/03/two sum/index.html">
 <meta property="og:site_name" content="ZhuangPark&#39;s blog">
-<meta property="og:description" content="Longest Palindromic Substring(最长回文子字符串)最长回文子字符串">
+<meta property="og:description" content="#Two Sum 两数之和">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
-<meta property="og:updated_time" content="2019-07-03T02:05:56.185Z">
+<meta property="og:updated_time" content="2019-07-03T06:24:17.498Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Longest Palindromic Substring">
-<meta name="twitter:description" content="Longest Palindromic Substring(最长回文子字符串)最长回文子字符串">
+<meta name="twitter:title" content="Tow Sum">
+<meta name="twitter:description" content="#Two Sum 两数之和">
 <meta name="twitter:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
   
     <link rel="alternate" href="/atom.xml" title="ZhuangPark&#39;s blog" type="application/atom+xml">
@@ -170,13 +170,13 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Longest Palindrome substring" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-two sum" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/gallery/leetcode-1/algorithm1.JPG" rel="gallery_cjxmuxyol0007tscr62mot8w8">
+      <a class="article-gallery-img fancybox" href="/gallery/leetcode-1/algorithm1.JPG" rel="gallery_cjxmuxyqn000mtscr546187x9">
         <img src="/gallery/leetcode-1/algorithm1.JPG" itemprop="image">
       </a>
     
@@ -188,7 +188,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" itemprop="name">
-      Longest Palindromic Substring
+      Tow Sum
     </h1>
   
 
@@ -196,8 +196,8 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	Posted on <a href="/2019/07/02/Longest Palindrome substring/" class="article-date">
-	  <time datetime="2019-07-02T11:29:00.000Z" itemprop="datePublished">July 2, 2019</time>
+	Posted on <a href="/2019/07/03/two sum/" class="article-date">
+	  <time datetime="2019-07-03T11:29:00.000Z" itemprop="datePublished">July 3, 2019</time>
 	</a>
 
       
@@ -208,56 +208,34 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Longest-Palindromic-Substring-最长回文子字符串"><a href="#Longest-Palindromic-Substring-最长回文子字符串" class="headerlink" title="Longest Palindromic Substring(最长回文子字符串)"></a>Longest Palindromic Substring(最长回文子字符串)</h1><h2 id="最长回文子字符串"><a href="#最长回文子字符串" class="headerlink" title="最长回文子字符串"></a>最长回文子字符串</h2><a id="more"></a>  
-<p><img src="/gallery/leetcode-1/Longest Palindromic Substring-result.JPG" alt>  </p>
-<pre><code>class Solution {
- private int lo, maxLen;
- public String longestPalindrome(String s) {
-       int slen=s.length();
-       if(slen&lt;2)return s;
-       for(int i=0;i&lt;slen-1;i++){
-           ExtendPalindrome(s,i,i);
-           ExtendPalindrome(s,i,i+1);
-       }
-       return s.substring(lo,lo+maxLen);
-}
+        <p>#Two Sum</p>
+<h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><a id="more"></a>  
+<p><img src="/gallery/leetcode-1/twosum-result.JPG" alt>  </p>
+<pre><code>public static int[] twoSum(int[] numbers, int target) {
+    int[] result = new int[2];
+    Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();
+    for (int i = 0; i &lt; numbers.length; i++) {
+        // System.out.println(&quot;t:&quot;+target+&quot;n[&quot;+i+&quot;]:&quot;+numbers[i]);
 
- public void ExtendPalindrome(String s,int left,int right){
-    while(left &gt;= 0 &amp;&amp; right &lt; s.length() &amp;&amp; s.charAt(left)==s.charAt(right)){
-        left--;
-        right++;
+        if (map.containsKey(target - numbers[i])) {
+            result[1] = i + 1;
+            result[0] = map.get(target - numbers[i]);
+            return result;
+        }
+
+       // System.out.println(&quot;put key:&quot;+numbers[i]+&quot;value:&quot;+(i+1));
+        map.put(numbers[i], i + 1);
     }
-    int len=right-left-1;
-    if(maxLen&lt;len){
-        maxLen=len;
-        lo=left+1;
-    }
+    return result;
 }
-}
-</code></pre><p>非常简单但是速度优化非常好，简单地说就是以一个字符或字符间为中心拓展出去。<br>每个回文子子字符串都有个中心，可以是某个字符，也可以是两个字符中间的空隙。  </p>
-<p>ExtendPalindrome(s,i,i)就是以S字符串的I位置为中心扩展，看该子字符串可以为多长的回文子字符串。 比如eabbcbbaf, 的以c为中心扩展可以得到最长回文字符串abbcbba。<br>然后在另一种情况，比如eabbaf则是以bb的中间的间隙为中心拓展得到最长回文串abba，这就是ExtendPalindrome(s,i,i+1)的作用，以i,i+1中间的间隙为中心拓展。  </p>
-<pre><code>ExtendPalindrome(s,i,i);
-ExtendPalindrome(s,i,i+1);  
-</code></pre><p>然后就是一个循环结果，来循环每个S字符串上的每个中心点。  </p>
-<pre><code>for(int i=0;i&lt;slen-1;i++)
-  {     ExtendPalindrome(s,i,i);
-        ExtendPalindrome(s,i,i+1);
-  }
-</code></pre><h2 id="Longest-Palindromic-Substring"><a href="#Longest-Palindromic-Substring" class="headerlink" title="Longest Palindromic Substring"></a>Longest Palindromic Substring</h2><p><img src="/gallery/leetcode-1/Longest Palindromic Substring-result.JPG" alt><br>a very simple solution with high performance, bascially it search the center of every possible palindrome of string s, once we get the center then we extend it to get longes palindrome of string s.<br>For example, we have eabbcbbaf as string s, we get answer when we extend c as the center and get abbcbba as longest panlindrome.<br>But we can’t say that center must be the character of string s, center can be in the middle of two character, like we have eabbaf, the answer is abba, where center is between bb, in ExtendPalindrome(s,i,i+1); i represent first b, i+1 represent second b.  </p>
-<pre><code>ExtendPalindrome(s,i,i);
-ExtendPalindrome(s,i,i+1);   
-</code></pre><p>And then, it’s kind of no-brainer, just visit every possible center of string s, extend center, get the longest palindrome.</p>
-<pre><code>for(int i=0;i&lt;slen-1;i++)
-   {     ExtendPalindrome(s,i,i);
-         ExtendPalindrome(s,i,i+1);
-   }
-</code></pre>
+</code></pre><p>这里有一个优化点，就是用HashMap存数组里的数字，每访问一个数字Num就用Target-Num, 然后去HashTable找。 找到了，那就把它的位置提取出来，没找到就把这个数字当key，位置当value存到HashMap里去。 就是这个优化点让这个过程只需要O(n)的时间复杂度。</p>
+
       
     </div>
     <footer class="entry-meta entry-footer">
       
 	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>, <a class="article-category-link" href="/categories/algorithms/string/">string</a>
+    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>
 
       
   <span class="ico-tags"></span>
@@ -309,19 +287,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2019/07/03/two sum/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/03/Longest Substring Without Repeating Characters/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Tow Sum
+          Longest Substring Without Repeating Characters
         
       </div>
     </a>
   
   
-    <a href="/2019/07/02/Add Two Numbers/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/02/Longest Palindrome substring/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Add Two Numbers</div>
+      <div class="article-nav-title">Longest Palindromic Substring</div>
     </a>
   
 </nav>
@@ -335,7 +313,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Longest-Palindromic-Substring-最长回文子字符串"><span class="nav-number">1.</span> <span class="nav-text">Longest Palindromic Substring(最长回文子字符串)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最长回文子字符串"><span class="nav-number">1.1.</span> <span class="nav-text">最长回文子字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Longest-Palindromic-Substring"><span class="nav-number">1.2.</span> <span class="nav-text">Longest Palindromic Substring</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两数之和"><span class="nav-number">1.</span> <span class="nav-text">两数之和</span></a></li></ol>
     
     </div>
   </aside>
