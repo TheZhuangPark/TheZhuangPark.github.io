@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
 
   <!-- PACE Progress Bar START -->
@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>tow sum | ZhuangPark&#39;s blog</title>
+  <title>tow sum | Zehong Zhuang</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="algorithms">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tow Sum">
 <meta property="og:url" content="https://www.zhuangpark.top/2019/07/03/two sum/index.html">
-<meta property="og:site_name" content="ZhuangPark&#39;s blog">
+<meta property="og:site_name" content="Zehong Zhuang">
 <meta property="og:description" content="#Two Sum 两数之和">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
@@ -36,7 +36,7 @@
 <meta name="twitter:description" content="#Two Sum 两数之和">
 <meta name="twitter:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
   
-    <link rel="alternate" href="/atom.xml" title="ZhuangPark&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Zehong Zhuang" type="application/atom+xml">
   
   <link rel="icon" href="/css/images/favicon.ico">
   
@@ -103,7 +103,7 @@ var themeMenus = {};
 
           <h1 class="site-title">
             
-              <a href="/" title="ZhuangPark&#39;s blog" rel="home"> ZhuangPark&#39;s blog </a>
+              <a href="/" title="Zehong Zhuang" rel="home"> Zehong Zhuang </a>
             
           </h1>
 
@@ -116,15 +116,15 @@ var themeMenus = {};
 
               <ul id="main-nav" class="nmenu sf-js-enabled">
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/">Home</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/archives">Archives</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/categories">Categories</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/tags">Tags</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">Tags</a> </li>
                     
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class href="/about">About</a> </li>
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">About</a> </li>
                     
               </ul>
             </div>
@@ -139,7 +139,7 @@ var themeMenus = {};
   <div id="originBgDiv" style="background: #fff; width: 100%;">
 
       <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
-        <img id="originBg" width="100%" alt src>
+        <img id="originBg" width="100%" alt="" src="">
       </div>
 
   </div>
@@ -170,13 +170,13 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-two sum" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+          <section id="main" style="float:none;"><article id="post-two sum" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img fancybox" href="/gallery/leetcode-1/algorithm1.JPG" rel="gallery_cjxmuxyqn000mtscr546187x9">
+      <a class="article-gallery-img fancybox" href="/gallery/leetcode-1/algorithm1.JPG" rel="gallery_cjxqsw616000ck0crgdqfql36">
         <img src="/gallery/leetcode-1/algorithm1.JPG" itemprop="image">
       </a>
     
@@ -187,7 +187,7 @@ var themeMenus = {};
       <header class="article-header">
         
   
-    <h1 class="thumb" itemprop="name">
+    <h1 class="thumb" class="article-title" itemprop="name">
       Tow Sum
     </h1>
   
@@ -227,8 +227,7 @@ var themeMenus = {};
         map.put(numbers[i], i + 1);
     }
     return result;
-}
-</code></pre><p>这里有一个优化点，就是用HashMap存数组里的数字，每访问一个数字Num就用Target-Num, 然后去HashTable找。 找到了，那就把它的位置提取出来，没找到就把这个数字当key，位置当value存到HashMap里去。 就是这个优化点让这个过程只需要O(n)的时间复杂度。</p>
+}</code></pre><p>这里有一个优化点，就是用HashMap存数组里的数字，每访问一个数字Num就用Target-Num, 然后去HashTable找。 找到了，那就把它的位置提取出来，没找到就把这个数字当key，位置当value存到HashMap里去。 就是这个优化点让这个过程只需要O(n)的时间复杂度。</p>
 
       
     </div>
@@ -297,9 +296,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/2019/07/02/Longest Palindrome substring/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/02/Add Two Numbers/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Longest Palindromic Substring</div>
+      <div class="article-nav-title">Add Two Numbers</div>
     </a>
   
 </nav>
@@ -325,7 +324,7 @@ var a = new Donate({
 
   <div class="clearfix container">
       <div class="site-info">
-	      &copy; 2019 ZhuangPark&#39;s blog All Rights Reserved.
+	      &copy; 2019 Zehong Zhuang All Rights Reserved.
           
             <span id="busuanzi_container_site_uv">
               本站访客数<span id="busuanzi_value_site_uv"></span>人次  
