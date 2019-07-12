@@ -29,16 +29,18 @@
     
     
     <entry>
-      <title>两数之和</title>
-      <link href="/2019/07/03/two%20sum/"/>
-      <url>/2019/07/03/two%20sum/</url>
+      <title>最长无重复字串</title>
+      <link href="/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/"/>
+      <url>/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/</url>
       
-        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/twosum-result.JPG" alt>  </p><a id="more"></a><pre><code>public static int[] twoSum(int[] numbers, int target) {    int[] result = new int[2];    Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();    for (int i = 0; i &lt; numbers.length; i++) {        // System.out.println(&quot;t:&quot;+target+&quot;n[&quot;+i+&quot;]:&quot;+numbers[i]);        if (map.containsKey(target - numbers[i])) {            result[1] = i + 1;            result[0] = map.get(target - numbers[i]);            return result;        }       // System.out.println(&quot;put key:&quot;+numbers[i]+&quot;value:&quot;+(i+1));        map.put(numbers[i], i + 1);    }    return result;}</code></pre><p>这里有一个优化点，就是用HashMap存数组里的数字，每访问一个数字Num就用Target-Num, 然后去HashTable找。 找到了，那就把它的位置提取出来，没找到就把这个数字当key，位置当value存到HashMap里去。 就是这个优化点让这个过程只需要O(n)的时间复杂度。</p>]]></content>
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/LongestSubstringWithoutReapetingResult.JPG" alt>  </p><a id="more"></a>  <pre><code> package com.company; import java.util.HashMap; import java.util.Map; public class Main {public static void main(String[] args) {// write your code here   String str=&quot;tmmzuxt&quot;;   int result=lengthOfLongestSubstring(str);   System.out.println(&quot;result &quot;+result);}public static int lengthOfLongestSubstring(String s) {    int slen=s.length();    if(slen==0||slen==1)return slen;    int left=0,right=1,max=1;    Map&lt;Character,Integer&gt; map= new HashMap&lt;Character,Integer&gt;(slen);    map.put(s.charAt(0),0);    for(;right&lt;s.length();right++){        //System.out.println(&quot;IsContain:&quot;+IsContain(map,s.charAt(right)));        Character cright=s.charAt(right) ;        if( map.containsKey(cright) ){//Contain            left=Math.max(map.get(cright)+1,left);            //System.out.println(&quot;left&quot;+left+&quot; right:&quot;+right+&quot;len：&quot;+len);        }        map.put(cright,right);        max=Math.max(max,right-left+1);    }    return max;}}</code></pre><p>这个方法是在一步一步从暴力破解法慢慢构思出来的，其中涉及到了，包含信息分析，代码优化，和HashMap容量优化。 首先第一步理解题目，题目的意思就是，给定一个字符串 tmmzuxt 它的不重复最长子串为 mzuxt，长度为5。   </p><p>首先暴力法，暴力法就是，以第一个字符S[0]为起点，开始延长，当发现延长出来的字符串有重复项，就重来，把S[1]开始延长。<br>这里有两个优化：<br>第一就是用HashMap(预设大小）来保存延长的字符，这样寻找重复项很快，时间复杂度O(1）。<br>第二就是重来的时候，起点重置，不应该是上一个起点S[0]的下一个S[1]，而应该是找到重复项目的位置+1，当作新起点。</p>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
+          
+          <category> string </category>
           
       </categories>
       
@@ -54,18 +56,16 @@
     
     
     <entry>
-      <title>最长无重复字串</title>
-      <link href="/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/"/>
-      <url>/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/</url>
+      <title>两数之和</title>
+      <link href="/2019/07/03/two%20sum/"/>
+      <url>/2019/07/03/two%20sum/</url>
       
-        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/LongestSubstringWithoutReapetingResult.JPG" alt>  </p><a id="more"></a>  <pre><code> package com.company; import java.util.HashMap; import java.util.Map; public class Main {public static void main(String[] args) {// write your code here   String str=&quot;tmmzuxt&quot;;   int result=lengthOfLongestSubstring(str);   System.out.println(&quot;result &quot;+result);}public static int lengthOfLongestSubstring(String s) {    int slen=s.length();    if(slen==0||slen==1)return slen;    int left=0,right=1,max=1;    Map&lt;Character,Integer&gt; map= new HashMap&lt;Character,Integer&gt;(slen);    map.put(s.charAt(0),0);    for(;right&lt;s.length();right++){        //System.out.println(&quot;IsContain:&quot;+IsContain(map,s.charAt(right)));        Character cright=s.charAt(right) ;        if( map.containsKey(cright) ){//Contain            left=Math.max(map.get(cright)+1,left);            //System.out.println(&quot;left&quot;+left+&quot; right:&quot;+right+&quot;len：&quot;+len);        }        map.put(cright,right);        max=Math.max(max,right-left+1);    }    return max;}}</code></pre><p>这个方法是在一步一步从暴力破解法慢慢构思出来的，其中涉及到了，包含信息分析，代码优化，和HashMap容量优化。 首先第一步理解题目，题目的意思就是，给定一个字符串 tmmzuxt 它的不重复最长子串为 mzuxt，长度为5。   </p><p>首先暴力法，暴力法就是，以第一个字符S[0]为起点，开始延长，当发现延长出来的字符串有重复项，就重来，把S[1]开始延长。<br>这里有两个优化：<br>第一就是用HashMap(预设大小）来保存延长的字符，这样寻找重复项很快，时间复杂度O(1）。<br>第二就是重来的时候，起点重置，不应该是上一个起点S[0]的下一个S[1]，而应该是找到重复项目的位置+1，当作新起点。</p>]]></content>
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/twosum-result.JPG" alt>  </p><a id="more"></a><pre><code>public static int[] twoSum(int[] numbers, int target) {    int[] result = new int[2];    Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();    for (int i = 0; i &lt; numbers.length; i++) {        // System.out.println(&quot;t:&quot;+target+&quot;n[&quot;+i+&quot;]:&quot;+numbers[i]);        if (map.containsKey(target - numbers[i])) {            result[1] = i + 1;            result[0] = map.get(target - numbers[i]);            return result;        }       // System.out.println(&quot;put key:&quot;+numbers[i]+&quot;value:&quot;+(i+1));        map.put(numbers[i], i + 1);    }    return result;}</code></pre><p>这里有一个优化点，就是用HashMap存数组里的数字，每访问一个数字Num就用Target-Num, 然后去HashTable找。 找到了，那就把它的位置提取出来，没找到就把这个数字当key，位置当value存到HashMap里去。 就是这个优化点让这个过程只需要O(n)的时间复杂度。</p>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
-          
-          <category> string </category>
           
       </categories>
       
@@ -227,31 +227,6 @@
     
     
     <entry>
-      <title>如何使用github</title>
-      <link href="/2019/05/11/github/"/>
-      <url>/2019/05/11/github/</url>
-      
-        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用github）：<a href="https://www.jianshu.com/p/7edb6b838a2e" target="_blank" rel="noopener">https://www.jianshu.com/p/7edb6b838a2e</a></p><a id="more"></a>  <p>很简单的用法<br>git add . 添加<br>git commit -m “First” 提交<br>git push 上传    </p>]]></content>
-      
-      
-      <categories>
-          
-          <category> github </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>如何使用hexo搭建博客</title>
       <link href="/2019/05/11/hexo/"/>
       <url>/2019/05/11/hexo/</url>
@@ -269,6 +244,31 @@
         <tags>
             
             <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何使用github</title>
+      <link href="/2019/05/11/github/"/>
+      <url>/2019/05/11/github/</url>
+      
+        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用github）：<a href="https://www.jianshu.com/p/7edb6b838a2e" target="_blank" rel="noopener">https://www.jianshu.com/p/7edb6b838a2e</a></p><a id="more"></a>  <p>很简单的用法<br>git add . 添加<br>git commit -m “First” 提交<br>git push 上传    </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> github </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> github </tag>
             
         </tags>
       
