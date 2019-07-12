@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> swift </category>
+          <category> -swift </category>
           
       </categories>
       
@@ -227,31 +227,6 @@
     
     
     <entry>
-      <title>如何使用hexo搭建博客</title>
-      <link href="/2019/05/11/hexo/"/>
-      <url>/2019/05/11/hexo/</url>
-      
-        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用hexo）：<a href="https://blog.csdn.net/sinat_37781304/article/details/82729029" target="_blank" rel="noopener">https://blog.csdn.net/sinat_37781304/article/details/82729029</a></p><a id="more"></a>  <p>很简单的用法，就是把文章放到_post文件夹然后使用命令<br>hexo g 生成<br>hexo s 测试<br>hexo d 部署<br>hexo clean 清理缓冲    </p>]]></content>
-      
-      
-      <categories>
-          
-          <category> hexo </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>如何使用github</title>
       <link href="/2019/05/11/github/"/>
       <url>/2019/05/11/github/</url>
@@ -269,6 +244,31 @@
         <tags>
             
             <tag> github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何使用hexo搭建博客</title>
+      <link href="/2019/05/11/hexo/"/>
+      <url>/2019/05/11/hexo/</url>
+      
+        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用hexo）：<a href="https://blog.csdn.net/sinat_37781304/article/details/82729029" target="_blank" rel="noopener">https://blog.csdn.net/sinat_37781304/article/details/82729029</a></p><a id="more"></a>  <p>很简单的用法，就是把文章放到_post文件夹然后使用命令<br>hexo g 生成<br>hexo s 测试<br>hexo d 部署<br>hexo clean 清理缓冲    </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
             
         </tags>
       
