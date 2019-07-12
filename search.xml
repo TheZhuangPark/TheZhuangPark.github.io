@@ -4,25 +4,23 @@
   
     
     <entry>
-      <title>最长无重复字串</title>
-      <link href="/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/"/>
-      <url>/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/</url>
+      <title>swift动画Demo</title>
+      <link href="/2019/07/11/DemoCardAnimation/"/>
+      <url>/2019/07/11/DemoCardAnimation/</url>
       
-        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/LongestSubstringWithoutReapetingResult.JPG" alt>  </p><a id="more"></a>  <pre><code> package com.company; import java.util.HashMap; import java.util.Map; public class Main {public static void main(String[] args) {// write your code here   String str=&quot;tmmzuxt&quot;;   int result=lengthOfLongestSubstring(str);   System.out.println(&quot;result &quot;+result);}public static int lengthOfLongestSubstring(String s) {    int slen=s.length();    if(slen==0||slen==1)return slen;    int left=0,right=1,max=1;    Map&lt;Character,Integer&gt; map= new HashMap&lt;Character,Integer&gt;(slen);    map.put(s.charAt(0),0);    for(;right&lt;s.length();right++){        //System.out.println(&quot;IsContain:&quot;+IsContain(map,s.charAt(right)));        Character cright=s.charAt(right) ;        if( map.containsKey(cright) ){//Contain            left=Math.max(map.get(cright)+1,left);            //System.out.println(&quot;left&quot;+left+&quot; right:&quot;+right+&quot;len：&quot;+len);        }        map.put(cright,right);        max=Math.max(max,right-left+1);    }    return max;}}</code></pre><p>这个方法是在一步一步从暴力破解法慢慢构思出来的，其中涉及到了，包含信息分析，代码优化，和HashMap容量优化。 首先第一步理解题目，题目的意思就是，给定一个字符串 tmmzuxt 它的不重复最长子串为 mzuxt，长度为5。   </p><p>首先暴力法，暴力法就是，以第一个字符S[0]为起点，开始延长，当发现延长出来的字符串有重复项，就重来，把S[1]开始延长。<br>这里有两个优化：<br>第一就是用HashMap(预设大小）来保存延长的字符，这样寻找重复项很快，时间复杂度O(1）。<br>第二就是重来的时候，起点重置，不应该是上一个起点S[0]的下一个S[1]，而应该是找到重复项目的位置+1，当作新起点。</p>]]></content>
+        <content type="html"><![CDATA[<p>这是一个使用MVC架构的翻卡牌动画Demo</p><a id="more"></a>  <h2 id="Demo的架构"><a href="#Demo的架构" class="headerlink" title="Demo的架构"></a>Demo的架构</h2><p><img src="/gallery/swift/DemoOverview.png" alt><br>这个Demo的架构是这样的,是一个标准的MVC结构,当然除了MVC结构之外可以用MVVM结构。但这里我先不进一步说。</p><h2 id="Viewcontroller"><a href="#Viewcontroller" class="headerlink" title="Viewcontroller"></a>Viewcontroller</h2><p>Viewcontroller有7个变量，两个函数<br>变量分别是：<br>1 CardDeck 卡牌桌子<br>2 CardView数组 绑定了storyboard的很多控件的控件数组<br>3 animator 用来制作动态动画的<br>4 cardBehavior 从动态动画衍生出来的卡牌行为<br>5 faceUpCardView 桌子上目前牌面朝上的卡牌<br>6 faceUpCardViewMatch 决定桌子上朝上卡牌是否匹配<br>7 lastChosenCardView 最新的被选中的卡牌<br>两个函数：<br>1 viewDidLoad() 初始化函数<br>2 flipCard() 当你点击卡牌时触发的函数</p><h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad()"></a>viewDidLoad()</h3><p>首先是super.viewDidload()，然后开始给一个循环，就是根据卡牌控件数目的一半，声明一个随机的卡牌对象，并且给填充两个一样，到卡牌模型数组中。  </p><p>switf的for循环 for _ in 1…k{} 其中包括k<br>构建好卡牌模型数组后，就开始循环初始化卡牌视图，从卡牌模型数组取出卡牌赋值给卡牌视图。最后卡牌视图再添加手势，动态动画效果。</p><pre><code>let card = CardsModel.remove(at: CardsModel.count.arc4random)ardview.rank = card.rank.ordercardview.suit = card.suit.rawValue    cardview.addGestureRecognizer(UITapGestureRecognizer(target: self,  action: #selector(flipCard(_ :) )))cardBehavior.addItem(cardview)</code></pre><p>所以简单的说，就是先构造好模型和模型数据，然后再让模型数据赋值给相应的视图控件。</p><h2 id="private-func-flipCard-）"><a href="#private-func-flipCard-）" class="headerlink" title="private func flipCard(）"></a>private func flipCard(）</h2><p>这个函数，控制卡牌被点击之后的行为。被点击后，卡牌需要进行判断从而来翻转。<br>1 没有卡牌被选中时：卡牌被点击后，翻转然后静止，并且把该卡牌加入到卡牌向上数组。<br>2 有一个卡牌被选中：比较两个卡牌，match则同时变大，再缩小，再消失。不match则同时翻转回来然后被推出去<br>3 有两个卡牌被选中：什么都不做<br>而flipcard有个形参，就是UITapGestureRecognizer类型的recognizer，也就是手势。一般检验手势的代码都是用swicth    </p><pre><code>switch recognizer.state {      case .ended: 代码      default: 代码      }</code></pre><p> 这里也是这种开头。后面有点复杂。 </p><pre><code>if let chosenCardView = recognizer.view as? PlayingCardView, faceUpCardViews.count &lt; 2 {代码} </code></pre><p> 这里是个二重if判断，满足逗号前后的判断语句才进入代码块，然后进行更新数据，和动画翻转。并且每次翻转完，会进入 completion:{}块，在completion里面判断，是否有两张卡，是否match。<br> 这儿注意有两种动画形式：<br> 1 UIView.transition 一种是转场动画<br> 2 UIViewPropertyAnimator.runningPropertyAnimator 这个是改变uiview的属性的动画<br> 顺带一提这是缩放和  </p><pre><code>cardsToAnimate.forEach {    $0.transform = CGAffineTransform.identity.scaledBy(x: 3.0, y: 3.0) }  </code></pre><p>注意这种block，代码块的应用非常容易导致循环调用。</p><h2 id="faceUpCardViews-amp-faceUpCardViewMatch"><a href="#faceUpCardViews-amp-faceUpCardViewMatch" class="headerlink" title="faceUpCardViews &amp; faceUpCardViewMatch"></a>faceUpCardViews &amp; faceUpCardViewMatch</h2><p>在这段代码中，当用户不断点击的时候，faceUpCardViews数组是在不断变化的，faceUpCardViewMatch也是在不断变化的，所以这里有个didset的机制，也就是它是不断更新的。</p><pre><code>private var faceUpCardViews: [PlayingCardView]{    return CardView.filter{ $0.isFaceUp &amp;&amp; !$0.isHidden &amp;&amp; $0.transform !=      CGAffineTransform.identity.scaledBy(x: 2.0, y: 2.0) &amp;&amp; $0.alpha == 1}    }  </code></pre><h2 id="PlayingCard"><a href="#PlayingCard" class="headerlink" title="PlayingCard"></a>PlayingCard</h2><p>这是个结构体，它有suit, rank, description这个三个变量。<br>当一个结构体实现了这个CustomStringConvertible协议的时候，就需要实现它的一个变量description。而当你print()这个结构体的时候，就会把description也打印出来。<br>这里涉及到枚举值，你需要把枚举的类型和范围都定义出来。 </p><pre><code>enum Suit : String,     CustomStringConvertible{    case spades = &quot;♠️&quot;    case hearts = &quot;❤️&quot;    case clubs = &quot;♣️&quot;    case diamonds = &quot;♦️&quot;    static var all = [Suit.spades,.hearts,.diamonds,.clubs]    var description: String{ return rawValue }}</code></pre><h2 id="PlayingCardView"><a href="#PlayingCardView" class="headerlink" title="PlayingCardView"></a>PlayingCardView</h2><p>这个比较复杂，这个就得把整个扑克牌的牌面画出来。<br>总共有</p><h2 id="CardBehavior"><a href="#CardBehavior" class="headerlink" title="CardBehavior"></a>CardBehavior</h2><h2 id="PlayCardDeck"><a href="#PlayCardDeck" class="headerlink" title="PlayCardDeck"></a>PlayCardDeck</h2><p>init(){}这里，就是根据卡牌的suit,rank的all属性来了解到他们的范围，接着声明一个卡牌数组，把这所有的卡牌都囊括进去。</p><p>draw(){}这里，则是随机抽一张牌出来返回。这里的随机数可以很方便的定义，利用extension Int 这是非常强大的特点</p><pre><code>extension Int{var arc4random: Int{    if self&gt;0{          return Int(arc4random_uniform(UInt32(self)))    }else if self &lt; 0{          return -Int(arc4random_uniform(UInt32(abs(self))))    }else {        return 0    }}</code></pre><p>}</p>]]></content>
       
       
       <categories>
           
-          <category> 算法 </category>
-          
-          <category> string </category>
+          <category> swift </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 算法 </tag>
+            <tag> swift </tag>
             
         </tags>
       
@@ -41,6 +39,33 @@
       <categories>
           
           <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>最长无重复字串</title>
+      <link href="/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/"/>
+      <url>/2019/07/03/Longest%20Substring%20Without%20Repeating%20Characters/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/LongestSubstringWithoutReapetingResult.JPG" alt>  </p><a id="more"></a>  <pre><code> package com.company; import java.util.HashMap; import java.util.Map; public class Main {public static void main(String[] args) {// write your code here   String str=&quot;tmmzuxt&quot;;   int result=lengthOfLongestSubstring(str);   System.out.println(&quot;result &quot;+result);}public static int lengthOfLongestSubstring(String s) {    int slen=s.length();    if(slen==0||slen==1)return slen;    int left=0,right=1,max=1;    Map&lt;Character,Integer&gt; map= new HashMap&lt;Character,Integer&gt;(slen);    map.put(s.charAt(0),0);    for(;right&lt;s.length();right++){        //System.out.println(&quot;IsContain:&quot;+IsContain(map,s.charAt(right)));        Character cright=s.charAt(right) ;        if( map.containsKey(cright) ){//Contain            left=Math.max(map.get(cright)+1,left);            //System.out.println(&quot;left&quot;+left+&quot; right:&quot;+right+&quot;len：&quot;+len);        }        map.put(cright,right);        max=Math.max(max,right-left+1);    }    return max;}}</code></pre><p>这个方法是在一步一步从暴力破解法慢慢构思出来的，其中涉及到了，包含信息分析，代码优化，和HashMap容量优化。 首先第一步理解题目，题目的意思就是，给定一个字符串 tmmzuxt 它的不重复最长子串为 mzuxt，长度为5。   </p><p>首先暴力法，暴力法就是，以第一个字符S[0]为起点，开始延长，当发现延长出来的字符串有重复项，就重来，把S[1]开始延长。<br>这里有两个优化：<br>第一就是用HashMap(预设大小）来保存延长的字符，这样寻找重复项很快，时间复杂度O(1）。<br>第二就是重来的时候，起点重置，不应该是上一个起点S[0]的下一个S[1]，而应该是找到重复项目的位置+1，当作新起点。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> string </category>
           
       </categories>
       

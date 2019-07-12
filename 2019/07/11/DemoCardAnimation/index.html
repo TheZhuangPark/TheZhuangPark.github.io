@@ -2,20 +2,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>分类: 经验 - Zehong Zhuang</title>
+<title>swift动画Demo - Zehong Zhuang</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Zehong Zhuang">
-<meta property="og:url" content="https://www.zhuangpark.top/categories/经验/index.html">
+    <meta name="description" content="这是一个使用MVC架构的翻卡牌动画Demo">
+<meta name="keywords" content="swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swift动画Demo">
+<meta property="og:url" content="https://www.zhuangpark.top/2019/07/11/DemoCardAnimation/index.html">
 <meta property="og:site_name" content="Zehong Zhuang">
+<meta property="og:description" content="这是一个使用MVC架构的翻卡牌动画Demo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.zhuangpark.top/images/og_image.png">
+<meta property="og:image" content="https://www.zhuangpark.top/gallery/swift/swiftCardAnimation.JPG">
+<meta property="og:updated_time" content="2019-07-12T06:39:31.367Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zehong Zhuang">
-<meta name="twitter:image" content="https://www.zhuangpark.top/images/og_image.png">
+<meta name="twitter:title" content="swift动画Demo">
+<meta name="twitter:description" content="这是一个使用MVC架构的翻卡牌动画Demo">
+<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/swift/swiftCardAnimation.JPG">
 
 
 
@@ -89,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/favicon.svg" alt="Zehong Zhuang" height="28">
+                <img src="/images/favicon.svg" alt="swift动画Demo" height="28">
             
             </a>
         </div>
@@ -135,40 +140,28 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/categories">分类</a></li>
-            
-            <li class="is-active"><a href="#" aria-current="page">经验</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-image">
-        <a href="/2019/06/08/经验之谈/" class="image is-7by1">
-            <img class="thumbnail" src="/gallery/experience/experience1.JPG" alt="如何学习编程">
-        </a>
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/swift/swiftCardAnimation.JPG" alt="swift动画Demo">
+        </span>
     </div>
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-06-08T08:02:00.000Z">2019-06-08</time>
+                <time class="level-item has-text-grey" datetime="2019-07-11T17:13:00.000Z">2019-07-12</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/经验/">经验</a>
+                <a class="has-link-grey -link" href="/categories/swift/">swift</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 889 个字)
+                    8 分钟 读完 (大约 1131 个字)
                 </span>
                 
                 
@@ -177,21 +170,69 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/06/08/经验之谈/">如何学习编程</a>
+                swift动画Demo
             
         </h1>
         <div class="content">
-            <p>第一步是基础课程</p>
+            <p>这是一个使用MVC架构的翻卡牌动画Demo</p>
+<a id="more"></a>  
+<h2 id="Demo的架构"><a href="#Demo的架构" class="headerlink" title="Demo的架构"></a>Demo的架构</h2><p><img src="/gallery/swift/DemoOverview.png" alt><br>这个Demo的架构是这样的,是一个标准的MVC结构,当然除了MVC结构之外可以用MVVM结构。但这里我先不进一步说。</p>
+<h2 id="Viewcontroller"><a href="#Viewcontroller" class="headerlink" title="Viewcontroller"></a>Viewcontroller</h2><p>Viewcontroller有7个变量，两个函数<br>变量分别是：<br>1 CardDeck 卡牌桌子<br>2 CardView数组 绑定了storyboard的很多控件的控件数组<br>3 animator 用来制作动态动画的<br>4 cardBehavior 从动态动画衍生出来的卡牌行为<br>5 faceUpCardView 桌子上目前牌面朝上的卡牌<br>6 faceUpCardViewMatch 决定桌子上朝上卡牌是否匹配<br>7 lastChosenCardView 最新的被选中的卡牌<br>两个函数：<br>1 viewDidLoad() 初始化函数<br>2 flipCard() 当你点击卡牌时触发的函数</p>
+<h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad()"></a>viewDidLoad()</h3><p>首先是super.viewDidload()，然后开始给一个循环，就是根据卡牌控件数目的一半，声明一个随机的卡牌对象，并且给填充两个一样，到卡牌模型数组中。  </p>
+<p>switf的for循环 for _ in 1…k{} 其中包括k<br>构建好卡牌模型数组后，就开始循环初始化卡牌视图，从卡牌模型数组取出卡牌赋值给卡牌视图。最后卡牌视图再添加手势，动态动画效果。</p>
+<pre><code>let card = CardsModel.remove(at: CardsModel.count.arc4random)
+ardview.rank = card.rank.order
+cardview.suit = card.suit.rawValue    
+cardview.addGestureRecognizer(UITapGestureRecognizer(target: self,  action: #selector(flipCard(_ :) )))
+cardBehavior.addItem(cardview)</code></pre><p>所以简单的说，就是先构造好模型和模型数据，然后再让模型数据赋值给相应的视图控件。</p>
+<h2 id="private-func-flipCard-）"><a href="#private-func-flipCard-）" class="headerlink" title="private func flipCard(）"></a>private func flipCard(）</h2><p>这个函数，控制卡牌被点击之后的行为。被点击后，卡牌需要进行判断从而来翻转。<br>1 没有卡牌被选中时：卡牌被点击后，翻转然后静止，并且把该卡牌加入到卡牌向上数组。<br>2 有一个卡牌被选中：比较两个卡牌，match则同时变大，再缩小，再消失。不match则同时翻转回来然后被推出去<br>3 有两个卡牌被选中：什么都不做<br>而flipcard有个形参，就是UITapGestureRecognizer类型的recognizer，也就是手势。一般检验手势的代码都是用swicth    </p>
+<pre><code>switch recognizer.state {
+      case .ended: 代码
+      default: 代码
+      }</code></pre><p> 这里也是这种开头。后面有点复杂。 </p>
+<pre><code>if let chosenCardView = recognizer.view as? PlayingCardView, faceUpCardViews.count &lt; 2 {代码} </code></pre><p> 这里是个二重if判断，满足逗号前后的判断语句才进入代码块，然后进行更新数据，和动画翻转。并且每次翻转完，会进入 completion:{}块，在completion里面判断，是否有两张卡，是否match。<br> 这儿注意有两种动画形式：<br> 1 UIView.transition 一种是转场动画<br> 2 UIViewPropertyAnimator.runningPropertyAnimator 这个是改变uiview的属性的动画<br> 顺带一提这是缩放和  </p>
+<pre><code>cardsToAnimate.forEach {
+    $0.transform = CGAffineTransform.identity.scaledBy(x: 3.0, y: 3.0)
+
+ }  </code></pre><p>注意这种block，代码块的应用非常容易导致循环调用。</p>
+<h2 id="faceUpCardViews-amp-faceUpCardViewMatch"><a href="#faceUpCardViews-amp-faceUpCardViewMatch" class="headerlink" title="faceUpCardViews &amp; faceUpCardViewMatch"></a>faceUpCardViews &amp; faceUpCardViewMatch</h2><p>在这段代码中，当用户不断点击的时候，faceUpCardViews数组是在不断变化的，faceUpCardViewMatch也是在不断变化的，所以这里有个didset的机制，也就是它是不断更新的。</p>
+<pre><code>private var faceUpCardViews: [PlayingCardView]{
+    return CardView.filter{ $0.isFaceUp &amp;&amp; !$0.isHidden &amp;&amp; $0.transform !=
+      CGAffineTransform.identity.scaledBy(x: 2.0, y: 2.0) &amp;&amp; $0.alpha == 1}
+    }  </code></pre><h2 id="PlayingCard"><a href="#PlayingCard" class="headerlink" title="PlayingCard"></a>PlayingCard</h2><p>这是个结构体，它有suit, rank, description这个三个变量。<br>当一个结构体实现了这个CustomStringConvertible协议的时候，就需要实现它的一个变量description。而当你print()这个结构体的时候，就会把description也打印出来。<br>这里涉及到枚举值，你需要把枚举的类型和范围都定义出来。 </p>
+<pre><code>enum Suit : String,     
+CustomStringConvertible{
+    case spades = &quot;♠️&quot;
+    case hearts = &quot;❤️&quot;
+    case clubs = &quot;♣️&quot;
+    case diamonds = &quot;♦️&quot;
+    static var all = [Suit.spades,.hearts,.diamonds,.clubs]
+    var description: String{ return rawValue }
+}</code></pre><h2 id="PlayingCardView"><a href="#PlayingCardView" class="headerlink" title="PlayingCardView"></a>PlayingCardView</h2><p>这个比较复杂，这个就得把整个扑克牌的牌面画出来。<br>总共有</p>
+<h2 id="CardBehavior"><a href="#CardBehavior" class="headerlink" title="CardBehavior"></a>CardBehavior</h2><h2 id="PlayCardDeck"><a href="#PlayCardDeck" class="headerlink" title="PlayCardDeck"></a>PlayCardDeck</h2><p>init(){}这里，就是根据卡牌的suit,rank的all属性来了解到他们的范围，接着声明一个卡牌数组，把这所有的卡牌都囊括进去。</p>
+<p>draw(){}这里，则是随机抽一张牌出来返回。这里的随机数可以很方便的定义，利用extension Int 这是非常强大的特点</p>
+<pre><code>extension Int{
+var arc4random: Int{
+    if self&gt;0{
+          return Int(arc4random_uniform(UInt32(self)))
+    }else if self &lt; 0{
+          return -Int(arc4random_uniform(UInt32(abs(self))))
+    }else {
+        return 0
+    }
+}</code></pre><p>}</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/06/08/经验之谈/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/swift/">swift</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -199,9 +240,74 @@
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wxpay.jpg" alt="微信"></div>
+</a>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<a class="button is-warning donate" onclick="document.getElementById(&#39;paypal-donate-form&#39;).submit()">
+    <span class="icon is-small">
+        <i class="fab fa-paypal"></i>
+    </span>
+    <span>Paypal</span>
+</a>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypal-donate-form">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="thezhuangpark@gmail.com">
+    <input type="hidden" name="currency_code" value="USD">
+</form>
+
+                
+                
+<a class="button is-danger donate" href="/ " target="_blank">
+    <span class="icon is-small">
+        <i class="fab fa-patreon"></i>
+    </span>
+    <span>Patreon</span>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/03/two sum/">
+                <span class="level-item">两数之和</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -669,7 +775,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/favicon.svg" alt="Zehong Zhuang" height="28">
+                    <img src="/images/favicon.svg" alt="swift动画Demo" height="28">
                 
                 </a>
                 <p class="is-size-7">
