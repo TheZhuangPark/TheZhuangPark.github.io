@@ -16,7 +16,7 @@
 <meta property="og:description" content="这是一个使用MVC架构的翻卡牌动画Demo">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.zhuangpark.top/gallery/swift/BTarpyRyc.JPG">
-<meta property="og:updated_time" content="2019-07-12T07:21:08.079Z">
+<meta property="og:updated_time" content="2019-07-13T07:14:30.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="swift动画Demo">
 <meta name="twitter:description" content="这是一个使用MVC架构的翻卡牌动画Demo">
@@ -161,7 +161,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1131 个字)
+                    10 分钟 读完 (大约 1558 个字)
                 </span>
                 
                 
@@ -176,7 +176,7 @@
         <div class="content">
             <p>这是一个使用MVC架构的翻卡牌动画Demo</p>
 <a id="more"></a>  
-<h2 id="Demo的架构"><a href="#Demo的架构" class="headerlink" title="Demo的架构"></a>Demo的架构</h2><p><img src="/gallery/swift/DemoOverview.png" alt><br>这个Demo的架构是这样的,是一个标准的MVC结构,当然除了MVC结构之外可以用MVVM结构。但这里我先不进一步说。</p>
+<h2 id="Demo的架构"><a href="#Demo的架构" class="headerlink" title="Demo的架构"></a>Demo的架构</h2><p><img src="/gallery/swift/DemoOverview.png" alt><br>这个Demo的架构是这样的,是一个标准的MVC结构,当然除了MVC结构之外可以用MVVM结构。但这里我先不进一步说。<br>demo在git的地址如下:<br><a href>https://github.com/TheZhuangPark/SwiftTutorial</a></p>
 <h2 id="Viewcontroller"><a href="#Viewcontroller" class="headerlink" title="Viewcontroller"></a>Viewcontroller</h2><p>Viewcontroller有7个变量，两个函数<br>变量分别是：<br>1 CardDeck 卡牌桌子<br>2 CardView数组 绑定了storyboard的很多控件的控件数组<br>3 animator 用来制作动态动画的<br>4 cardBehavior 从动态动画衍生出来的卡牌行为<br>5 faceUpCardView 桌子上目前牌面朝上的卡牌<br>6 faceUpCardViewMatch 决定桌子上朝上卡牌是否匹配<br>7 lastChosenCardView 最新的被选中的卡牌<br>两个函数：<br>1 viewDidLoad() 初始化函数<br>2 flipCard() 当你点击卡牌时触发的函数</p>
 <h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad()"></a>viewDidLoad()</h3><p>首先是super.viewDidload()，然后开始给一个循环，就是根据卡牌控件数目的一半，声明一个随机的卡牌对象，并且给填充两个一样，到卡牌模型数组中。  </p>
 <p>switf的for循环 for _ in 1…k{} 其中包括k<br>构建好卡牌模型数组后，就开始循环初始化卡牌视图，从卡牌模型数组取出卡牌赋值给卡牌视图。最后卡牌视图再添加手势，动态动画效果。</p>
@@ -208,8 +208,94 @@ CustomStringConvertible{
     case diamonds = &quot;♦️&quot;
     static var all = [Suit.spades,.hearts,.diamonds,.clubs]
     var description: String{ return rawValue }
-}</code></pre><h2 id="PlayingCardView"><a href="#PlayingCardView" class="headerlink" title="PlayingCardView"></a>PlayingCardView</h2><p>这个比较复杂，这个就得把整个扑克牌的牌面画出来。<br>总共有</p>
-<h2 id="CardBehavior"><a href="#CardBehavior" class="headerlink" title="CardBehavior"></a>CardBehavior</h2><h2 id="PlayCardDeck"><a href="#PlayCardDeck" class="headerlink" title="PlayCardDeck"></a>PlayCardDeck</h2><p>init(){}这里，就是根据卡牌的suit,rank的all属性来了解到他们的范围，接着声明一个卡牌数组，把这所有的卡牌都囊括进去。</p>
+}</code></pre><h2 id="PlayingCardView"><a href="#PlayingCardView" class="headerlink" title="PlayingCardView"></a>PlayingCardView</h2><p>这个比较复杂，这个就得把整个扑克牌的牌面画出来。它是一个继承UIVIEW的类。在类的前面添加@IBDesignable可以让它在storyboard里显示。</p>
+<pre><code>@IBInspectable
+var rank : Int = 12 {
+    didSet{ setNeedsDisplay();  setNeedsLayout()
+    }}
+@IBInspectable
+var suit : String = &quot;❤️&quot; {
+    didSet{ setNeedsDisplay();  setNeedsLayout()
+    }}
+@IBInspectable
+var isFaceUp: Bool = true {
+    didSet{ setNeedsDisplay();  setNeedsLayout()
+    }}
+@IBInspectable
+var faceCardScale: CGFloat = SizeRatio.faceCardImageSizeToBoundsSize {
+    didSet{ setNeedsDisplay()
+    }}
+
+override var collisionBoundsType: UIDynamicItemCollisionBoundsType{
+    return .ellipse
+}
+   private var cornerString: NSAttributedString{
+    return centeredAttributedString(rankString+&quot;\n&quot;+suit, fontSize: cornerFontSize)
+}
+private lazy var upperLeftCornerLabel = createCornerLabel()
+private lazy var lowerRightCornerLabel = createCornerLabel() </code></pre><p>卡牌的 1 suit, 2 rank, 3 是否向上, 4 碰撞类型, 5 边角字符, 6 左上角label, 7 右下角label。总共7个属性。<br>还有函数func(),具体的实现方法可以去demo地址看  </p>
+<pre><code>1 func adjustFaceCardScale(byHandlingGestureRecognizedBy recognizer: UIPinchGestureRecognizer)  
+
+2 private func centeredAttributedString(_ string: String, fontSize: CGFloat)-&gt;NSAttributedString    
+
+3 private func createCornerLabel() -&gt; UILabel  
+
+4 private func configureCornerLabel(_ label: UILabel )
+
+5 override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
+
+6 override func layoutSubviews() 
+
+7 private func drawPips()
+
+8 override func draw(_ rect: CGRect)</code></pre><p>还有extension,给PlayingCardView，CGRect做了一些方便的拓展，和给CGPoint做了些拓展，和CGFloat做了产生随机数的拓展。 </p>
+<pre><code>extension CGRect {
+    var leftHalf: CGRect {
+        return CGRect(x: minX, y: minY, width: width/2, height: height)
+    }
+    var rightHalf: CGRect {
+        return CGRect(x: midX, y: minY, width: width/2, height: height)
+    }
+    func inset(by size: CGSize) -&gt; CGRect {
+        return insetBy(dx: size.width, dy: size.height)
+    }
+    func sized(to size: CGSize) -&gt; CGRect {
+        return CGRect(origin: origin, size: size)
+    }
+    func zoom(by scale: CGFloat) -&gt; CGRect {
+        let newWidth = width * scale
+        let newHeight = height * scale
+        return insetBy(dx: (width - newWidth) / 2, dy: (height - newHeight) / 2)
+    }
+ }
+
+extension CGPoint {
+    func offsetBy(dx: CGFloat, dy: CGFloat) -&gt; CGPoint {
+        return CGPoint(x: x+dx, y: y+dy)
+    }
+ }
+
+extension CGFloat {
+    var arc4random: CGFloat {
+        return self * (CGFloat(arc4random_uniform(UInt32.max))/CGFloat(UInt32.max))
+    }
+  }</code></pre><h2 id="CardBehavior"><a href="#CardBehavior" class="headerlink" title="CardBehavior"></a>CardBehavior</h2><p>这是一个继承自UIDynamicBehavior的类CardBehavior，专门用来定义卡牌的物理动态运动的。这里有三个Behavior。</p>
+<pre><code>  lazy var collisonBehavior : UICollisionBehavior = {
+    let behavior = UICollisionBehavior()
+    behavior.translatesReferenceBoundsIntoBoundary = true
+    return behavior
+}()
+
+lazy var itemBehavior : UIDynamicItemBehavior = {
+    let behavior = UIDynamicItemBehavior()
+    behavior.allowsRotation=false
+    behavior.elasticity=1.0
+    behavior.resistance=0
+    return behavior
+}()
+
+  private func push(_ item: UIDynamicItem)     {}</code></pre><p>就三个collisonBehavior，itemBehavior，UIPushBehavior。 具体的实现也可以去demo看代码。</p>
+<h2 id="PlayCardDeck"><a href="#PlayCardDeck" class="headerlink" title="PlayCardDeck"></a>PlayCardDeck</h2><p>init(){}这里，就是根据卡牌的suit,rank的all属性来了解到他们的范围，接着声明一个卡牌数组，把这所有的卡牌都囊括进去。</p>
 <p>draw(){}这里，则是随机抽一张牌出来返回。这里的随机数可以很方便的定义，利用extension Int 这是非常强大的特点</p>
 <pre><code>extension Int{
 var arc4random: Int{
@@ -298,6 +384,13 @@ var arc4random: Int{
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/07/13/swiftAnimation/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">swift动画</span>
+            </a>
+        </div>
+        
         
         <div class="level-end">
             <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/03/Longest Substring Without Repeating Characters/">
@@ -353,7 +446,7 @@ var arc4random: Int{
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -492,7 +585,7 @@ var arc4random: Int{
                 <span class="level-item">swift</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/算法/">
@@ -546,7 +639,7 @@ var arc4random: Int{
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+        <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
     </div>
 </div>
 
@@ -557,6 +650,25 @@ var arc4random: Int{
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/13/swiftAnimation/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/swift/swiftAnimation.JPG" alt="swift动画">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T15:45:00.000Z">2019-07-13</time></div>
+                    <a href="/2019/07/13/swiftAnimation/" class="has-link-black-ter is-size-6">swift动画</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/swift/">swift</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -617,25 +729,6 @@ var arc4random: Int{
         
         <article class="media">
             
-            <a href="/2019/07/02/Add Two Numbers/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="两数相加">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-02T11:29:00.000Z">2019-07-02</time></div>
-                    <a href="/2019/07/02/Add Two Numbers/" class="has-link-black-ter is-size-6">两数相加</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
             <a href="/2019/07/02/Longest Palindrome substring/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="最长回文子字符串">
@@ -671,7 +764,7 @@ var arc4random: Int{
                     <span class="level-item">七月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -728,7 +821,7 @@ var arc4random: Int{
                 <div class="control">
                     <a class="tags has-addons" href="/tags/swift/">
                         <span class="tag">swift</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
