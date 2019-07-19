@@ -4,6 +4,293 @@
   
     
     <entry>
+      <title>雨水积谭 Trapping Rain Water</title>
+      <link href="/2019/07/16/Trapping%20Rain%20Water/"/>
+      <url>/2019/07/16/Trapping%20Rain%20Water/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/TrapRainWaterResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public static int trap(int[] A) {    if (A.length &lt; 3) return 0;    int ans = 0;    int l = 0, r = A.length - 1;    // find the left and right edge which can hold water    while (l &lt; r &amp;&amp; A[l] &lt;= A[l + 1]) l++;    while (l &lt; r &amp;&amp; A[r] &lt;= A[r - 1]) r--;    while (l &lt; r) {        int left = A[l];        int right = A[r];        if (left &lt;= right) {            // add volum until an edge larger than the left edge            while (l &lt; r &amp;&amp; left &gt;= A[++l]) {                ans += left - A[l];               // System.out.println(&quot;index:&quot;+l+&quot;left add water&quot;+(left-A[l]));            }        } else {            // add volum until an edge larger than the right volum            while (l &lt; r &amp;&amp; A[--r] &lt;= right) {                ans += right - A[r];               // System.out.println(&quot;index:&quot;+r+&quot;right add water&quot;+(right-A[l]));            }        }//System.out.println(&quot;finish!&quot;);    }    return ans;}</code></pre><p>问题：<br>就是给定一个数组当砖头，[2,1,2]=[2米高砖，1米高砖，2米高砖] 下完雨之后会有积水，于是变成[2米高砖，1米高砖+1米高水，2米高砖米], 然后给定数组，问下完雨所有积水的数目(本例子[2,1,2]中积水就是1)。<br>算法：<br>设置一个左指针，一个右指针，让它们分别移动到，最近能乘水的位置。<br>然后开始，加水和移动左指针或右指针，直到碰壁为止，接着判断交换指针到左或右。<br>这种双指针高效的原因是，左右指针都只需要移动遍历一次，然后在满足条件的array[left],array[right]进行计算。<br>一般模板都如下：</p><pre><code>int l = 0, r = A.length - 1;//移动左右指针到满足条件的位置开始，即初始化，可能不用。while (l &lt; r &amp;&amp; A[l] &lt;= A[l + 1](条件) ) l++;while (l &lt; r &amp;&amp; A[r] &lt;= A[r - 1](条件) ) r--;while (l &lt; r) { //在交换条件下，交替移动左，或者右指针       int left = A[l]; int right = A[r];       if (left &lt;= right(交换条件) ) {           while (l &lt; r &amp;&amp; left &gt;= A[++l](移动条件) ) {               ans += left - A[l]; (代码)           }       } else {           while (l &lt; r &amp;&amp; A[--r] &lt;= right(移动条件) ) {               ans += right - A[r];(代码)            }       }   }   return ans;</code></pre><p>时间复杂度为O(n)：左右指针遍历的和为整个数组<br>空间复杂度为O(1)：只需要存左指针，右指针，和int类型 res<br>不能处理stream data,流数据，因为它需要提前知道整个数据的全貌。  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 双指针 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>融合K个有序数组 Merge K Sorted Lists</title>
+      <link href="/2019/07/16/Merge%20k%20Sorted%20Lists/"/>
+      <url>/2019/07/16/Merge%20k%20Sorted%20Lists/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/MergeKSortedListResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public  ListNode mergeKLists(ListNode[] lists) {   return partion(lists,0,lists.length-1);}public  ListNode partion(ListNode[] lists,int s,int e){    if(s==e) return lists[s];    if(s&lt;e){        int q=(s+e)/2;        ListNode l1=partion(lists,s,q);        ListNode l2=partion(lists,q+1,e);        return merge(l1,l2);    }else        return null;}public  ListNode merge(ListNode l1,ListNode l2){    if(l1==null) return l2;    if(l2==null) return l1;    if(l1.val&lt;l2.val){        l1.next=merge(l1.next,l2);        return l1;    }else{        l2.next=merge(l1,l2.next);        return l2;    }}</code></pre><p>问题：就是给定几条已经排好序的链表，然后融合它们成一条有序的链表。<br>[1,3,4] [2,8,9] [3,5,7] -&gt; [1,2,3,3,4,5,7,8,9]    </p><p>算法：就是递归，把问题分成若干份。比如上例子，把问题先分成融合[1,3,4] [2,8,9]。<br>然后开始融合这两个数组成[1,2,3,4,8,9] 再让该链表和[3,5,7]融合。<br>所以这里有个partion函数分割问题，merge两个链表。<br>这个方法高效在于：<br>对比效率高，对比两条链表可以更快的消耗完其中一条，当其中一条到头了就不用再对比了。<br>这本质上还是排序，排序算法就是要对比，提高对比的效率。  </p><p>模板： </p><pre><code>public  ListNode mergeKLists(ListNode[] lists) {   return partion(lists,0,lists.length-1);}// 主方法直接调用partion,partion(处理的数据，start, end)其中通过变化start,end来分割问题的规模    public  ListNode partion(ListNode[] lists,int s,int e){    if(s==e) return lists[s];     //partion函数要确立分割的尽头，当分割到start,end相等，或满足条件的时候就返回该元素    if(s&lt;e){          //确立分割点，一般通过计算start,end然后得出新点q,然后调用两次partion        int q=(s+e)/2;        ListNode l1=partion(lists,s,q);        ListNode l2=partion(lists,q+1,e);        //确立当分割达到尽头时，处理数据的方式        return merge(l1,l2);    }else        return null;}  //融合，merge(listNode node1,node2,node3...)一般通过变化node成node.next来缩减 public  ListNode merge(ListNode l1,ListNode l2){    if(l1==null) return l2;    if(l2==null) return l1;     //确立分割尽头    if(l1.val&lt;l2.val){         //确立分割点        l1.next=merge(l1.next,l2);        return l1;    }else{        l2.next=merge(l1,l2.next);        return l2;    }}</code></pre><p>时间复杂度: O(nk)最坏的情况下<br>空间复杂度：O(1)<br>不可以处理流数据，分割时需要知道数据全貌  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 递归 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>字符串分块 Partition Labels</title>
+      <link href="/2019/07/16/Partition%20Labels/"/>
+      <url>/2019/07/16/Partition%20Labels/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/PartitionLabelsResult.JPG" alt>  </p><a id="more"></a>  <pre><code>    public List&lt;Integer&gt; partitionLabels(String S) {   if(S.length()==0||S==null)return null;    List&lt;Integer&gt;res =new ArrayList&lt;&gt;();    Map&lt;Character,Integer&gt; map=new HashMap&lt;Character,Integer&gt;(26);    for(int i=0;i&lt;S.length();i++)map.put(S.charAt(i),i); //record last index   int start=0; int end=0; int last=0;    //record target substring    for(int j=0;j&lt;S.length();j++){        last=Math.max(last,map.get(S.charAt(j)));        if(last==j){            res.add(last-start+1);            start=last+1;        }    }return res;}</code></pre><p>问题:给一个String，切割它，达到每个分段，里面出现该种类的字母所有个数。 比如abcscauef<br>分割后 abcsca uef</p><p>算法： 这里就是先遍历一遍，把该字符串的某个字母的最后位置记录。<br>然后后再遍历一遍，判断到目前位置出现过的所有字母，谁的最后位置更大，得到最大最后位置。<br>如果恰好此最大最后位置等于遍历位置J，那就是分割的时候了。<br>别用hashMap,改用26元素数组会快150%</p><p>模板：就是遍历两遍，第一遍记录最后位置，第二遍计算每个位置的最大最后位置，然后分割而已没有什么模板。</p><p>时间复杂度：O(n)<br>空间复杂读: O(n)<br>这个不能处理流数据  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> string </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>N天后的格子 Prison Cells After N Days</title>
+      <link href="/2019/07/15/Prison%20Cells%20After%20N%20Days/"/>
+      <url>/2019/07/15/Prison%20Cells%20After%20N%20Days/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/PrisonCellAfterNDaysResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public int[] prisonAfterNDays(int[] cells, int N) {    Map&lt;String, Integer&gt; seen = new HashMap&lt;&gt;();    while (N &gt; 0) {        int[] cells2 = new int[8];        seen.put(Arrays.toString(cells), N--);        for (int i = 1; i &lt; 7; ++i)            cells2[i] = cells[i - 1] == cells[i + 1] ? 1 : 0;        cells = cells2;        if (seen.containsKey(Arrays.toString(cells))) {            N %= seen.get(Arrays.toString(cells)) - N;        }    }//lastseen-curStatc=cycle cur=cur%cycle    return cells;}</code></pre><p>问题: 这个问题非常简单，就是[0,x,0] [1,x,1]会让x变成1，[0,x,1],[1,x,0]会让x变成0<br>然后计算数组，再N天之后的变化，而且N非常大。  </p><p>算法:<br>这里有cell变化有规则，而且还有大神得出了神奇数字14，也就是变化周期，在十几分钟内得到这个14不太现实。 就是设置一个HashTable 来记录已经看到的模式，以及它出现的天数位置。<br>当你现在看到的 current 和 lastseen 一致。 那么N=N%(lastseen_day-current_day)。 比如要变化100天，然后开始倒数,到了90天，发现90天出现的和97天出现的一模一样。 那说明90-7,90-7<em>2,90-7</em>3 都是你现在看到的模式。</p><p>模板：无  </p><p>时间复杂度：不好说。<br>空间复杂度：O(1)，总共八个格子所以，有64种模式。<br>流数据：我觉得这个数组是固定的所以没有流数据</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 哈希表 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>最常见的单词</title>
+      <link href="/2019/07/14/Most%20Common%20Word/"/>
+      <url>/2019/07/14/Most%20Common%20Word/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/MostCommonWordResult.JPG" alt>  </p><a id="more"></a>  <pre><code>//solution 1 Set&lt;String&gt; ban = new HashSet&lt;&gt;(Arrays.asList(banned)); Map&lt;String, Integer&gt; count = new HashMap&lt;&gt;(); String[] words = p.replaceAll(&quot;\\W+&quot; , &quot; &quot;).toLowerCase().split(&quot;\\s+&quot;); for (String w : words) if (!ban.contains(w)) count.put(w, count.getOrDefault(w, 0) + 1); return Collections.max(count.entrySet(), Map.Entry.comparingByValue()).getKey();//solution 2public String res;public int maxcnt;public String mostCommonWord(String paragraph, String[] banned) {    TrieNode root = new TrieNode();    StringBuilder st = new StringBuilder();    res = &quot;&quot;;    maxcnt = 0;    boolean isString = false;    for (char ch : paragraph.toCharArray()) {        if (ch &gt;= &apos;a&apos; &amp;&amp; ch &lt;= &apos;z&apos;) {            st.append(ch);            isString = true;        } else if (ch &gt;= &apos;A&apos; &amp;&amp; ch &lt;= &apos;Z&apos;) {            st.append((char)(ch + &apos;a&apos; - &apos;A&apos;));            isString = true;        } else {            if (isString) {                root.insert(st.toString());                st = new StringBuilder();                isString = false;            }         }    }    if (isString) root.insert(st.toString());            for (String s : banned) root.ban(s);    root.findMax(root);    return res;}class TrieNode {    String word = &quot;&quot;;    int cnt = 0;    TrieNode[] links = new TrieNode[26];    void insert(String s) {        TrieNode curr = this;        char[] chs = s.toCharArray();        for (int i = 0; i &lt; chs.length; ++i) {            int index = chs[i] - &apos;a&apos;;            if (curr.links[index] == null) {                curr.links[index] = new TrieNode();                curr.links[index].word = curr.word + chs[i];            }            curr = curr.links[index];        }        curr.cnt += 1;    }    void ban(String s) {        char[] chs = s.toCharArray();        TrieNode curr = this;        for (int i = 0; i &lt; chs.length; ++i) {            int index = chs[i] - &apos;a&apos;;            if (curr.links[index] == null) return;            curr = curr.links[index];        }        curr.cnt = 0;    }    void findMax(TrieNode curr) {        if (curr == null) return;        if (curr.cnt &gt; maxcnt) {            res = curr.word;            maxcnt = curr.cnt;        }        for (int i = 0; i &lt; curr.links.length; ++i) {            findMax(curr.links[i]);        }    }}</code></pre><p>问题：这个问题很简单，给定一个字符串，然后还有ban word集合，统计出现次数最多的单词。 比如：paragraph = “Bob hit a ball, the hit BALL flew far after it was hit.”<br>banned = [“hit”]<br>Output: “ball”</p><p>算法：<br>第一种解法非常无脑，就是用哈希表，java的string自带分割功能，遍历每个词组，并统计。<br>第二种解法性能高很多很多，利用字典树，但是比较麻烦。</p><p>模板：无</p><p>时间复杂度：O(n) n为单词数目<br>空间复杂度：O(n)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> string </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>深复制节点 Copy List with Random Pointer.</title>
+      <link href="/2019/07/14/Copy%20List%20with%20Random%20Pointer/"/>
+      <url>/2019/07/14/Copy%20List%20with%20Random%20Pointer/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/copyRandomListResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public Node copyRandomList(Node head) {      //copy all the node    Node node=head;    Map&lt;Node,Node&gt; map=new HashMap&lt;Node,Node&gt;(){};    while(node!= null){        map.put(node,new Node(node.val));        node=node.next;    }    node=head;    while(node!= null){        map.get(node).next=map.get(node.next);        map.get(node).random=map.get(node.random);        node=node.next;    }    return map.get(head);}</code></pre><p>问题:<br>给定了一个链表，这个链表上的节点还会连向一个随机的节点。 然后让你快速的深拷贝一份链表。</p><p>算法：<br>非常简单，而且很快，就设置一个哈希表，遍历那个链表然后把该链表的节点当key,创建新的节点当它的value。 然后再遍历一遍的时候，把获取的节点当key，找到拷贝节点，然后把属性赋值给拷贝节点。</p><p>模板：无</p><p>时间复杂度为O(n）<br>空间复杂度为O(n)<br>可以处理流数据吗？可以如果复制的时候指定复制多少个节点。 是不需要知道数据全貌的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 哈希表 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>岛的数目</title>
+      <link href="/2019/07/14/Number%20of%20Islands/"/>
+      <url>/2019/07/14/Number%20of%20Islands/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/NumberOfIslandResult.JPG" alt>  </p><a id="more"></a>  <pre><code>private  int n;private  int m;public  int numIslands(char[][] grid) {    int count=0;    n=grid.length;    if(n==0)return 0;    m=grid[0].length;    for(int i=0;i&lt;n;i++){        for(int j=0;j&lt;m;j++){            if(grid[i][j]==&apos;1&apos;){                DFSMarking(grid,i,j);                count++;            }        }    }return count;}public  void DFSMarking(char[][] grid,int i,int j){    if(i&lt;0||j&lt;0||i&gt;=n||j&gt;=m||grid[i][j]!=&apos;1&apos;)return ;    grid[i][j]=&apos;0&apos;;    DFSMarking(grid,i+1,j);    DFSMarking(grid,i-1,j);    DFSMarking(grid,i,j+1);    DFSMarking(grid,i,j-1);}</code></pre><p>问题：<br>这个问题相当的简单，[1,1,0,0] 1 1 代表陆地 0 0 代表水。 这说明左边是个小岛。 给定一个地图把岛的数目数出来。</p><p>算法：<br>就是用DFS，循环访问每个地图点，然后以它为中心，拓展开来，遇到陆地则标为水，遇到水跳过，遇到边界跳过。所以当搞定一座岛之后，它就不存在变成水域了，然后开始下一个。 </p><p>模板：<br>    //显示判断地图<br>     if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;<br>    int cnt = 0, m = grid.length, n = grid[0].length;<br>    //然后循环访问每个地图点<br>    for (int[] dir : dirs)  DFS(grid, i + dir[0], j + dir[1], m, n); </p><pre><code>//递归void DFSMarking(char[][] grid,int i,int j){    //决定触底的条件    if(i&lt;0||j&lt;0||i&gt;=n||j&gt;=m||grid[i][j]!=&apos;1&apos;)return ;    //数据处理 代码        grid[i][j]=&apos;0&apos;;     //扩展开来    DFSMarking(grid,i+1,j);    DFSMarking(grid,i-1,j);    DFSMarking(grid,i,j+1);    DFSMarking(grid,i,j-1);}</code></pre><p>时间复杂：O（mn)<br>空间复杂度: O(1) 改变input地图集合，不需要空间。<br>流数据：不可以处理流数据  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>二叉树Z顺序遍历</title>
+      <link href="/2019/07/14/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/"/>
+      <url>/2019/07/14/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/zigzagLevelOrderResult.JPG" alt>  </p><a id="more"></a>  <pre><code>  public List&lt;List&lt;Integer&gt;&gt; zigzagLevelOrder(TreeNode root){    List&lt;List&lt;Integer&gt;&gt; res=new ArrayList&lt;&gt;();    travel(root,res,0);    return res;}private void travel(TreeNode node,List&lt;List&lt;Integer&gt;&gt;list,int level){    if(node==null)return ;    if(list.size()&lt;=level){        List&lt;Integer&gt; newLevel= new ArrayList&lt;&gt;();        list.add(newLevel);    }    List&lt;Integer&gt; tmplist=list.get(level);    if(level%2==0) tmplist.add(node.val);    else tmplist.add(0,node.val);    travel(node.left,list,level+1);    travel(node.right,list,level+1);}</code></pre><p>maybe a queue ?</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LRU缓存</title>
+      <link href="/2019/07/14/LRU%20Cache/"/>
+      <url>/2019/07/14/LRU%20Cache/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/LeastRecentUseCacheResult.JPG" alt>  </p><a id="more"></a>  <pre><code>import java.util.Hashtable;public class LRUCache {class DLinkedNode{  int key;  int value;  DLinkedNode pre;  DLinkedNode next;}private void addNode(DLinkedNode node){    node.pre = head;    node.next= head.next;    head.next.pre=node;    head.next=node;}private void removeNode(DLinkedNode node){    DLinkedNode preNode=node.pre;    DLinkedNode nextNode=node.next;    preNode.next=nextNode;    nextNode.pre=preNode;}private void moveToHead(DLinkedNode node){    this.removeNode(node);    this.addNode(node);}private DLinkedNode popTail(){    DLinkedNode tailNode=tail.pre;    this.removeNode(tailNode);    return tailNode;}private Hashtable&lt;Integer,DLinkedNode&gt; cache =        new Hashtable&lt;Integer, DLinkedNode&gt;();private int count;private int capacity;private DLinkedNode head,tail;public LRUCache(int capacity){    this.capacity=capacity;    this.count=0;    head=new DLinkedNode();    head.pre=null;    tail=new DLinkedNode();    tail.next=null;    head.next=tail;    tail.pre=head;}public int get(int key){    DLinkedNode targetNode=cache.get(key);    if(targetNode==null)return -1;    this.moveToHead(targetNode);    return targetNode.value;}public void put(int key,int value){    DLinkedNode node=cache.get(key);    if(node==null){//insert the node, pop out the extract        node=new DLinkedNode();        node.key=key;        node.value=value;        this.addNode(node);        this.cache.put(key,node);        count++;        if(count&gt;capacity){            DLinkedNode TailNode=this.popTail();            this.cache.remove(TailNode.key);            count--;        }    }else{//update the node        node.value=value        this.moveToHead(node);    }}}</code></pre><p> no need for count, psudoNode, </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Log File重排序</title>
+      <link href="/2019/07/14/Reorder%20Log%20Files/"/>
+      <url>/2019/07/14/Reorder%20Log%20Files/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/ReorderLogFilesResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public String[] reorderLogFiles(String[] logs) {    Comparator&lt;String&gt; myComp = new Comparator&lt;String&gt;(){        @Override        public int compare(String s1,String s2){            int s1si = s1.indexOf(&apos; &apos;);            int s2si = s2.indexOf(&apos; &apos;);            char s1fc = s1.charAt(s1si+1);            char s2fc = s2.charAt(s2si+1);//                char s1fc = s1.charAt(s1.length()-1);//                char s2fc = s2.charAt(s2.length()-1);            if(s1fc&lt;=&apos;9&apos;){                if(s2fc&lt;=&apos;9&apos;) return 0;                else return 1;            }            if(s2fc&lt;=&apos;9&apos;)return -1;            int preCompute = s1.substring(s1si+1).compareTo(s2.substring(s2si+1));            if(preCompute==0) return s1.substring(0,s1si).compareTo(s2.substring(0,s2si));            return preCompute;        }    };    Arrays.sort(logs,myComp);    return logs;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>K个离原点最近的点</title>
+      <link href="/2019/07/13/K%20Closest%20Points%20to%20Origin/"/>
+      <url>/2019/07/13/K%20Closest%20Points%20to%20Origin/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/KCloestPointResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public static int[][] kClosest(int[][] points, int K) {   PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((p1,p2)-&gt;p2[0]*p2[0]+p2[1]*p2[1]-p1[0]*p1[0]-p1[1]*p1[1]);   for(int[] p: points) {       pq.offer(p);       if(pq.size() &gt; K) {         pq.poll();       }   }    System.out.println(&quot;finish pq&quot;);   int [][]res=new int[K][2];   while(K&gt;0){       res[--K]=pq.poll();   }   return res;}//print out resultpublic static void printp(int[][] points,int K){    for(int[] p: points){        System.out.print(&quot;(&quot;+p[0]+&quot;,&quot;+p[1]+&quot;) &quot;);    }}</code></pre><p>这个方法时间复杂度为O(n*logn)，但是它比较稳定，而且可以处理流数据，不需要获得所有数据就可以处理。   </p><p>原理就是运营一个大小为K的最小堆heap,里面保存K个距离原点最近的点。<br>循环访问每个点，同时把他们放入堆内，一旦堆满了，就推出最小堆的距离原点最大的点。<br>循环访问完毕后，就把堆内数据取出输出。  </p><p>但在leetcode它的性能一般，连80%的对手都打不过。所以需要进行改造，改造的方法是自己重新实现一个简单的堆，不用JAVA内置的堆，也就是PriorityQueue。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>swift动画</title>
       <link href="/2019/07/13/swiftAnimation/"/>
       <url>/2019/07/13/swiftAnimation/</url>
@@ -106,18 +393,16 @@
     
     
     <entry>
-      <title>最长回文子字符串</title>
-      <link href="/2019/07/02/Longest%20Palindrome%20substring/"/>
-      <url>/2019/07/02/Longest%20Palindrome%20substring/</url>
+      <title>两数相加</title>
+      <link href="/2019/07/02/Add%20Two%20Numbers/"/>
+      <url>/2019/07/02/Add%20Two%20Numbers/</url>
       
-        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/LongestPalindromicSubstringresult.JPG" alt> </p><a id="more"></a>  <pre><code>class Solution { private int lo, maxLen; public String longestPalindrome(String s) {       int slen=s.length();       if(slen&lt;2)return s;       for(int i=0;i&lt;slen-1;i++){           ExtendPalindrome(s,i,i);           ExtendPalindrome(s,i,i+1);       }       return s.substring(lo,lo+maxLen);} public void ExtendPalindrome(String s,int left,int right){    while(left &gt;= 0 &amp;&amp; right &lt; s.length() &amp;&amp; s.charAt(left)==s.charAt(right)){        left--;        right++;    }    int len=right-left-1;    if(maxLen&lt;len){        maxLen=len;        lo=left+1;    }}}</code></pre><p>非常简单但是速度优化非常好，简单地说就是以一个字符或字符间为中心拓展出去。<br>每个回文子子字符串都有个中心，可以是某个字符，也可以是两个字符中间的空隙。  </p><p>ExtendPalindrome(s,i,i)就是以S字符串的I位置为中心扩展，看该子字符串可以为多长的回文子字符串。 比如eabbcbbaf, 的以c为中心扩展可以得到最长回文字符串abbcbba。<br>然后在另一种情况，比如eabbaf则是以bb的中间的间隙为中心拓展得到最长回文串abba，这就是ExtendPalindrome(s,i,i+1)的作用，以i,i+1中间的间隙为中心拓展。  </p><pre><code>ExtendPalindrome(s,i,i);ExtendPalindrome(s,i,i+1);  </code></pre><p>然后就是一个循环结果，来循环每个S字符串上的每个中心点。  </p><pre><code>for(int i=0;i&lt;slen-1;i++)  {     ExtendPalindrome(s,i,i);        ExtendPalindrome(s,i,i+1);  }</code></pre><h2 id="Longest-Palindromic-Substring"><a href="#Longest-Palindromic-Substring" class="headerlink" title="Longest Palindromic Substring"></a>Longest Palindromic Substring</h2><p>![](/gallery/leetcode-1/Longest Palindromic Substring-result.JPG)<br>a very simple solution with high performance, bascially it search the center of every possible palindrome of string s, once we get the center then we extend it to get longes palindrome of string s.<br>For example, we have eabbcbbaf as string s, we get answer when we extend c as the center and get abbcbba as longest panlindrome.<br>But we can’t say that center must be the character of string s, center can be in the middle of two character, like we have eabbaf, the answer is abba, where center is between bb, in ExtendPalindrome(s,i,i+1); i represent first b, i+1 represent second b.  </p><pre><code>ExtendPalindrome(s,i,i);ExtendPalindrome(s,i,i+1);   </code></pre><p>And then, it’s kind of no-brainer, just visit every possible center of string s, extend center, get the longest palindrome.</p><pre><code>for(int i=0;i&lt;slen-1;i++)   {     ExtendPalindrome(s,i,i);         ExtendPalindrome(s,i,i+1);   }</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/addtwonumbers-result.JPG" alt>  </p><a id="more"></a>  <pre><code>class Solution {public ListNode addTwoNumbers(ListNode l1, ListNode l2) {    ListNode Head= null;    ListNode Tail=null;    int carry=0,t1=0,t2=0,t3=0;    ListNode p1=l1;    ListNode p2=l2;    while(p1!=null||p2!=null||carry!=0){        t1=0; t2=0;        if(p1!=null){ t1=p1.val;}        if(p2!=null){ t2=p2.val;}        if((p1==null &amp;&amp; p2!=null)||(p2==null &amp;&amp; p1!=null)) {            ListNode tmp = null;            if (p2 != null) tmp = p2;            else tmp = p1;            Tail.next = tmp;            if (carry != 0) tmp.val += 1;            while (tmp != null) {                if (tmp.val &gt;= 10) {                    tmp.val = 0;                    if (tmp.next != null) {                        tmp.next.val += 1;                    } else {                        ListNode tmp1 = new ListNode(1);                        tmp.next = tmp1;                    }                }                tmp = tmp.next;            }//   printListNode(Head);            return Head;        }//if one of the list is null no need for cal        Boolean flag=true;        if((t3=t1+t2)&lt;10){ flag=false;}        else{ t3=t3-10;}        if(Head==null){ Head=new ListNode(t3); Tail=Head;            //printListNode(Head);        }        else{            ListNode tmp=new ListNode(t3+carry);            carry=0;            if(tmp.val&gt;=10){//when t3=9 carry=1                tmp.val-=10;                carry=1;            }            Tail.next=tmp;            Tail=tmp;            //  printListNode(Head);        }        if(flag) carry=1;       if(p1!=null) p1=p1.next;       if(p2!=null) p2=p2.next;      //  printListNode(Head);    }    return Head;}}</code></pre><p>这是我极其杂乱的方法，但是速度和内存还行。这里我的一开始的代码复用的太多，所以做了一些优化少了很多行。 这个方法很简单，就是最近的，从两个list各取一个数字，然后相加，如果大于10则，sum=sum-10, carry=1。 也就是进位1，和人的口算的方法非常相似。 然后在下一轮的计算中，把这个carry加进去。  </p><p>注意如果有一个list已经没有数字了，另一个还有，这个时候不用计算直接把另一个的list头接到我们勾结的结果list的尾巴上。</p><h1 id="Add-Two-Numbers"><a href="#Add-Two-Numbers" class="headerlink" title="Add Two Numbers"></a>Add Two Numbers</h1><p><img src="/gallery/leetcode-1/addtwonumbers-result.JPG" alt><br>My simple solution with a not so bad performance, it’s so simple, just a copy solution of how human brain add two number. First get two number for two list, and add them together to get sum. Then if sum &gt; 10, sum=sum-10 carry=1. At next round, we would add carry to sum.</p><p>If one of the list such as list A reach its’ end, no need for more calculation just link list B’s head to our result list’s end. </p><p>   class Solution {<br>    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {<br>        ListNode Head= null;<br>        ListNode Tail=null;<br>        int carry=0,t1=0,t2=0,t3=0;<br>        ListNode p1=l1;<br>        ListNode p2=l2;</p><pre><code>    while(p1!=null||p2!=null||carry!=0){        t1=0; t2=0;        if(p1!=null){ t1=p1.val;}        if(p2!=null){ t2=p2.val;}        if((p1==null &amp;&amp; p2!=null)||(p2==null &amp;&amp; p1!=null)) {            ListNode tmp = null;            if (p2 != null) tmp = p2;            else tmp = p1;            Tail.next = tmp;            if (carry != 0) tmp.val += 1;            while (tmp != null) {                if (tmp.val &gt;= 10) {                    tmp.val = 0;                    if (tmp.next != null) {                        tmp.next.val += 1;                    } else {                        ListNode tmp1 = new ListNode(1);                        tmp.next = tmp1;                    }                }                tmp = tmp.next;            }//   printListNode(Head);            return Head;        }//if one of the list is null no need for cal        Boolean flag=true;        if((t3=t1+t2)&lt;10){ flag=false;}        else{ t3=t3-10;}        if(Head==null){ Head=new ListNode(t3); Tail=Head;            //printListNode(Head);        }        else{            ListNode tmp=new ListNode(t3+carry);            carry=0;            if(tmp.val&gt;=10){//when t3=9 carry=1                tmp.val-=10;                carry=1;            }            Tail.next=tmp;            Tail=tmp;            //  printListNode(Head);        }        if(flag) carry=1;       if(p1!=null) p1=p1.next;       if(p2!=null) p2=p2.next;      //  printListNode(Head);    }    return Head;}}</code></pre>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
-          
-          <category> string </category>
           
       </categories>
       
@@ -133,16 +418,18 @@
     
     
     <entry>
-      <title>两数相加</title>
-      <link href="/2019/07/02/Add%20Two%20Numbers/"/>
-      <url>/2019/07/02/Add%20Two%20Numbers/</url>
+      <title>最长回文子字符串</title>
+      <link href="/2019/07/02/Longest%20Palindrome%20substring/"/>
+      <url>/2019/07/02/Longest%20Palindrome%20substring/</url>
       
-        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/addtwonumbers-result.JPG" alt>  </p><a id="more"></a>  <pre><code>class Solution {public ListNode addTwoNumbers(ListNode l1, ListNode l2) {    ListNode Head= null;    ListNode Tail=null;    int carry=0,t1=0,t2=0,t3=0;    ListNode p1=l1;    ListNode p2=l2;    while(p1!=null||p2!=null||carry!=0){        t1=0; t2=0;        if(p1!=null){ t1=p1.val;}        if(p2!=null){ t2=p2.val;}        if((p1==null &amp;&amp; p2!=null)||(p2==null &amp;&amp; p1!=null)) {            ListNode tmp = null;            if (p2 != null) tmp = p2;            else tmp = p1;            Tail.next = tmp;            if (carry != 0) tmp.val += 1;            while (tmp != null) {                if (tmp.val &gt;= 10) {                    tmp.val = 0;                    if (tmp.next != null) {                        tmp.next.val += 1;                    } else {                        ListNode tmp1 = new ListNode(1);                        tmp.next = tmp1;                    }                }                tmp = tmp.next;            }//   printListNode(Head);            return Head;        }//if one of the list is null no need for cal        Boolean flag=true;        if((t3=t1+t2)&lt;10){ flag=false;}        else{ t3=t3-10;}        if(Head==null){ Head=new ListNode(t3); Tail=Head;            //printListNode(Head);        }        else{            ListNode tmp=new ListNode(t3+carry);            carry=0;            if(tmp.val&gt;=10){//when t3=9 carry=1                tmp.val-=10;                carry=1;            }            Tail.next=tmp;            Tail=tmp;            //  printListNode(Head);        }        if(flag) carry=1;       if(p1!=null) p1=p1.next;       if(p2!=null) p2=p2.next;      //  printListNode(Head);    }    return Head;}}</code></pre><p>这是我极其杂乱的方法，但是速度和内存还行。这里我的一开始的代码复用的太多，所以做了一些优化少了很多行。 这个方法很简单，就是最近的，从两个list各取一个数字，然后相加，如果大于10则，sum=sum-10, carry=1。 也就是进位1，和人的口算的方法非常相似。 然后在下一轮的计算中，把这个carry加进去。  </p><p>注意如果有一个list已经没有数字了，另一个还有，这个时候不用计算直接把另一个的list头接到我们勾结的结果list的尾巴上。</p><h1 id="Add-Two-Numbers"><a href="#Add-Two-Numbers" class="headerlink" title="Add Two Numbers"></a>Add Two Numbers</h1><p><img src="/gallery/leetcode-1/addtwonumbers-result.JPG" alt><br>My simple solution with a not so bad performance, it’s so simple, just a copy solution of how human brain add two number. First get two number for two list, and add them together to get sum. Then if sum &gt; 10, sum=sum-10 carry=1. At next round, we would add carry to sum.</p><p>If one of the list such as list A reach its’ end, no need for more calculation just link list B’s head to our result list’s end. </p><p>   class Solution {<br>    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {<br>        ListNode Head= null;<br>        ListNode Tail=null;<br>        int carry=0,t1=0,t2=0,t3=0;<br>        ListNode p1=l1;<br>        ListNode p2=l2;</p><pre><code>    while(p1!=null||p2!=null||carry!=0){        t1=0; t2=0;        if(p1!=null){ t1=p1.val;}        if(p2!=null){ t2=p2.val;}        if((p1==null &amp;&amp; p2!=null)||(p2==null &amp;&amp; p1!=null)) {            ListNode tmp = null;            if (p2 != null) tmp = p2;            else tmp = p1;            Tail.next = tmp;            if (carry != 0) tmp.val += 1;            while (tmp != null) {                if (tmp.val &gt;= 10) {                    tmp.val = 0;                    if (tmp.next != null) {                        tmp.next.val += 1;                    } else {                        ListNode tmp1 = new ListNode(1);                        tmp.next = tmp1;                    }                }                tmp = tmp.next;            }//   printListNode(Head);            return Head;        }//if one of the list is null no need for cal        Boolean flag=true;        if((t3=t1+t2)&lt;10){ flag=false;}        else{ t3=t3-10;}        if(Head==null){ Head=new ListNode(t3); Tail=Head;            //printListNode(Head);        }        else{            ListNode tmp=new ListNode(t3+carry);            carry=0;            if(tmp.val&gt;=10){//when t3=9 carry=1                tmp.val-=10;                carry=1;            }            Tail.next=tmp;            Tail=tmp;            //  printListNode(Head);        }        if(flag) carry=1;       if(p1!=null) p1=p1.next;       if(p2!=null) p2=p2.next;      //  printListNode(Head);    }    return Head;}}</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="/gallery/leetcode-1/LongestPalindromicSubstringresult.JPG" alt> </p><a id="more"></a>  <pre><code>class Solution { private int lo, maxLen; public String longestPalindrome(String s) {       int slen=s.length();       if(slen&lt;2)return s;       for(int i=0;i&lt;slen-1;i++){           ExtendPalindrome(s,i,i);           ExtendPalindrome(s,i,i+1);       }       return s.substring(lo,lo+maxLen);} public void ExtendPalindrome(String s,int left,int right){    while(left &gt;= 0 &amp;&amp; right &lt; s.length() &amp;&amp; s.charAt(left)==s.charAt(right)){        left--;        right++;    }    int len=right-left-1;    if(maxLen&lt;len){        maxLen=len;        lo=left+1;    }}}</code></pre><p>非常简单但是速度优化非常好，简单地说就是以一个字符或字符间为中心拓展出去。<br>每个回文子子字符串都有个中心，可以是某个字符，也可以是两个字符中间的空隙。  </p><p>ExtendPalindrome(s,i,i)就是以S字符串的I位置为中心扩展，看该子字符串可以为多长的回文子字符串。 比如eabbcbbaf, 的以c为中心扩展可以得到最长回文字符串abbcbba。<br>然后在另一种情况，比如eabbaf则是以bb的中间的间隙为中心拓展得到最长回文串abba，这就是ExtendPalindrome(s,i,i+1)的作用，以i,i+1中间的间隙为中心拓展。  </p><pre><code>ExtendPalindrome(s,i,i);ExtendPalindrome(s,i,i+1);  </code></pre><p>然后就是一个循环结果，来循环每个S字符串上的每个中心点。  </p><pre><code>for(int i=0;i&lt;slen-1;i++)  {     ExtendPalindrome(s,i,i);        ExtendPalindrome(s,i,i+1);  }</code></pre><h2 id="Longest-Palindromic-Substring"><a href="#Longest-Palindromic-Substring" class="headerlink" title="Longest Palindromic Substring"></a>Longest Palindromic Substring</h2><p>![](/gallery/leetcode-1/Longest Palindromic Substring-result.JPG)<br>a very simple solution with high performance, bascially it search the center of every possible palindrome of string s, once we get the center then we extend it to get longes palindrome of string s.<br>For example, we have eabbcbbaf as string s, we get answer when we extend c as the center and get abbcbba as longest panlindrome.<br>But we can’t say that center must be the character of string s, center can be in the middle of two character, like we have eabbaf, the answer is abba, where center is between bb, in ExtendPalindrome(s,i,i+1); i represent first b, i+1 represent second b.  </p><pre><code>ExtendPalindrome(s,i,i);ExtendPalindrome(s,i,i+1);   </code></pre><p>And then, it’s kind of no-brainer, just visit every possible center of string s, extend center, get the longest palindrome.</p><pre><code>for(int i=0;i&lt;slen-1;i++)   {     ExtendPalindrome(s,i,i);         ExtendPalindrome(s,i,i+1);   }</code></pre>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
+          
+          <category> string </category>
           
       </categories>
       
