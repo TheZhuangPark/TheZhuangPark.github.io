@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+<title>swift动画 - Zehong Zhuang</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="swift动画讲解">
+<meta name="keywords" content="swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swift动画">
+<meta property="og:url" content="https://www.zhuangpark.top/2019/07/13/swiftAnimation/index.html">
+<meta property="og:site_name" content="Zehong Zhuang">
+<meta property="og:description" content="swift动画讲解">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.zhuangpark.top/gallery/swift/swiftAnimation.JPG">
+<meta property="og:updated_time" content="2019-07-13T07:32:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="swift动画">
+<meta name="twitter:description" content="swift动画讲解">
+<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/swift/swiftAnimation.JPG">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/favicon.svg" alt="swift动画" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">Resume</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/TheZhuangPark">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/swift/swiftAnimation.JPG" alt="swift动画">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-13T15:45:00.000Z">2019-07-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/swift/">swift</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 分钟 读完 (大约 1975 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                swift动画
+            
+        </h1>
+        <div class="content">
+            <p>swift动画讲解</p>
+<a id="more"></a>  
+<h3 id="1-动画的种类（Animation-catagories"><a href="#1-动画的种类（Animation-catagories" class="headerlink" title="1 动画的种类（Animation catagories)"></a>1 动画的种类（Animation catagories)</h3><p>swift的动画种类有很多种<br>第一种是uiview属性改变动画：就是设定一个时间，然后改变Uiview的一些属性，比如3秒内alph值为0，于是它就呈现一个逐渐消失的动画。  </p>
+<p>第二种是Controller transition：也就是在跳转界面的时候产生的一些让跳转更流畅的动画。</p>
+<p>第三种是Core Animation。</p>
+<p>第四种是OpenGl，Metal(3D)</p>
+<p>第五种是spiritKit（2.5D)</p>
+<p>第六种是Dynamic Animation：动态动画，也就是给各种对象设置初始化速度，然后摩擦力，重力，然后不管它们。于是它们就按照你设置的物理规则进行运动。</p>
+<h3 id="2-UIView-Properties"><a href="#2-UIView-Properties" class="headerlink" title="2 UIView Properties"></a>2 UIView Properties</h3><p>这是常用的一种swift演绎动画的模式，一个uiview有很多属性：<br>1 frame/center<br>2 bounds<br>3 transform<br>4 alpha<br>5 backgroudColor<br>然后通过设定时间，改变这些属性，从而演绎出动画效果！   </p>
+<p>基本流程是：<br>1 定义一些动画参数并传递闭包。<br>2 闭包里包含对UIView进行更改的代码。<br>3 闭包将仅对上述UIView属性的更改进行动画处理。<br>4 闭包里的更改立即生效（只是没有呈现给用户）。<br>5 动画完成时要执行的另一个“完成块”。<br>这是一个基本的动画闭包代码：   </p>
+<p>class func runningPropertyAnimator(<br>withDuration: TimeInterval,<br>delay: TimeInterval,<br>options: UIViewAnimationOptions,<br>animations: () -&gt; Void,<br>completion: ((position: UIViewAnimatingPosition) -&gt;   Void)? = nil<br>)    </p>
+<p>举个例子：<br>if myView.alpha == 1.0 {<br>UIViewPropertyAnimator.runningPropertyAnimator(<br>withDuration: 3.0,<br>delay: 2.0,<br>options: [.allowUserInteraction],<br>animations: { myView.alpha = 0.0 },<br>completion: { if $0 == .end   { myView.removeFromSuperview() } }<br>)<br>print(“alpha = (myView.alpha)”)<br>}    </p>
+<p>但是在option那里就有不同的打法比如：<br>beginFromCurrentState<br>allowUserInteraction<br>layoutSubviews<br>repeat<br>autoreverse<br>overrideInheritedDuration<br>overrideInheritedCurve<br>allowAnimatedContent<br>curveEaseInEaseOut<br>curveEaseIn<br>curveLinear<br>用来控制这个动画的模式，可以看到repeat就是这个动画重复播放的意思，curveEaseInEaseOut是动画进入放缓出去也放缓。      </p>
+<h3 id="3-Transition-Animation"><a href="#3-Transition-Animation" class="headerlink" title="3 Transition Animation"></a>3 Transition Animation</h3><p>当然你也不局限，可以    UIViewAnimationOptions.transitionFlipFrom{Left,Right,Top,Bottom}，这个可以令view翻转。然后比如你的有个卡牌view想翻转的时候就使用这个方式。<br>UIView.transition(with: myPlayingCardView,<br>duration: 0.75,<br>options: [.transitionFlipFromLeft],<br>animations: { cardIsFaceUp = !cardIsFaceUp }<br>completion: nil)     </p>
+<h3 id="4-Dynamic-Animation"><a href="#4-Dynamic-Animation" class="headerlink" title="4 Dynamic Animation"></a>4 Dynamic Animation</h3><p>这个就是个物理世界的模型，当你设置好了重力，和速度，然后物体就会按照你设立的物理规则运动，从而形成动画。创造这样的世界有几步。</p>
+<h4 id="1-创建一个UIDynamicAnimator"><a href="#1-创建一个UIDynamicAnimator" class="headerlink" title="1 创建一个UIDynamicAnimator"></a>1 创建一个UIDynamicAnimator</h4><p>var animator = UIDynamicAnimator(referenceView: UIView)</p>
+<h4 id="2-创建和添加-UIDynamicBehavior-实例"><a href="#2-创建和添加-UIDynamicBehavior-实例" class="headerlink" title="2 创建和添加 UIDynamicBehavior 实例"></a>2 创建和添加 UIDynamicBehavior 实例</h4><p>let gravity = UIGravityBehavior()<br>animator.addBehavior(gravity)</p>
+<p>collider = UICollisionBehavior()<br>animator.addBehavior(collider) </p>
+<h4 id="3-添加-UIDynamicItems-到-UIDynamicBehavior"><a href="#3-添加-UIDynamicItems-到-UIDynamicBehavior" class="headerlink" title="3 添加 UIDynamicItems 到 UIDynamicBehavior"></a>3 添加 UIDynamicItems 到 UIDynamicBehavior</h4><p>let item1: UIDynamicItem = … // usually a UIView<br>let item2: UIDynamicItem = … // usually a UIView<br>gravity.addItem(item1)<br>collider.addItem(item1)<br>gravity.addItem(item2)</p>
+<p>任何要运动的物体都得实现这个UIDynamicItem协议。<br>这是这个协议：<br>protocol UIDynamicItem {<br>var bounds: CGRect { get } // essentially the size<br>var center: CGPoint { get set } // and the position<br>var transform: CGAffineTransform { get set } // rotation usually<br>var collisionBoundsType:   UIDynamicItemCollisionBoundsType { get set }<br>var collisionBoundingPath: UIBezierPath { get set }<br>}<br>如果在动画进行过程中，某个item,物体改变了中心点和transform则需要呼叫更新函数：<br>func updateItemUsingCurrentState(item: UIDynamicItem)<br>来更新。  </p>
+<h4 id="Behavior"><a href="#Behavior" class="headerlink" title="Behavior"></a>Behavior</h4><p>接下来会具体讲有哪些behavior，从上面可以知道这些behavior都是你创造的物理规则，然后添加到物体上的。   </p>
+<h5 id="UIGravityBehavior"><a href="#UIGravityBehavior" class="headerlink" title="UIGravityBehavior"></a>UIGravityBehavior</h5><p>显而易见这是一个重力的物理规则。  </p>
+<p>var angle: CGFloat // in radians; 0 is to the right; positive numbers are clockwise<br>var magnitude: CGFloat // 1.0 is 1000 points/s/s   </p>
+<p>这是它两个变量，顺带一提1000像素点每秒的平方近似于重力加速度。</p>
+<h5 id="UIAttachmentBehavior"><a href="#UIAttachmentBehavior" class="headerlink" title="UIAttachmentBehavior"></a>UIAttachmentBehavior</h5><p>这是一个叫附着的行为，想象一根棒子，联系两个端点，一个端点受重力加速度往下掉另一个会因为附着这个端点，于是先旋转再往下掉。 </p>
+<p>init(item: UIDynamicItem, attachedToAnchor: CGPoint)<br>init(item: UIDynamicItem, attachedTo: UIDynamicItem)<br>init(item: UIDynamicItem, offsetFromCenter: CGPoint, attachedTo[Anchor]…)<br>var length: CGFloat // distance between attached things (this is settable while animating!)    </p>
+<p>var anchorPoint: CGPoint // can also be set at any time, even while animating    </p>
+<p>这是这个UIAttachmentBehavior所有api接口   </p>
+<h5 id="UICollisionBehavior"><a href="#UICollisionBehavior" class="headerlink" title="UICollisionBehavior"></a>UICollisionBehavior</h5><p>这个就是很显而易见的碰撞行为。<br>var collisionMode: UICollisionBehaviorMode // .items, .boundaries, or .everything<br>If .items, then any items you add to a UICollisionBehavior will bounce off of each other<br>If .boundaries, then you add UIBezierPath boundaries for items to bounce off of …  </p>
+<p>func addBoundary(withIdentifier: NSCopying, for: UIBezierPath)<br>func addBoundary(withIdentifier: NSCopying, from: CGPoint, to: CGPoint)<br>func removeBoundary(withIdentifier: NSCopying)<br>var translatesReferenceBoundsIntoBoundary: Bool // referenceView’s edges  NSCopying means NSString or NSNumber, but remember you can as to String, Int, etc.<br>这是这个碰撞行为的所有接口。    </p>
+<p>当碰撞发生的时候你如何得知呢？<br>var collisionDelegate: UICollisionBehaviorDelegate  </p>
+<p>… this delegate will be sent methods like …<br>func collisionBehavior(behavior: UICollisionBehavior,<br>began/endedContactFor: UIDynamicItem,<br>withBoundaryIdentifier: NSCopying // with:UIDynamicItem too<br>at: CGPoint)  </p>
+<h5 id="UISnapBehavior"><a href="#UISnapBehavior" class="headerlink" title="UISnapBehavior"></a>UISnapBehavior</h5><p>简单的说，就像入场动画一样，不过入场的时候它是会震动的。<br>init(item: UIDynamicItem, snapTo: CGPoint)<br>var damping: CGFloat<br>这里你可以设置它固定位置。</p>
+<h5 id="UIPushBehavior"><a href="#UIPushBehavior" class="headerlink" title="UIPushBehavior"></a>UIPushBehavior</h5><p>就是第一推力<br>var mode: UIPushBehaviorMode // .continuous or .instantaneous<br>var pushDirection: CGVector<br>… or …<br>var angle: CGFloat // in radians and positive numbers are clockwise<br>var magnitude: CGFloat // magnitude 1.0 moves a 100x100 view at 100 pts/s/s    </p>
+<h5 id="UIDynamicItemBehavior"><a href="#UIDynamicItemBehavior" class="headerlink" title="UIDynamicItemBehavior"></a>UIDynamicItemBehavior</h5><p>这个是item特有的行为，可以设置用来控制item的行为。<br>var allowsRotation: Bool<br>var friction: CGFloat<br>var elasticity: CGFloat   </p>
+<p>然后用下面三个函数来获取这个item信息<br>func linearVelocity(for: UIDynamicItem) -&gt; CGPoint<br>func addLinearVelocity(CGPoint, for: UIDynamicItem)<br>func angularVelocity(for: UIDynamicItem) -&gt; CGFloat  </p>
+<h5 id="UIDynamicBehavior"><a href="#UIDynamicBehavior" class="headerlink" title="UIDynamicBehavior"></a>UIDynamicBehavior</h5><p>You can create your own subclass which is a combination of other behaviors.<br>你甚至可以创建一个子类，这子类可以是其他物理规则的集合，通常来讲你要重写 init-method, addItem, removeItem<br>func addChildBehavior(UIDynamicBehavior)<br>你甚至可以加很多api来帮助构建这个子类<br>var dynamicAnimator: UIDynamicAnimator? { get }<br>func willMove(to: UIDynamicAnimator?)   </p>
+<p>UIDynamicBehavior’s action的属性<br>每次行为作用在items上，然后调用这个action<br>var action: (() -&gt; Void)?    </p>
+<h4 id="Stasis"><a href="#Stasis" class="headerlink" title="Stasis"></a>Stasis</h4><p>当然你需要知道这个动画什么时候停止，什么时候恢复，甚至在停止和恢复的时候做一些你希望的操作。<br>这个时候就是设定协议：<br>var delegate: UIDynamicAnimatorDelegate  </p>
+<p>…这两个协议里的函数是停止和恢复时会启用的函数<br>func dynamicAnimatorDidPause(UIDynamicAnimator)<br>func dynamicAnimatorWillResume(UIDynamicAnimator)  </p>
+<h3 id="5-memory-cycle"><a href="#5-memory-cycle" class="headerlink" title="5 memory-cycle"></a>5 memory-cycle</h3><p>在运行动画的时候经常会出现循环调用，循环调用就是a调用b,b调用了a,导致a,b的引用计数都无法减1，所以无法在heap堆里面释放掉，造成内存的堆积。<br>例子代码：<br>if let pushBehavior = UIPushBehavior(items: […],   mode: .instantaneous) {<br>pushBehavior.magnitude = …<br>pushBehavior.angle = …<br>pushBehavior.action = {<br>pushBehavior.dynamicAnimator!.removeBehavior(pushBehavior)<br>}<br>animator.addBehavior(pushBehavior) // will push right away<br>}<br>push的action的属性是个闭包，这闭包又调用了pushBehavior本身，所以形成了一个循环调用，无法从heap，堆里释放出来。  </p>
+<p>有几种方式来打破这个循环调用：<br>1 定义动态的局部变量，不去调用外部的。<br>var foo = { [x = someInstanceOfaClass, y = “hello”] in<br>// use x and y here<br>}</p>
+<p>2 定义的时候，把这些局部变量，用weak，或者unowned修饰<br>var foo = { [weak x = someInstanceOfaClass, y = “hello”] in<br>// use x and y here, but x is now an Optional because it’s weak<br>}       </p>
+<p>unowned意味着引用计数系统不会考虑它们<br>var foo = { [unowned x = someInstanceOfaClass, y = “hello”] in<br>// use x and y here, x is not an Optional<br>// if you use x here and it is not in the heap, you will crash<br>}  </p>
+<p>还有一种循环调用的情况<br>class Zerg {<br>private var foo = {<br>self.bar()<br>}<br>private func bar() { . . . }<br>}<br>这个class持有foo这个闭包，foo这个闭包又调用了self，所以形成了循环调用。<br>我们可以break这个循环调用了<br>class Zerg {<br>    private var foo = {<br>    [weak weakSelf = self] in<br>    weakSelf?.bar() // need Optional chaining now<br>    }<br>    private func bar() { . . . }<br>}<br>当然也可以用unowned去破除这个循环<br>if let pushBehavior = UIPushBehavior(items: […], mode: .instantaneous) {<br>pushBehavior.magnitude = …<br>pushBehavior.angle = …<br>pushBehavior.action = { [unowned pushBehavior] in<br>pushBehavior.dynamicAnimator!.removeBehavior(pushBehavior)<br>}<br>animator.addBehavior(pushBehavior) // will push right away<br>}</p>
+<p>但这里是因为我们知道pushBehavior一定会在heap里，从上面的定义代码可以知道，所以使用unowned没有问题，但如果heap里面没有pushBehavior, 程序马上崩溃。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/swift/">swift</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wxpay.jpg" alt="微信"></div>
+</a>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<a class="button is-warning donate" onclick="document.getElementById(&#39;paypal-donate-form&#39;).submit()">
+    <span class="icon is-small">
+        <i class="fab fa-paypal"></i>
+    </span>
+    <span>Paypal</span>
+</a>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypal-donate-form">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="thezhuangpark@gmail.com">
+    <input type="hidden" name="currency_code" value="USD">
+</form>
+
+                
+                
+<a class="button is-danger donate" href="/ " target="_blank">
+    <span class="icon is-small">
+        <i class="fab fa-patreon"></i>
+    </span>
+    <span>Patreon</span>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/07/14/K Closest Points to Origin/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">K个离原点最近的点</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/12/DemoCardAnimation/">
+                <span class="level-item">swift动画Demo</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.jpg" alt="庄泽鸿">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        庄泽鸿
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        程序员
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>达拉斯 德克萨斯州</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        38
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        6
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/TheZhuangPark" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/TheZhuangPark">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://www.google.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Google</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">www.google.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/TheZhuangPark" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">ZhuangZeHong_Github</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/github/">
+            <span class="level-start">
+                <span class="level-item">github</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/hexo/">
+            <span class="level-start">
+                <span class="level-item">hexo</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/swift/">
+            <span class="level-start">
+                <span class="level-item">swift</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">31</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/算法/string/">
+            <span class="level-start">
+                <span class="level-item">string</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/双指针/">
+            <span class="level-start">
+                <span class="level-item">双指针</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/哈希表/">
+            <span class="level-start">
+                <span class="level-item">哈希表</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/递归/">
+            <span class="level-start">
+                <span class="level-item">递归</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/经验/">
+            <span class="level-start">
+                <span class="level-item">经验</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/编译器/">
+            <span class="level-start">
+                <span class="level-item">编译器</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/面试/">
+            <span class="level-start">
+                <span class="level-item">面试</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/swift/" style="font-size: 15px;">swift</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编译器/" style="font-size: 10px;">编译器</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/08/11/two pointer- Shortest Way to Form String/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="two pointer- Shortest Way to Form String">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-11T08:44:00.000Z">2020-08-11</time></div>
+                    <a href="/2020/08/11/two pointer- Shortest Way to Form String/" class="has-link-black-ter is-size-6">two pointer- Shortest Way to Form String</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/08/09/binary search-divide-chocolate/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="binary search-divide-chocolate">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-09T10:41:00.000Z">2020-08-09</time></div>
+                    <a href="/2020/08/09/binary search-divide-chocolate/" class="has-link-black-ter is-size-6">binary search-divide-chocolate</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/08/09/dp- Maximum Points You Can Obtain from Cards/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="dp-Maximum Points You Can Obtain from Cards">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-08-09T10:41:00.000Z">2020-08-09</time></div>
+                    <a href="/2020/08/09/dp- Maximum Points You Can Obtain from Cards/" class="has-link-black-ter is-size-6">dp-Maximum Points You Can Obtain from Cards</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/28/Subarray Sum Equals K/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="Subarray Sum Equals K">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-28T04:18:00.000Z">2019-07-28</time></div>
+                    <a href="/2019/07/28/Subarray Sum Equals K/" class="has-link-black-ter is-size-6">Subarray Sum Equals K</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/07/27/Convert Binary Search Tree to Sorted Doubly Linked List/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="Convert Binary Search Tree to Sorted Doubly Linked List">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:18:00.000Z">2019-07-27</time></div>
+                    <a href="/2019/07/27/Convert Binary Search Tree to Sorted Doubly Linked List/" class="has-link-black-ter is-size-6">Convert Binary Search Tree to Sorted Doubly Linked List</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">七月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">29</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/github/">
+                        <span class="tag">github</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/hexo/">
+                        <span class="tag">hexo</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/swift/">
+                        <span class="tag">swift</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/算法/">
+                        <span class="tag">算法</span>
+                        <span class="tag is-grey">31</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/编译器/">
+                        <span class="tag">编译器</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/面试/">
+                        <span class="tag">面试</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/favicon.svg" alt="swift动画" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Zehong Zhuang&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/TheZhuangPark">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
