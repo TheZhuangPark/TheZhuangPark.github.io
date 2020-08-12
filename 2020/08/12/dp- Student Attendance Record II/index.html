@@ -2,20 +2,25 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019/7 - Zehong Zhuang</title>
+<title>dp-Student Attendance Record II - Zehong Zhuang</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Zehong Zhuang">
-<meta property="og:url" content="https://www.zhuangpark.top/archives/2019/07/page/3/index.html">
+    <meta name="description" content="so hard !">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dp-Student Attendance Record II">
+<meta property="og:url" content="https://www.zhuangpark.top/2020/08/12/dp- Student Attendance Record II/index.html">
 <meta property="og:site_name" content="Zehong Zhuang">
+<meta property="og:description" content="so hard !">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.zhuangpark.top/images/og_image.png">
+<meta property="og:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
+<meta property="og:updated_time" content="2020-08-12T08:57:13.343Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zehong Zhuang">
-<meta name="twitter:image" content="https://www.zhuangpark.top/images/og_image.png">
+<meta name="twitter:title" content="dp-Student Attendance Record II">
+<meta name="twitter:description" content="so hard !">
+<meta name="twitter:image" content="https://www.zhuangpark.top/gallery/leetcode-1/algorithm1.JPG">
 
 
 
@@ -89,7 +94,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/favicon.svg" alt="Zehong Zhuang" height="28">
+                <img src="/images/favicon.svg" alt="dp-Student Attendance Record II" height="28">
             
             </a>
         </div>
@@ -134,266 +139,238 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="dp-Student Attendance Record II">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-08-12T08:55:00.000Z">2020-08-12</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1403 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                dp-Student Attendance Record II
+            
+        </h1>
+        <div class="content">
+            <p>so hard !</p>
+<a id="more"></a>  
+<ol>
+<li>Problem<br>Given a positive integer n, return the number of all possible attendance records with length n, which will be regarded as rewardable. The answer may be very large, return it after mod 10⁹ + 7.</li>
+</ol>
+<p>A student attendance record is a string that only contains the following three characters:</p>
+<p>‘A’ : Absent.<br>‘L’ : Late.<br>‘P’ : Present.<br>A record is regarded as rewardable if it doesn’t contain more than one ‘A’ (absent) or more than two continuous ‘L’ (late).</p>
+<ol start="2">
+<li>Thinking process</li>
+<li>1 Divide the whole problem into sub-problems<br>Before introducing the way to calculate the number of all possible attendance records with length n, we divide the problem into 3 parts.</li>
+</ol>
+<p>As the attendance records is made by 3 characters (‘P’, ‘L’, ‘A’), the total number can be divided into</p>
+<p>Total = ended with P + ended with L + ended with A.<br>If we define following series</p>
+<p>T(n) is the total number of all possible attendance records with length n.<br>P(n) is the total number of all possible attendance records ended with ‘P’ with length n.<br>L(n) is the total number of all possible attendance records ended with ‘L’ with length n.<br>A(n) is the total number of all possible attendance records ended with ‘A’ with length n.<br>It can be inferred that</p>
+<p>T(n) = A(n) + P(n) + L(n), n ≥ 1.<br>2.2 Solve the sub-problems by dynamic programming<br>As I use dynamic programming, I need to find out the recursive relation in 3 sub-problems.</p>
+<p>2.2.1 Calculate P(n)<br>It can be inferred that</p>
+<p>If we add a ‘P’ to an attendance records with length n - 1, we will get an attendance records ended with ‘P’ with length n.<br>For an attendance record with length n - 1,</p>
+<p>If its (n - 1)th character is ‘P’ —- CAN add ‘P’. (“PP”)<br>If its (n - 1)th character is ‘A’ —- CAN add ‘P’. (“AP”)<br>If its (n - 1)th character is ‘L’ —- CAN add ‘P’. (“LP”)<br>which means</p>
+<p>P(n) = A(n - 1) + P(n - 1) + L(n - 1), n ≥ 2.<br>and we have initial value for the recursive relation</p>
+<p>A(1) = P(1) = L(1) = 1.<br>2.2.2 Calculate L(n)<br>Similarly,</p>
+<p>If we add a ‘L’ to an attendance records with length n - 1, we will get an attendance records ended with ‘L’ with length n.<br>But the resulting attendance records must be regarded as rewardable!</p>
+<p>As the rule is that a record is regarded as rewardable if it doesn’t contain</p>
+<p>more than two continuous ‘L’ (late).<br>We need to consider the situations when we can add ‘L’ to an attendance record with length n - 1 and it’s still regarded as rewardable.</p>
+<p>For an attendance record with length n - 1,</p>
+<p>If its (n - 1)th character is ‘P’ —- CAN add ‘L’. (“PL”)<br>If its (n - 1)th character is ‘A’ —- CAN add ‘L’. (“AL”)<br>If its (n - 1)th character is ‘L’:<br>If its (n - 2)th character is ‘A’ —- CAN add ‘L’. (“ALL”)<br>If its (n - 2)th character is ‘P’ —- CAN add ‘L’. (“PLL”)<br>If its (n - 2)th character is ‘L’ —- CAN NOT add ‘L’. (“LLL” breaks the rule)<br>which means</p>
+<p>L(n) = A(n - 1) + P(n - 1) + A(n - 2) + P(n - 2), n ≥ 3<br>and we have initial value for the recursive relation</p>
+<p>A(1) = P(1) = 1.<br>A(2) = 2, P(2) = 3.<br>and</p>
+<p>L(1) = 1, L(2) = 3.<br>2.2.3 Calculate A(n)<br>Similarly,</p>
+<p>If we add a ‘A’ to an attendance records with length n - 1, we will get an attendance records ended with ‘A’ with length n.<br>But the resulting attendance records must be regarded as rewardable!</p>
+<p>As the rule is that a record is regarded as rewardable if it doesn’t contain</p>
+<p>more than one ‘A’ (absent).<br>We need to consider the situations when we can add ‘A’ to an attendance record with length n - 1 and it’s still regarded as rewardable.</p>
+<p>For an attendance record with length n - 1,</p>
+<p>If its (n - 1)th character is ‘A’ —- CAN NOT add ‘A’. (“AA” breaks the rule)</p>
+<p>If its (n - 1)th character is ‘P’ and has no ‘A’ —- CAN add ‘A’.</p>
+<p>If its (n - 1)th character is ‘L’ and has no ‘A’ —- CAN add ‘A’.</p>
+<p>If we define series</p>
+<p>noAP(n) is the total number of all possible attendance records ended with ‘P’ with length n and with no ‘A’.<br>noAL(n) is the total number of all possible attendance records ended with ‘L’ with length n and with no ‘A’.<br>It can be inferred that</p>
+<p>A(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>and we have initial value for the recursive relation</p>
+<p>A(1) = 1.<br>noAP(1) = noAL(1) = 1.<br>2.2.4 Calculate noAP(n) and noAL(n)<br>In 2.2.3, 2 new series noAP(n) and noAL(n) is introduced. Now, we focus on the recursive relation in noAP(n) and noAL(n).</p>
+<p>For noAP(n), we need to consider the situations when we can add ‘P’ to an attendance record with length n - 1 and no ‘A’ and it’s still regarded as rewardable.</p>
+<p>Since noAP(n) has no ‘A’, we don’t need to consider the situation when its (n - 1)th character is ‘A’.</p>
+<p>For an attendance record with length n - 1, we can get only 2 situations</p>
+<p>If its (n - 1)th character is ‘P’ and has no ‘A’ —- CAN add ‘P’.</p>
+<p>If its (n - 1)th character is ‘L’ and has no ‘A’ —- CAN add ‘P’.</p>
+<p>which means</p>
+<p>noAP(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>and we have initial value for the recursive relation</p>
+<p>noAP(1) = noAL(1) = 1.<br>For noAL(n), we need to consider the situations when we can add ‘L’ to an attendance record with length n - 1 and no ‘A’ and it’s still regarded as rewardable.</p>
+<p>Since noAL(n) has no ‘A’, we don’t need to consider the situation when its (n - 1)th character is ‘A’.</p>
+<p>For an attendance record with length n - 1, we can get</p>
+<p>If its (n - 1)th character is ‘P’ and has no ‘A’ —- CAN add ‘L’.(“PL”)</p>
+<p>If its (n - 1)th character is ‘L’ and has no ‘A’.</p>
+<p>If its (n - 2)th character is ‘P’ and has no ‘A’ —- CAN add ‘L’.(“PLL”)</p>
+<p>If its (n - 2)th character is ‘L’ and has no ‘A’ —- CAN NOT add ‘L’.(“LLL” breaks the rule.)</p>
+<p>which means</p>
+<p>noAL(n) = noAP(n - 1) + noAP(n - 2), n ≥ 3.<br>and we have initial value for the recursive relation</p>
+<p>noAP(1) = noAL(1) = 1.<br>and</p>
+<p>noAL(2) = 2.<br>2.3 Recursive relationship summarization<br>The answer to the whole problem is T(n), and</p>
+<p>T(n) = A(n) + P(n) + L(n), n ≥ 1.<br>Recursive formula:</p>
+<p>P(n) = A(n - 1) + P(n - 1) + L(n - 1), n ≥ 2.<br>A(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>noAP(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>L(n) = A(n - 1) + P(n - 1) + A(n - 2) + P(n - 2), n ≥ 3.<br>noAL(n) = noAP(n - 1) + noAP(n - 2), n ≥ 3.<br>with Initial value</p>
+<p>A(1) = P(1) = L(1) = 1.<br>noAP(1) = noAL(1) = 1.<br>L(2) = 3.<br>noAL(2) = 2.<br>2.4 Simplifying<br>When n ≥ 4, the 3 formulas</p>
+<p>A(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>noAP(n) = noAP(n - 1) + noAL(n - 1), n ≥ 2.<br>noAL(n) = noAP(n - 1) + noAP(n - 2), n ≥ 3.<br>can be simplified to</p>
+<p>A(n) = A(n - 1) + A(n - 2) + A(n - 3), n ≥ 4.<br>Finally, the recursive formula group becomes</p>
+<p>P(n) = A(n - 1) + P(n - 1) + L(n - 1), n ≥ 2.<br>L(n) = A(n - 1) + P(n - 1) + A(n - 2) + P(n - 2), n ≥ 3.<br>A(n) = A(n - 1) + A(n - 2) + A(n - 3), n ≥ 4.<br>Here, noAP(n) and noAL(n) disappeared.</p>
+<p>with Initial value</p>
+<p>P(1) = 1.<br>L(1) = 1, L(2) = 3.<br>A(1) = 1, A(2) = 2, A(3) = 4.<br>2.5 Do modulus<br>The result need to be returned after mod 10⁹ + 7.</p>
+<p>Since the result is generated by adding a lot of middle results together, in order to make sure that every middle result and the final result won’t exceed INT_MAX, we need to do mod for every middle result, and for every 2-middle-result-addition.</p>
+<ol start="3">
+<li>Complexity analysis</li>
+<li>1 Time complexity<br>Since the algorithm is one-pass from 1 to n.</li>
+</ol>
+<p>The time complexity is O(n).<br>3.2 Space complexity<br>Since 3 arrays are used to save P(n), L(n), A(n), the total size is 3n.</p>
+<p>The space complexity is O(n).</p>
+<pre><code> class Solution {
+public:
+int checkRecord(int n) {
+    if(n == 1) return 3;
+    if(n == 2) return 8;
 
-<div class="card widget">
+
+    int m = 1000000007;
+    int *A = new int [n];
+    int *P = new int [n];
+    int *L = new int [n];
+
+    P[0] = 1;
+    L[0] = 1;
+    L[1] = 3;
+    A[0] = 1;
+    A[1] = 2;
+    A[2] = 4;
+
+
+
+    for(int i = 1; i &lt; n; i++)
+    {
+        A[i - 1] %= m;
+        P[i - 1] %= m;
+        L[i - 1] %= m;
+
+        P[i] = ((A[i - 1] + P[i - 1]) % m + L[i - 1]) % m;
+
+        if(i &gt; 1) L[i] = ((A[i - 1] + P[i - 1]) % m + (A[i - 2] + P[i - 2]) % m) % m;
+
+        if(i &gt; 2) A[i] = ((A[i - 1] + A[i - 2]) % m + A[i - 3]) % m;
+    }
+
+    return ((A[n - 1] % m + P[n - 1] % m) % m + L[n - 1] % m) % m;
+}
+};</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/算法/">算法</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        七月 2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <a href="/2019/07/14/LRU Cache/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="LRU缓存">
-                    </p>
-                </a>
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-14T11:21:00.000Z">2019-07-14</time>
-                        <a href="/2019/07/14/LRU Cache/" class="has-link-black-ter is-size-6">LRU缓存</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <a href="/2019/07/14/Reorder Log Files/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="Log File重排序">
-                    </p>
-                </a>
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wxpay.jpg" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-14T11:21:00.000Z">2019-07-14</time>
-                        <a href="/2019/07/14/Reorder Log Files/" class="has-link-black-ter is-size-6">Log File重排序</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<a class="button is-warning donate" onclick="document.getElementById(&#39;paypal-donate-form&#39;).submit()">
+    <span class="icon is-small">
+        <i class="fab fa-paypal"></i>
+    </span>
+    <span>Paypal</span>
+</a>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypal-donate-form">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="thezhuangpark@gmail.com">
+    <input type="hidden" name="currency_code" value="USD">
+</form>
+
                 
-                <a href="/2019/07/14/K Closest Points to Origin/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="K个离原点最近的点">
-                    </p>
-                </a>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-14T04:18:00.000Z">2019-07-14</time>
-                        <a href="/2019/07/14/K Closest Points to Origin/" class="has-link-black-ter is-size-6">K个离原点最近的点</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+<a class="button is-danger donate" href="/ " target="_blank">
+    <span class="icon is-small">
+        <i class="fab fa-patreon"></i>
+    </span>
+    <span>Patreon</span>
+</a>
+
                 
-                <a href="/2019/07/13/swiftAnimation/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/swift/swiftAnimation.JPG" alt="swift动画">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-13T15:45:00.000Z">2019-07-13</time>
-                        <a href="/2019/07/13/swiftAnimation/" class="has-link-black-ter is-size-6">swift动画</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/swift/">swift</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/12/DemoCardAnimation/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/swift/BTarpyRyc.JPG" alt="swift动画Demo">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-11T17:13:00.000Z">2019-07-12</time>
-                        <a href="/2019/07/12/DemoCardAnimation/" class="has-link-black-ter is-size-6">swift动画Demo</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/swift/">swift</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/03/Longest Substring Without Repeating Characters/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="最长无重复字串">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-03T11:29:00.000Z">2019-07-03</time>
-                        <a href="/2019/07/03/Longest Substring Without Repeating Characters/" class="has-link-black-ter is-size-6">最长无重复字串</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a> / <a class="has-link-grey -link" href="/categories/算法/string/">string</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/03/two sum/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="两数之和">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-03T11:29:00.000Z">2019-07-03</time>
-                        <a href="/2019/07/03/two sum/" class="has-link-black-ter is-size-6">两数之和</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/02/Add Two Numbers/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="两数相加">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-02T11:29:00.000Z">2019-07-02</time>
-                        <a href="/2019/07/02/Add Two Numbers/" class="has-link-black-ter is-size-6">两数相加</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/02/Longest Palindrome substring/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/gallery/leetcode-1/algorithm1.JPG" alt="最长回文子字符串">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-02T11:29:00.000Z">2019-07-02</time>
-                        <a href="/2019/07/02/Longest Palindrome substring/" class="has-link-black-ter is-size-6">最长回文子字符串</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/算法/">算法</a> / <a class="has-link-grey -link" href="/categories/算法/string/">string</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
 
 
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/07/page/2/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/08/11/two pointer- Shortest Way to Form String/">
+                <span class="level-item">two pointer- Shortest Way to Form String</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/07/page/4/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/07/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/07/page/2/">2</a></li>
-            
-            <li><a class="pagination-link is-current" href="/archives/2019/07/page/3/">3</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
 </div>
+
+
 </div>
                 
 
@@ -894,7 +871,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/favicon.svg" alt="Zehong Zhuang" height="28">
+                    <img src="/images/favicon.svg" alt="dp-Student Attendance Record II" height="28">
                 
                 </a>
                 <p class="is-size-7">
