@@ -54,11 +54,11 @@
     
     
     <entry>
-      <title>dp-Maximum Points You Can Obtain from Cards</title>
-      <link href="/2020/08/09/dp-%20Maximum%20Points%20You%20Can%20Obtain%20from%20Cards/"/>
-      <url>/2020/08/09/dp-%20Maximum%20Points%20You%20Can%20Obtain%20from%20Cards/</url>
+      <title>binary search-divide-chocolate</title>
+      <link href="/2020/08/09/binary%20search-divide-chocolate/"/>
+      <url>/2020/08/09/binary%20search-divide-chocolate/</url>
       
-        <content type="html"><![CDATA[<p> if we get i at the left then right is k-i </p><a id="more"></a>  <p>if we have i=0  totalp(0) = c[len-k]….c[len-1]</p><p>when i=1 totalp[1]=totalp[0]+c[0]-c[len-k]<br>when i=2 totalp=totalo[1]+c[1]-c[len-k+1]<br>i is from 0 -&gt; k<br>so we chose the most highest totalp[j]</p><p>initiation should be 0<br>and for should range from low to high </p><pre><code>  class Solution {public:int maxScore(vector&lt;int&gt;&amp; cardPoints, int k) {    int *totalp=new int[k+1]{0};   for(int j=cardPoints.size()-k;j&lt;cardPoints.size(); j++){        totalp[0]+=cardPoints[j];    }    int max= totalp[0];    for(int i=1;i&lt;=k;i++){        totalp[i]=totalp[i-1]+cardPoints[i-1]-cardPoints[cardPoints.size()-k+i-1];        if(totalp[i]&gt;max) max=totalp[i];    }    return max;}};</code></pre>]]></content>
+        <content type="html"><![CDATA[<p> low=0 high= tatal sweet of bar , use binary search to get the right sweet.</p><a id="more"></a>  <p> first sweet=(low+high)/2  if we can’t not cut such situation then hight=sweet -1, if we can cut such situation then low=sweet+1;</p><p> we have to make a method to identifify the sweet can cut into k piece.  make sure other piece larger than this sweet degree.</p><pre><code>  class Solution {public:int maximizeSweetness(vector&lt;int&gt;&amp; sweetness, int K) {    int low=0;    int high=0;    for(int i=0;i&lt;sweetness.size();i++) high+=sweetness[i];    while(low&lt;=high){        int mid=(low+high)/2;        if(canCutIntoK(sweetness,mid,K+1 )){            low=mid+1;        }else{            high=mid-1;        }    }    return low-1;} bool canCutIntoK(vector&lt;int&gt;&amp; sweetness, int level, int K) {        int cnt=0;        int curr=0;     for(int i=0;i&lt;sweetness.size();i++){         curr+=sweetness[i];         if(curr&gt;=level){             curr=0;             cnt++;             if(cnt&gt;=K) return true;         }     }     return false; } };</code></pre>]]></content>
       
       
       <categories>
@@ -79,11 +79,11 @@
     
     
     <entry>
-      <title>binary search-divide-chocolate</title>
-      <link href="/2020/08/09/binary%20search-divide-chocolate/"/>
-      <url>/2020/08/09/binary%20search-divide-chocolate/</url>
+      <title>dp-Maximum Points You Can Obtain from Cards</title>
+      <link href="/2020/08/09/dp-%20Maximum%20Points%20You%20Can%20Obtain%20from%20Cards/"/>
+      <url>/2020/08/09/dp-%20Maximum%20Points%20You%20Can%20Obtain%20from%20Cards/</url>
       
-        <content type="html"><![CDATA[<p> low=0 high= tatal sweet of bar , use binary search to get the right sweet.</p><a id="more"></a>  <p> first sweet=(low+high)/2  if we can’t not cut such situation then hight=sweet -1, if we can cut such situation then low=sweet+1;</p><p> we have to make a method to identifify the sweet can cut into k piece.  make sure other piece larger than this sweet degree.</p><pre><code>  class Solution {public:int maximizeSweetness(vector&lt;int&gt;&amp; sweetness, int K) {    int low=0;    int high=0;    for(int i=0;i&lt;sweetness.size();i++) high+=sweetness[i];    while(low&lt;=high){        int mid=(low+high)/2;        if(canCutIntoK(sweetness,mid,K+1 )){            low=mid+1;        }else{            high=mid-1;        }    }    return low-1;} bool canCutIntoK(vector&lt;int&gt;&amp; sweetness, int level, int K) {        int cnt=0;        int curr=0;     for(int i=0;i&lt;sweetness.size();i++){         curr+=sweetness[i];         if(curr&gt;=level){             curr=0;             cnt++;             if(cnt&gt;=K) return true;         }     }     return false; } };</code></pre>]]></content>
+        <content type="html"><![CDATA[<p> if we get i at the left then right is k-i </p><a id="more"></a>  <p>if we have i=0  totalp(0) = c[len-k]….c[len-1]</p><p>when i=1 totalp[1]=totalp[0]+c[0]-c[len-k]<br>when i=2 totalp=totalo[1]+c[1]-c[len-k+1]<br>i is from 0 -&gt; k<br>so we chose the most highest totalp[j]</p><p>initiation should be 0<br>and for should range from low to high </p><pre><code>  class Solution {public:int maxScore(vector&lt;int&gt;&amp; cardPoints, int k) {    int *totalp=new int[k+1]{0};   for(int j=cardPoints.size()-k;j&lt;cardPoints.size(); j++){        totalp[0]+=cardPoints[j];    }    int max= totalp[0];    for(int i=1;i&lt;=k;i++){        totalp[i]=totalp[i-1]+cardPoints[i-1]-cardPoints[cardPoints.size()-k+i-1];        if(totalp[i]&gt;max) max=totalp[i];    }    return max;}};</code></pre>]]></content>
       
       
       <categories>
@@ -229,11 +229,11 @@
     
     
     <entry>
-      <title>Task Scheduler</title>
-      <link href="/2019/07/27/Task%20Scheduler/"/>
-      <url>/2019/07/27/Task%20Scheduler/</url>
+      <title>Serialize and Deserialize Binary Tree</title>
+      <link href="/2019/07/27/Serialize%20and%20Deserialize%20Binary%20Tree%20-%20%E5%89%AF%E6%9C%AC%20(4)/"/>
+      <url>/2019/07/27/Serialize%20and%20Deserialize%20Binary%20Tree%20-%20%E5%89%AF%E6%9C%AC%20(4)/</url>
       
-        <content type="html"><![CDATA[<p>![](/gallery/leetcode-1/Verifying an Alien Dictionary.JPG)  </p><a id="more"></a>  <p>10ms beat 87%<br>39.2mb beat 76%</p><pre><code>    public int leastInterval(char[] tasks, int n) {    int[] counter = new int[26];    int max = 0;    int maxCount = 0;    for(char task : tasks) {        counter[task - &apos;A&apos;]++;        if(max == counter[task - &apos;A&apos;]) {            maxCount++;        }        else if(max &lt; counter[task - &apos;A&apos;]) {            max = counter[task - &apos;A&apos;];            maxCount = 1;        }    }    int partCount = max - 1;    int partLength = n - (maxCount - 1);    int emptySlots = partCount * partLength;    int availableTasks = tasks.length - max * maxCount;    int idles = Math.max(0, emptySlots - availableTasks);    return tasks.length + idles;}</code></pre><p>}</p>]]></content>
+        <content type="html"><![CDATA[<p>![](/gallery/leetcode-1/Verifying an Alien Dictionary.JPG)  </p><a id="more"></a>  <p>10ms beat 87%<br>39.2mb beat 76%</p><pre><code>     private static final String spliter = &quot;,&quot;;private static final String NN = &quot;X&quot;;// Encodes a tree to a single string.public String serialize(TreeNode root) {    StringBuilder sb = new StringBuilder();    buildString(root, sb);    return sb.toString();}private void buildString(TreeNode node, StringBuilder sb) {    if (node == null) {        sb.append(NN).append(spliter);    } else {        sb.append(node.val).append(spliter);        buildString(node.left, sb);        buildString(node.right,sb);    }}// Decodes your encoded data to tree.public TreeNode deserialize(String data) {    Deque&lt;String&gt; nodes = new LinkedList&lt;&gt;();    nodes.addAll(Arrays.asList(data.split(spliter)));    return buildTree(nodes);}private TreeNode buildTree(Deque&lt;String&gt; nodes) {    String val = nodes.remove();    if (val.equals(NN)) return null;    else {        TreeNode node = new TreeNode(Integer.valueOf(val));        node.left = buildTree(nodes);        node.right = buildTree(nodes);        return node;    }}</code></pre><p>just my method with a clean and smart style. But a queue way to deserializa seem stupid, cause we can just visit string array, head=i, left_index=2i+1, right_index=2i+2<br>to form the tree again easily.</p><p>optmization:</p>]]></content>
       
       
       <categories>
@@ -254,11 +254,11 @@
     
     
     <entry>
-      <title>Serialize and Deserialize Binary Tree</title>
-      <link href="/2019/07/27/Serialize%20and%20Deserialize%20Binary%20Tree%20-%20%E5%89%AF%E6%9C%AC%20(4)/"/>
-      <url>/2019/07/27/Serialize%20and%20Deserialize%20Binary%20Tree%20-%20%E5%89%AF%E6%9C%AC%20(4)/</url>
+      <title>Task Scheduler</title>
+      <link href="/2019/07/27/Task%20Scheduler/"/>
+      <url>/2019/07/27/Task%20Scheduler/</url>
       
-        <content type="html"><![CDATA[<p>![](/gallery/leetcode-1/Verifying an Alien Dictionary.JPG)  </p><a id="more"></a>  <p>10ms beat 87%<br>39.2mb beat 76%</p><pre><code>     private static final String spliter = &quot;,&quot;;private static final String NN = &quot;X&quot;;// Encodes a tree to a single string.public String serialize(TreeNode root) {    StringBuilder sb = new StringBuilder();    buildString(root, sb);    return sb.toString();}private void buildString(TreeNode node, StringBuilder sb) {    if (node == null) {        sb.append(NN).append(spliter);    } else {        sb.append(node.val).append(spliter);        buildString(node.left, sb);        buildString(node.right,sb);    }}// Decodes your encoded data to tree.public TreeNode deserialize(String data) {    Deque&lt;String&gt; nodes = new LinkedList&lt;&gt;();    nodes.addAll(Arrays.asList(data.split(spliter)));    return buildTree(nodes);}private TreeNode buildTree(Deque&lt;String&gt; nodes) {    String val = nodes.remove();    if (val.equals(NN)) return null;    else {        TreeNode node = new TreeNode(Integer.valueOf(val));        node.left = buildTree(nodes);        node.right = buildTree(nodes);        return node;    }}</code></pre><p>just my method with a clean and smart style. But a queue way to deserializa seem stupid, cause we can just visit string array, head=i, left_index=2i+1, right_index=2i+2<br>to form the tree again easily.</p><p>optmization:</p>]]></content>
+        <content type="html"><![CDATA[<p>![](/gallery/leetcode-1/Verifying an Alien Dictionary.JPG)  </p><a id="more"></a>  <p>10ms beat 87%<br>39.2mb beat 76%</p><pre><code>    public int leastInterval(char[] tasks, int n) {    int[] counter = new int[26];    int max = 0;    int maxCount = 0;    for(char task : tasks) {        counter[task - &apos;A&apos;]++;        if(max == counter[task - &apos;A&apos;]) {            maxCount++;        }        else if(max &lt; counter[task - &apos;A&apos;]) {            max = counter[task - &apos;A&apos;];            maxCount = 1;        }    }    int partCount = max - 1;    int partLength = n - (maxCount - 1);    int emptySlots = partCount * partLength;    int availableTasks = tasks.length - max * maxCount;    int idles = Math.max(0, emptySlots - availableTasks);    return tasks.length + idles;}</code></pre><p>}</p>]]></content>
       
       
       <categories>
@@ -539,18 +539,16 @@
     
     
     <entry>
-      <title>深复制节点 Copy List with Random Pointer.</title>
-      <link href="/2019/07/15/Copy%20List%20with%20Random%20Pointer/"/>
-      <url>/2019/07/15/Copy%20List%20with%20Random%20Pointer/</url>
+      <title>二叉树Z顺序遍历</title>
+      <link href="/2019/07/15/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/"/>
+      <url>/2019/07/15/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/</url>
       
-        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/copyRandomListResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public Node copyRandomList(Node head) {      //copy all the node    Node node=head;    Map&lt;Node,Node&gt; map=new HashMap&lt;Node,Node&gt;(){};    while(node!= null){        map.put(node,new Node(node.val));        node=node.next;    }    node=head;    while(node!= null){        map.get(node).next=map.get(node.next);        map.get(node).random=map.get(node.random);        node=node.next;    }    return map.get(head);}</code></pre><p>问题:<br>给定了一个链表，这个链表上的节点还会连向一个随机的节点。 然后让你快速的深拷贝一份链表。</p><p>算法：<br>非常简单，而且很快，就设置一个哈希表，遍历那个链表然后把该链表的节点当key,创建新的节点当它的value。 然后再遍历一遍的时候，把获取的节点当key，找到拷贝节点，然后把属性赋值给拷贝节点。</p><p>模板：无</p><p>时间复杂度为O(n）<br>空间复杂度为O(n)<br>可以处理流数据吗？可以如果复制的时候指定复制多少个节点。 是不需要知道数据全貌的。</p>]]></content>
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/zigzagLevelOrderResult.JPG" alt>  </p><a id="more"></a>  <pre><code>  public List&lt;List&lt;Integer&gt;&gt; zigzagLevelOrder(TreeNode root){    List&lt;List&lt;Integer&gt;&gt; res=new ArrayList&lt;&gt;();    travel(root,res,0);    return res;}private void travel(TreeNode node,List&lt;List&lt;Integer&gt;&gt;list,int level){    if(node==null)return ;    if(list.size()&lt;=level){        List&lt;Integer&gt; newLevel= new ArrayList&lt;&gt;();        list.add(newLevel);    }    List&lt;Integer&gt; tmplist=list.get(level);    if(level%2==0) tmplist.add(node.val);    else tmplist.add(0,node.val);    travel(node.left,list,level+1);    travel(node.right,list,level+1);}</code></pre><p>maybe a queue ?</p>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
-          
-          <category> 哈希表 </category>
           
       </categories>
       
@@ -566,16 +564,18 @@
     
     
     <entry>
-      <title>二叉树Z顺序遍历</title>
-      <link href="/2019/07/15/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/"/>
-      <url>/2019/07/15/Binary%20Tree%20Zigzag%20Level%20Order%20Traversal/</url>
+      <title>深复制节点 Copy List with Random Pointer.</title>
+      <link href="/2019/07/15/Copy%20List%20with%20Random%20Pointer/"/>
+      <url>/2019/07/15/Copy%20List%20with%20Random%20Pointer/</url>
       
-        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/zigzagLevelOrderResult.JPG" alt>  </p><a id="more"></a>  <pre><code>  public List&lt;List&lt;Integer&gt;&gt; zigzagLevelOrder(TreeNode root){    List&lt;List&lt;Integer&gt;&gt; res=new ArrayList&lt;&gt;();    travel(root,res,0);    return res;}private void travel(TreeNode node,List&lt;List&lt;Integer&gt;&gt;list,int level){    if(node==null)return ;    if(list.size()&lt;=level){        List&lt;Integer&gt; newLevel= new ArrayList&lt;&gt;();        list.add(newLevel);    }    List&lt;Integer&gt; tmplist=list.get(level);    if(level%2==0) tmplist.add(node.val);    else tmplist.add(0,node.val);    travel(node.left,list,level+1);    travel(node.right,list,level+1);}</code></pre><p>maybe a queue ?</p>]]></content>
+        <content type="html"><![CDATA[<p> <img src="/gallery/leetcode-1/copyRandomListResult.JPG" alt>  </p><a id="more"></a>  <pre><code>public Node copyRandomList(Node head) {      //copy all the node    Node node=head;    Map&lt;Node,Node&gt; map=new HashMap&lt;Node,Node&gt;(){};    while(node!= null){        map.put(node,new Node(node.val));        node=node.next;    }    node=head;    while(node!= null){        map.get(node).next=map.get(node.next);        map.get(node).random=map.get(node.random);        node=node.next;    }    return map.get(head);}</code></pre><p>问题:<br>给定了一个链表，这个链表上的节点还会连向一个随机的节点。 然后让你快速的深拷贝一份链表。</p><p>算法：<br>非常简单，而且很快，就设置一个哈希表，遍历那个链表然后把该链表的节点当key,创建新的节点当它的value。 然后再遍历一遍的时候，把获取的节点当key，找到拷贝节点，然后把属性赋值给拷贝节点。</p><p>模板：无</p><p>时间复杂度为O(n）<br>空间复杂度为O(n)<br>可以处理流数据吗？可以如果复制的时候指定复制多少个节点。 是不需要知道数据全貌的。</p>]]></content>
       
       
       <categories>
           
           <category> 算法 </category>
+          
+          <category> 哈希表 </category>
           
       </categories>
       
@@ -939,31 +939,6 @@
     
     
     <entry>
-      <title>如何使用github</title>
-      <link href="/2019/05/12/github/"/>
-      <url>/2019/05/12/github/</url>
-      
-        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用github）：<a href="https://www.jianshu.com/p/7edb6b838a2e" target="_blank" rel="noopener">https://www.jianshu.com/p/7edb6b838a2e</a></p><a id="more"></a>  <p>很简单的用法<br>git add . 添加<br>git commit -m “First” 提交<br>git push 上传    </p>]]></content>
-      
-      
-      <categories>
-          
-          <category> github </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>如何使用hexo搭建博客</title>
       <link href="/2019/05/12/hexo/"/>
       <url>/2019/05/12/hexo/</url>
@@ -981,6 +956,31 @@
         <tags>
             
             <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何使用github</title>
+      <link href="/2019/05/12/github/"/>
+      <url>/2019/05/12/github/</url>
+      
+        <content type="html"><![CDATA[<p>先贴一个地址（详细讲解如何使用github）：<a href="https://www.jianshu.com/p/7edb6b838a2e" target="_blank" rel="noopener">https://www.jianshu.com/p/7edb6b838a2e</a></p><a id="more"></a>  <p>很简单的用法<br>git add . 添加<br>git commit -m “First” 提交<br>git push 上传    </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> github </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> github </tag>
             
         </tags>
       
