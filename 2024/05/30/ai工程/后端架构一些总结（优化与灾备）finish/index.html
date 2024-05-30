@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>优化与灾备-后段架构一些总结 - zeon&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="什么是CDN静态数据优化本质上就是减少流量直接流向后端，且CDN提供多种防护机制，ddos攻击之类的。"><meta property="og:type" content="blog"><meta property="og:title" content="优化与灾备-后段架构一些总结"><meta property="og:url" content="http://example.com/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/"><meta property="og:site_name" content="zeon&#039;s blog"><meta property="og:description" content="什么是CDN静态数据优化本质上就是减少流量直接流向后端，且CDN提供多种防护机制，ddos攻击之类的。"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-05-30T14:35:10.569Z"><meta property="article:modified_time" content="2024-05-18T16:00:00.000Z"><meta property="article:author" content="Sam"><meta property="article:tag" content="后段架构"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/"},"headline":"优化与灾备-后段架构一些总结","image":["http://example.com/img/og_image.png"],"datePublished":"2024-05-30T14:35:10.569Z","dateModified":"2024-05-18T16:00:00.000Z","author":{"@type":"Person","name":"Sam"},"publisher":{"@type":"Organization","name":"zeon's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"什么是CDN静态数据优化本质上就是减少流量直接流向后端，且CDN提供多种防护机制，ddos攻击之类的。"}</script><link rel="canonical" href="http://example.com/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&amp;family=Roboto+Mono"><link rel="stylesheet" href="/css/cyberpunk.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="zeon&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-05-30T14:35:10.569Z" title="5/30/2024, 10:35:10 PM">2024-05-30</time></span><span class="level-item">24 minutes read (About 3531 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">优化与灾备-后段架构一些总结</h1><div class="content"><h2 id="什么是CDN静态数据优化"><a href="#什么是CDN静态数据优化" class="headerlink" title="什么是CDN静态数据优化"></a>什么是CDN静态数据优化</h2><p>本质上就是减少流量直接流向后端，且CDN提供多种防护机制，ddos攻击之类的。</p>
+<span id="more"></span>
+
+<p>将内容分发到CDN服务器上，进行缓存（网页，视频，图片，文件之类的），当用户请求则DNS重定向到引导到物理距离较近的边缘节点上。</p>
+<p>如果缓存有则直接返回，没有则再向源服务器请求并缓存内容。</p>
+<h2 id="前端频率拦截"><a href="#前端频率拦截" class="headerlink" title="前端频率拦截"></a>前端频率拦截</h2><p>设置请求频率，比如5秒才能发送一次请求，随后置灰按钮。（客户端侧）</p>
+<p>但是有人直接访问接口，调用api，染过频率检查，则只有在进行频率检查才会产生一个参数，访问服务器带上该参数。否则视作非法请求（服务端）</p>
+<h2 id="缓存层-预热数据"><a href="#缓存层-预热数据" class="headerlink" title="缓存层+预热数据"></a>缓存层+预热数据</h2><p>如果直接读取数据库，则数据库承载巨大流量不可取。查看数据库前，先查找缓存实例，如果缓存找不到了，才去数据库进行查找。</p>
+<p>但是引入缓存层，通常会有几个问题。</p>
+<h3 id="1-缓存击穿："><a href="#1-缓存击穿：" class="headerlink" title="1 缓存击穿："></a>1 缓存击穿：</h3><p>说的是某个热门数据失效过期后，突然大量的请求穿过缓存层直接到数据库，压力剧增。</p>
+<p><strong>解决方式</strong>：</p>
+<p>设置互斥锁，缓存失效后，只能一个线程访问数据库，</p>
+<p>不然则是延长热点数据的过期时间，</p>
+<p>不然进行双重检查锁，缓存失效前，提前异步更新缓存。</p>
+<h3 id="2-缓存穿透："><a href="#2-缓存穿透：" class="headerlink" title="2 缓存穿透："></a>2 缓存穿透：</h3><p>查询本就不存在缓存和数据库的值，造成每次访问都穿透到数据库层。</p>
+<p><strong>解决方式：</strong></p>
+<p>缓存空指，对于本来就不存在的数据，缓存一个空结果。</p>
+<p>使用布隆过滤器，查询缓存前，先检查数据存在与否？</p>
+<h3 id="3-缓存雪崩："><a href="#3-缓存雪崩：" class="headerlink" title="3 缓存雪崩："></a>3 缓存雪崩：</h3><p>同一时间大量的缓存失效，导致请求直接打到数据库上。</p>
+<p><strong>解决方式：</strong></p>
+<p>为过期时间随机增加偏移量，保证不是大量缓存同时过期。</p>
+<p>提前更新缓存。</p>
+<h3 id="4-缓存预热："><a href="#4-缓存预热：" class="headerlink" title="4 缓存预热："></a>4 缓存预热：</h3><p>系统运行前，提前将一些热点数据加载到缓存里面。避免冷启动带来的高延迟。</p>
+<p><strong>解决方式：</strong></p>
+<p>手动脚本加载已知的热点数据</p>
+<p>根据历史访问记录，自动加载热点数据</p>
+<h2 id="MQ异步处理"><a href="#MQ异步处理" class="headerlink" title="MQ异步处理"></a>MQ异步处理</h2><p>一般业务流程，都是有不同阶段的，不同阶段通过异步消息队列进行解耦。</p>
+<p>比如下单后，即可往消息队列里投放一个消息，在由订单系统消费该消息。</p>
+<h2 id="限流＆熔断＆降级"><a href="#限流＆熔断＆降级" class="headerlink" title="限流＆熔断＆降级"></a>限流＆熔断＆降级</h2><p>限流就是设置流量阈值，超过的直接拒绝请求</p>
+<p>熔断则是，请求错误的次数超过阈值，则不再用到后端服务，直接返回失败，但是隔一段时间放请求去重试后端。</p>
+<p>降级则是服务失败后，直接返回默认指定的信息。</p>
+<h2 id="业务侧优化"><a href="#业务侧优化" class="headerlink" title="业务侧优化"></a>业务侧优化</h2><p>12306一开始只有很短的时间前才能进行抢购，每次都卡死。</p>
+<p>后面业务侧，直接放长购票周期为20天，压力下降n倍 </p>
+<h2 id="风控管理"><a href="#风控管理" class="headerlink" title="风控管理"></a>风控管理</h2><p>验证码，app指纹，之类的，谷歌识图</p>
+<h2 id="系统的可用性"><a href="#系统的可用性" class="headerlink" title="系统的可用性"></a>系统的可用性</h2><p>三大原则，高性能，高可用，易拓展。高性能意味着，1秒处理百万请求，respone时间3ms内。</p>
+<p>易拓展意味着在迭代新功能的时候，还是扩容系统的时候，改动的代价非常小。</p>
+<p>高可用，则需要一些计算指标去衡量：</p>
+<p>1 平均故障间隔时间MTBF，即两次故障的间隔时间，也就是系统运行正常的时间，越长越好。</p>
+<p>2 故障恢复时间MTTR，系统故障后发生回复的时间，越小则使用者越不感知。</p>
+<p>可用性&#x3D;MTBF&#x2F;(MTBF+MTTR)*100%</p>
+<p>故障的原因很多： 硬件层面（CPU，内存，磁盘，网卡等等）。软件层面（代码bug）。还有不可抗力（地震，水灾，火宅）</p>
+<h2 id="单机架构"><a href="#单机架构" class="headerlink" title="单机架构"></a>单机架构</h2><p>服务，数据库，缓存等等都是单机部署的，有一个致命的缺点，在于一旦遭受意外，磁盘损坏，误删数据，等等，意味着Game Over。很容易想到：使用备份。</p>
+<p>定期的吧数据cp到另一台服务器上，即使源服务器丢失数据，也可以备份回来原来的数据。但是存在一些问题。</p>
+<p>问题1：恢复数据要时间，业务不可能中断等恢复数据。</p>
+<p>问题2：定期备份的，数据不是最新的，可能是一两天前的数据。</p>
+<h2 id="主从架构-master-slave"><a href="#主从架构-master-slave" class="headerlink" title="主从架构(master-slave)"></a>主从架构(master-slave)</h2><p>在另一台及其上，部署多一个数据库示例，让该示例成为源示例的副本，两者实时保持同步。</p>
+<ul>
+<li>1 数据由于是实时同步的，所以slave实例的数据是新的。</li>
+<li>2 抗故障能力具备了，主库有问题，随时切换到从库，继续服务。</li>
+<li>3 读性能提升，流量多的时刻，业务可以被分流到从库去读取数据，分担主库的读压力。<br>同时当发展下去，会发现，业务层也可以部署多个服务器上，当这样的业务应用多了之后。</li>
+</ul>
+<p>那为什么不做一个接入层，专门拿台机器使用nginx，做反向代理，负载均衡的工作呢？</p>
+<p>当台业务机器死了后，接入层会让其他机器接管所有流量，持续服务。</p>
+<p>PS：（多个机器的冗余提高了容错性）</p>
+<p>但是即使这样，依旧不够，因为灾难可能是机柜级别，或者机房级别的，这类新闻非常多。</p>
+<p>有可能整个机房都断电了，那还是死。</p>
+<h2 id="同城灾备"><a href="#同城灾备" class="headerlink" title="同城灾备"></a>同城灾备</h2><p>冷备，就是同一个城市但是不同机房，机房A的数据会定期备份到机房B，只有机房A断电了才启用机房B，但是依旧是数据不是新的。依旧依赖主从架构，机房A成为master，机房B成为slave，实时同步数据。</p>
+<p>但是依旧不够，如果机房A不行了，还得做如下操作：</p>
+<ul>
+<li>1 B机房的从库升级主库</li>
+<li>2 B机房部署应用，启动服务</li>
+<li>3 部署接入层，配置转发规则</li>
+<li>4 DNS指向B机房，接入流量，业务恢复<br>所以还是得提前吧应用，接入层全部部署好在B机房，一旦变故，则只需要升级从库，DNS指向B机房即可，这种方式下来B机房已经完全随时可以上场的状态了，叫热备。</li>
+</ul>
+<h2 id="同城双活"><a href="#同城双活" class="headerlink" title="同城双活"></a>同城双活</h2><p>但是构建了一个随时可以上场的机房，但是没有经过实践，难以确认它能够正常地帮忙抵御流量之洪，因为部署服务存在各种细节问题，版本管理，系统资源不足，参数不一，部署两个机房问题只会增加，不会减少。而且从成本的角度看，部署的机房开销巨大却不使用，很浪费。</p>
+<p>所以idea变成 </p>
+<ul>
+<li>1 构建一个达到源机房水平的机房B</li>
+<li>2 让B也接入流量分担压力<br>所以把B机房接入DNS层，让流量也进来B机房，但是B机房是A的从库，从库是不可写，B机房的写请求不可以写到本机房的存储上。B机房只能分担的是读操作(读操作比写操作的流量高）</li>
+</ul>
+<p>所以由此衍生出了中间件，在应用层操作数据库时候，这一层中间件用来区分读写分离。</p>
+<p>机房A允许读操作也允许写操作，机房B只允许读操作，不允许写操作，需要经有中间件去A机房执行写操作。</p>
+<p>慢慢的，B机房承担一定比例的流量。而且一旦A机房挂了，可以马上切换到B机房。</p>
+<p>这种方案称作，同城双活。</p>
+<h2 id="两地三中心"><a href="#两地三中心" class="headerlink" title="两地三中心"></a>两地三中心</h2><p>如果万一发生了严重自然灾害，某个城市的机房全军覆没，这也是经常有的事情。</p>
+<p>所以两个机房的距离1000公里以上，称作异地。</p>
+<p>比如说有城市A，和1000公里外的城市B，城市A弄了个同城双活，城市B则做了数据备灾。</p>
+<h2 id="伪异地双活"><a href="#伪异地双活" class="headerlink" title="伪异地双活"></a>伪异地双活</h2><p>按照同城双活的方式，把主机房A部署A城市，从机房B部署B城市。虽然这样容错性比同城双活高了。但是带来一个棘手的问题，网络延迟。</p>
+<p>试想一下，一个客户端请求到了B城市机房，B城市机房要去写A城市的机房存储，一次跨城市访问就达到了30ms, 是机房内部延迟(0.5ms)的60倍，如果请求的跳转次数，而且还来回跨城市访问，整体延迟可能到底秒的级别，惨不忍睹。</p>
+<h2 id="真异地双活"><a href="#真异地双活" class="headerlink" title="真异地双活"></a>真异地双活</h2><p>如果说不允许B机房去读写A机房的存储，就近读写的话，又违反了主从机房的约定。</p>
+<p>所以到了需要在存储层改造的时刻了，这个时候应该些数据双向同步中间件。</p>
+<p>让A,B机房都是主库本身，都拥有全量数据。除了数据双向同步之前，消息队列需要双向同步。</p>
+<p>类似RabbitMQ, kafka的。</p>
+<p>其实案例的Canal,RedisShake,MongoShake,很多公司也有自研的同步中间件。</p>
+<p>于是在中间件的加持下，两地机房都是主库。</p>
+<p>达到了以下的效果：</p>
+<ul>
+<li>A城机房写入X&#x3D;1</li>
+<li>B城机房写入Y&#x3D;2<br>数据中间件双向同步</li>
+</ul>
+<p>A城如今有数据（X&#x3D;1,Y&#x3D;2），B城有了（X&#x3D;1,Y&#x3D;2）</p>
+<p>但是迎来一些问题，如果</p>
+<ul>
+<li>A城写入X&#x3D;1</li>
+<li>B城写入X&#x3D;2<br>在近乎同时的情况下，中间件除了要合并数据，更要会解决冲突数据。</li>
+</ul>
+<p>一种想法是，以实践戳为标准，比如：</p>
+<p>A城迎来写操作（X&#x3D;1，时间上午10:01:59秒）</p>
+<p>B城迎来写操作（X&#x3D;2，时间上午10:01:58秒）</p>
+<p>虽然这里可以严格按照时间排序，59秒那个操作生效，所以最终X&#x3D;1</p>
+<p>但是还有一种更好的方式</p>
+<h2 id="异地双活next-level"><a href="#异地双活next-level" class="headerlink" title="异地双活next-level"></a>异地双活next-level</h2><p>直接区分上层用户，把部分用户固定引导到A城，部分用户固定引导到B城，从根源避免跨机房。在接入层上引入一个路由层解决该问题。</p>
+<p>那么到底要根据什么原则来分割用户呢？</p>
+<ul>
+<li>1 业务类型分割</li>
+<li>2 直接哈希分割</li>
+<li>3 地理位置分割（游戏里的华北一区，华南二区）</li>
+</ul>
+<h3 id="1-业务类型："><a href="#1-业务类型：" class="headerlink" title="1 业务类型："></a>1 业务类型：</h3><p>比如说说第一种按业务分割，比如应用1，应用2都是和订单支付有关的，那么部署都在A机房。</p>
+<p>应用2，应用3都是和发帖和社交功能有关的，则部署在B机房。尽可能让互相依赖的应用部署一个地方。</p>
+<h3 id="2-直接哈希分割："><a href="#2-直接哈希分割：" class="headerlink" title="2 直接哈希分割："></a>2 直接哈希分割：</h3><p>比如0-1000的用户id会到A城市机房，10001-2000的会到B城市的机房0。</p>
+<h3 id="3-按地理分割："><a href="#3-按地理分割：" class="headerlink" title="3 按地理分割："></a>3 按地理分割：</h3><p>这种方案特别适合于地理位置密切关系的业务，比如说uber，深圳人肯定不会打到上海的车。</p>
+<p>直接在上层把B城市及其周边的用户导流导B机房，A也如是。</p>
+<p>这些分割都是为了让用户一个请求尽可能在一个机房内闭环，不需要出现跨机房访问。</p>
+<p>这种方式叫“单元化”</p>
+<p>不仅如此，这种按地理的方式，还能优化系统性能。</p>
+<p>（PS 如果有些数据比如全局数据，依旧得再主机房A做主从，不做双活，保证核心业务双活，而非所有业务）</p>
+<p>这样就有了两个相距1000公里，都有全量数据，一个挂了另一个马上接管的，双活局面。</p>
+<h2 id="中心机房"><a href="#中心机房" class="headerlink" title="中心机房"></a>中心机房</h2><p>当部署的地点越来越多后，双明显不够，需要多活。</p>
+<p>不再是A B同步数据，此时已经出现了A,B,C,D,E,F,G。 那么难道任意两点之间都要同步数据么？不需要，这个时候需要设定一个主心骨，中心机房，比如A。</p>
+<p>任意的机房写入数据后，都会与中心机房保持同步，而中心机房又会同步到其他机房。</p>
+<p>即使运气不好，中心机房A挂了，这个时候迅速的升级另一个B机房作为中心机房，这样的星状架构，可以实现异地多活。</p>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/">后段架构</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/"><span class="level-item">微服务-后段架构一些总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/../img/avatar.png" alt="Sam"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Sam</p><p class="is-size-6 is-block">极客，星际流浪者</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>现居深圳，2年达拉斯</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">36</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">15</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://google.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google</span></span><span class="level-right"><span class="level-item tag">google.com</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:35:10.569Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/">优化与灾备-后段架构一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:34:54.020Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/">微服务-后段架构一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:33:44.335Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88feed%E6%B5%81%EF%BC%89finish/">feed流-后段架构一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-29T14:51:36.423Z">2024-05-29</time></p><p class="title"><a href="/2024/05/29/c++/%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/">一些设计模式的总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-29T14:51:22.170Z">2024-05-29</time></p><p class="title"><a href="/2024/05/29/c++/C++%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5/">C++线程同步和异步</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/"><span class="level-start"><span class="level-item">2024</span></span><span class="level-end"><span class="level-item tag">36</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">AI(人工智能)</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Agent/"><span class="tag">Agent</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Docker/"><span class="tag">Docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-c/"><span class="tag">Language(c++)</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"><span class="tag">llm(语言模型)</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/unfinish/"><span class="tag">unfinish</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/"><span class="tag">后段架构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">向量数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE/"><span class="tag">数据</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="zeon&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Sam</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
