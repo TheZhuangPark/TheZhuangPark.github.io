@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>TypeScript基本语法 - zeon&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="TypeScript的类型声明typeScript这个是强类型的js。类型检查，静态分析是它的强项。"><meta property="og:type" content="blog"><meta property="og:title" content="TypeScript基本语法"><meta property="og:url" content="http://example.com/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/"><meta property="og:site_name" content="zeon&#039;s blog"><meta property="og:description" content="TypeScript的类型声明typeScript这个是强类型的js。类型检查，静态分析是它的强项。"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-06-03T14:59:19.717Z"><meta property="article:modified_time" content="2024-06-02T16:00:00.000Z"><meta property="article:author" content="Sam"><meta property="article:tag" content="前端"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/"},"headline":"TypeScript基本语法","image":["http://example.com/img/og_image.png"],"datePublished":"2024-06-03T14:59:19.717Z","dateModified":"2024-06-02T16:00:00.000Z","author":{"@type":"Person","name":"Sam"},"publisher":{"@type":"Organization","name":"zeon's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/mylogo.png"}},"description":"TypeScript的类型声明typeScript这个是强类型的js。类型检查，静态分析是它的强项。"}</script><link rel="canonical" href="http://example.com/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&amp;family=Roboto+Mono"><link rel="stylesheet" href="/css/cyberpunk.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-06-03T14:59:19.717Z" title="6/3/2024, 10:59:19 PM">2024-06-03</time></span><span class="level-item">10 minutes read (About 1462 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">TypeScript基本语法</h1><div class="content"><h2 id="TypeScript的类型声明"><a href="#TypeScript的类型声明" class="headerlink" title="TypeScript的类型声明"></a>TypeScript的类型声明</h2><p>typeScript这个是强类型的js。类型检查，静态分析是它的强项。</p>
+<span id="more"></span>
+<p>function greeter(person: string) {</p>
+<p>  return “Hello, “ + person;</p>
+<p>}</p>
+<p>let user &#x3D; “Jane User”;</p>
+<p>document.body.textContent &#x3D; greeter(user);</p>
+<p>let user &#x3D; 123; &#x2F;&#x2F;这样会报错！</p>
+<p>document.body.textContent &#x3D; greeter(user);</p>
+<p>这是最普通的类型声明</p>
+<p>还有类似C++的struct一样的</p>
+<p>interface Person {</p>
+<p>  firstName: string;</p>
+<p>  lastName: string;</p>
+<p>}</p>
+<p>let user &#x3D; { firstName: “Jane”, lastName: “User” };</p>
+<p>还有类的声明</p>
+<p>class Student {</p>
+<p>  fullName: string;</p>
+<p>  constructor(</p>
+<p>    public firstName: string,</p>
+<p>    public middleInitial: string,</p>
+<p>    public lastName: string</p>
+<p>  ) {</p>
+<p>    this.fullName &#x3D; firstName + “ “ + middleInitial + “ “ + lastName;</p>
+<p>  }</p>
+<p>}</p>
+<p>let user &#x3D; new Student(“Jane”, “M.”, “User”);</p>
+<p>为什么类型系统那么重要，因为js是运行时检查类型，这样写完错误实际很多，编译时能够过滤掉很多的错误，不需要到运行时来解决。</p>
+<p>类型检查，静态检查，帮助TypeScript解决了很多编译时就应该过滤掉的很多小问题如：</p>
+<p>1 书写错误</p>
+<p>2 不可调函数</p>
+<p>3 基础的逻辑错误</p>
+<h2 id="TypeScript简单语法"><a href="#TypeScript简单语法" class="headerlink" title="TypeScript简单语法"></a>TypeScript简单语法</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/typescript/ts-basic-syntax.html">https://www.runoob.com/typescript/ts-basic-syntax.html</a></p>
+<p>TypeScript的语法基本和许多语言都保持了一致性。</p>
+<p>主要讲述一些问题：</p>
+<h3 id="1-比如在ts里面声明了一个类，然后使用-var-obj-new-className-是怎么分配内存的？"><a href="#1-比如在ts里面声明了一个类，然后使用-var-obj-new-className-是怎么分配内存的？" class="headerlink" title="1 比如在ts里面声明了一个类，然后使用 var obj &#x3D; new className(); 是怎么分配内存的？"></a>1 比如在ts里面声明了一个类，然后使用 var obj &#x3D; new className(); 是怎么分配内存的？</h3><p>原因是TS里面有垃圾回收机制，会把该对象分配到堆上。</p>
+<h3 id="2-ts的number的双精度-64-位浮点值存有多少字节？"><a href="#2-ts的number的双精度-64-位浮点值存有多少字节？" class="headerlink" title="2 ts的number的双精度 64 位浮点值存有多少字节？"></a>2 ts的number的双精度 64 位浮点值存有多少字节？</h3><p>8 字节</p>
+<h3 id="3-TypeScript-的-any-类型是不是运行时的？"><a href="#3-TypeScript-的-any-类型是不是运行时的？" class="headerlink" title="3 TypeScript 的 any 类型是不是运行时的？"></a>3 TypeScript 的 any 类型是不是运行时的？</h3><p>any 类型会使 TypeScript 放弃类型检查。因此，any 类型本质上是编译时的概念，而不是运行时的。然而，any 类型允许在运行时赋予变量任何类型的值。</p>
+<h3 id="4-TypeScript-的-string-类型存多少位？"><a href="#4-TypeScript-的-string-类型存多少位？" class="headerlink" title="4 TypeScript 的 string 类型存多少位？"></a>4 TypeScript 的 string 类型存多少位？</h3><p>TypeScript 的 string 类型表示 UTF-16 编码的字符串，每个字符占用 2 字节（16 位）。具体存储多少位取决于字符串的长度。</p>
+<h3 id="5-TypeScript-的-let、var-和-const-区别在哪？"><a href="#5-TypeScript-的-let、var-和-const-区别在哪？" class="headerlink" title="5 TypeScript 的 let、var 和 const 区别在哪？"></a>5 TypeScript 的 let、var 和 const 区别在哪？</h3><p>var 函数作用域或全局作用域（没有块级作用域），可以不初始化</p>
+<p>let 作用域是块级作用域，可以不初始化</p>
+<p>const 作用域是块级作用域，必须初始化</p>
+<h3 id="6-TypeScript-的-boolean-类型是几位？"><a href="#6-TypeScript-的-boolean-类型是几位？" class="headerlink" title="6 TypeScript 的 boolean 类型是几位？"></a>6 TypeScript 的 boolean 类型是几位？</h3><p>它取决于 JavaScript 引擎的实现。在底层，布尔值通常被优化存储，可以只占用 1 位，但在实际内存分配中，可能占用 1 个字节或更多。</p>
+<h3 id="7-TypeScript-有指针这个概念么？"><a href="#7-TypeScript-有指针这个概念么？" class="headerlink" title="7 TypeScript 有指针这个概念么？"></a>7 TypeScript 有指针这个概念么？</h3><p>TypeScript 没有指针的概念，所以默认传入引用，非值传递。</p>
+<h3 id="8-TypeScript-在声明的时候不写类型和写好类型是不是速度不一样？"><a href="#8-TypeScript-在声明的时候不写类型和写好类型是不是速度不一样？" class="headerlink" title="8 TypeScript 在声明的时候不写类型和写好类型是不是速度不一样？"></a>8 TypeScript 在声明的时候不写类型和写好类型是不是速度不一样？</h3><p>类型声明主要在编译时起作用，而不是在运行时。因此，声明时写类型和不写类型对运行时速度没有影响。但是，显式类型可以帮助编译器更快地进行类型检查和推断，从而可能在编译速度上有差异。</p>
+<h3 id="9-TypeScript-声明了一个值没有初始化所以是-undefined？"><a href="#9-TypeScript-声明了一个值没有初始化所以是-undefined？" class="headerlink" title="9 TypeScript 声明了一个值没有初始化所以是 undefined？"></a>9 TypeScript 声明了一个值没有初始化所以是 undefined？</h3><p>如果声明了一个变量但没有对其进行初始化，该变量的值默认为 undefined。</p>
+<h3 id="10-TypeScript-抛异常是不是在函数返回一个-never？"><a href="#10-TypeScript-抛异常是不是在函数返回一个-never？" class="headerlink" title="10 TypeScript 抛异常是不是在函数返回一个 never？"></a>10 TypeScript 抛异常是不是在函数返回一个 never？</h3><p>是的，在 TypeScript 中，抛出异常的函数被认为是返回类型 never。never 类型表示函数永远不会成功地返回（因为它会抛出异常或进入无限循环）。</p>
+<h3 id="11-TypeScript-有哈希表之类的数据结构么？"><a href="#11-TypeScript-有哈希表之类的数据结构么？" class="headerlink" title="11 TypeScript 有哈希表之类的数据结构么？"></a>11 TypeScript 有哈希表之类的数据结构么？</h3><p>TypeScript 作为一种类型系统，在其标准库中没有提供专门的哈希表数据结构。但是，JavaScript 的 Object 和 Map 可以用来实现哈希表的功能。</p>
+<p>Object: 使用键值对存储数据，但键必须是字符串或符号。</p>
+<p>Map: 允许使用任意值作为键，并保持插入顺序。</p>
+<p>let obj: { [key: string]: number } &#x3D; {};</p>
+<p>obj[“key1”] &#x3D; 1;</p>
+<p>let map &#x3D; new Map&lt;string, number&gt;();</p>
+<p>map.set(“key1”, 1);</p>
+<h3 id="12-TypeScript-有多少种循环方式，一般循环数组和集合要用哪种？"><a href="#12-TypeScript-有多少种循环方式，一般循环数组和集合要用哪种？" class="headerlink" title="12 TypeScript 有多少种循环方式，一般循环数组和集合要用哪种？"></a>12 TypeScript 有多少种循环方式，一般循环数组和集合要用哪种？</h3><p>有五种循环：</p>
+<p>for 循环</p>
+<p>for…of 循环</p>
+<p>for…in 循环</p>
+<p>while 循环</p>
+<p>do…while 循环</p>
+<p>ForEach的循环</p>
+<p>numbers.forEach(num &#x3D;&gt; {</p>
+<p>    console.log(num);</p>
+<p>});</p>
+<p>for … in 的循环</p>
+<p>let obj &#x3D; {a: 1, b: 2, c: 3};</p>
+<p>for (let key in obj) {</p>
+<p>    console.log(key, obj[key]);</p>
+<p>}</p>
+<h3 id="13-Lambda-函数如何声明？"><a href="#13-Lambda-函数如何声明？" class="headerlink" title="13 Lambda 函数如何声明？"></a>13 Lambda 函数如何声明？</h3><p>&#x2F;&#x2F;简洁的形式</p>
+<p>let add &#x3D; (a: number, b: number): number &#x3D;&gt; a + b;</p>
+<h3 id="14-TypeScript-支持函数重载么？"><a href="#14-TypeScript-支持函数重载么？" class="headerlink" title="14 TypeScript 支持函数重载么？"></a>14 TypeScript 支持函数重载么？</h3><p>支持</p>
+<h3 id="15-有哪些-TypeScript-对象允许添加-prototype？"><a href="#15-有哪些-TypeScript-对象允许添加-prototype？" class="headerlink" title="15 有哪些 TypeScript 对象允许添加 prototype？"></a>15 有哪些 TypeScript 对象允许添加 prototype？</h3><p>允许所有的类都添加 prototype 属性</p>
+<p>class Person {</p>
+<p>    name: string;</p>
+<p>    constructor(name: string) {</p>
+<p>        this.name &#x3D; name;</p>
+<p>    }</p>
+<p>}</p>
+<p>Person.prototype.greet &#x3D; function() {</p>
+<p>    console.log(<code>Hello, my name is $&#123;this.name&#125;</code>);</p>
+<p>};</p>
+<p>let person &#x3D; new Person(“Alice”);</p>
+<p>(person as any).greet(); &#x2F;&#x2F; 输出: Hello, my name is Alice</p>
+<h3 id="16-TypeScript-的-Array-可以是动态数组么，可以添加元素么？"><a href="#16-TypeScript-的-Array-可以是动态数组么，可以添加元素么？" class="headerlink" title="16  TypeScript 的 Array 可以是动态数组么，可以添加元素么？"></a>16  TypeScript 的 Array 可以是动态数组么，可以添加元素么？</h3><p>是的，TypeScript 的 Array 是动态数组，可以添加元素：</p>
+<p>let numbers: number[] &#x3D; [1, 2, 3];</p>
+<p>numbers.push(4);</p>
+<p>console.log(numbers); &#x2F;&#x2F; 输出: [1, 2, 3, 4]</p>
+<h3 id="17-如何判断类型？"><a href="#17-如何判断类型？" class="headerlink" title="17 如何判断类型？"></a>17 如何判断类型？</h3><p>使用 typeof 操作符判断基本类型：</p>
+<p>let x: any &#x3D; “hello”;</p>
+<p>if (typeof x &#x3D;&#x3D;&#x3D; “string”) {</p>
+<p>    console.log(“x 是一个字符串”);</p>
+<p>}</p>
+<p>使用 instanceof 操作符判断对象类型</p>
+<p>class Person {</p>
+<p>    name: string;</p>
+<p>    constructor(name: string) {</p>
+<p>        this.name &#x3D; name;</p>
+<p>    }</p>
+<p>}</p>
+<p>let person &#x3D; new Person(“Alice”);</p>
+<p>if (person instanceof Person) {</p>
+<p>    console.log(“person 是 Person 类的实例”);</p>
+<p>}</p>
+<h3 id="18-TypeScript-的-interface-声明了函数哪里去实现函数？"><a href="#18-TypeScript-的-interface-声明了函数哪里去实现函数？" class="headerlink" title="18 TypeScript 的 interface 声明了函数哪里去实现函数？"></a>18 TypeScript 的 interface 声明了函数哪里去实现函数？</h3><p>在 TypeScript 中，interface 只定义函数的签名，不包含具体实现。函数的实现是在实现该接口的类或对象中：</p>
+<p>interface Greetable {</p>
+<p>    greet(message: string): void;</p>
+<p>}</p>
+<p>class Person implements Greetable {</p>
+<p>    name: string;</p>
+<p>    constructor(name: string) {</p>
+<p>        this.name &#x3D; name;</p>
+<p>    }</p>
+<p>    greet(message: string): void {</p>
+<p>        console.log(<code>$&#123;this.name&#125; says: $&#123;message&#125;</code>);</p>
+<p>    }</p>
+<p>}</p>
+<p>let person &#x3D; new Person(“Alice”);</p>
+<p>person.greet(“Hello!”); &#x2F;&#x2F; 输出: Alice says: Hello!</p>
+<h3 id="19-TypeScript-的类构造函数是怎么样的？"><a href="#19-TypeScript-的类构造函数是怎么样的？" class="headerlink" title="19 TypeScript 的类构造函数是怎么样的？"></a>19 TypeScript 的类构造函数是怎么样的？</h3><p>TypeScript 的类构造函数使用 constructor 关键字定义：</p>
+<p>class Person {</p>
+<p>    name: string;</p>
+<pre><code>constructor(name: string) &#123;
+</code></pre>
+<p>        this.name &#x3D; name;</p>
+<pre><code>&#125;
+
+greet(): void &#123;
+</code></pre>
+<p>        console.log(<code>Hello, my name is $&#123;this.name&#125;</code>);</p>
+<pre><code>&#125;
+</code></pre>
+<p>}</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/06/03/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/"><span class="level-item">关系型数据库的基础总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/./img/myavatar.png" alt="Sam"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Sam</p><p class="is-size-6 is-block">极客，星际流浪者</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>现居深圳，2年达拉斯</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">38</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">17</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://google.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google</span></span><span class="level-right"><span class="level-item tag">google.com</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:59:19.717Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/">TypeScript基本语法</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:40:24.890Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/">关系型数据库的基础总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:35:10.569Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/">优化与灾备-后段架构一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:34:54.020Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/">微服务-后段架构一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-05-30T14:33:44.335Z">2024-05-30</time></p><p class="title"><a href="/2024/05/30/ai%E5%B7%A5%E7%A8%8B/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88feed%E6%B5%81%EF%BC%89finish/">feed流-后段架构一些总结</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/"><span class="level-start"><span class="level-item">2024</span></span><span class="level-end"><span class="level-item tag">38</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">AI(人工智能)</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Agent/"><span class="tag">Agent</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Docker/"><span class="tag">Docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-c/"><span class="tag">Language(c++)</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"><span class="tag">llm(语言模型)</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/unfinish/"><span class="tag">unfinish</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/"><span class="tag">后段架构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">向量数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE/"><span class="tag">数据</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Sam</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
