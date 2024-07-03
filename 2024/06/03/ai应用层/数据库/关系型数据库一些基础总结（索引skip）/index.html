@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>关系型数据库的基础总结 - zeon&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="一个好的数据库设计1 没有数据冗余： 即一个字段在多个库里的表出现，那就是冗余，不仅浪费空间，且容易造成数据不一致。"><meta property="og:type" content="blog"><meta property="og:title" content="关系型数据库的基础总结"><meta property="og:url" content="http://example.com/2024/06/03/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/"><meta property="og:site_name" content="zeon&#039;s blog"><meta property="og:description" content="一个好的数据库设计1 没有数据冗余： 即一个字段在多个库里的表出现，那就是冗余，不仅浪费空间，且容易造成数据不一致。"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-06-03T14:40:24.890Z"><meta property="article:modified_time" content="2024-06-02T16:00:00.000Z"><meta property="article:author" content="Sam"><meta property="article:tag" content="unfinish"><meta property="article:tag" content="数据库"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/06/03/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/"},"headline":"关系型数据库的基础总结","image":["http://example.com/img/og_image.png"],"datePublished":"2024-06-03T14:40:24.890Z","dateModified":"2024-06-02T16:00:00.000Z","author":{"@type":"Person","name":"Sam"},"publisher":{"@type":"Organization","name":"zeon's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/mylogo.png"}},"description":"一个好的数据库设计1 没有数据冗余： 即一个字段在多个库里的表出现，那就是冗余，不仅浪费空间，且容易造成数据不一致。"}</script><link rel="canonical" href="http://example.com/2024/06/03/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&amp;family=Roboto+Mono"><link rel="stylesheet" href="/css/cyberpunk.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-06-03T14:40:24.890Z" title="6/3/2024, 10:40:24 PM">2024-06-03</time></span><span class="level-item">18 minutes read (About 2733 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">关系型数据库的基础总结</h1><div class="content"><h2 id="一个好的数据库设计"><a href="#一个好的数据库设计" class="headerlink" title="一个好的数据库设计"></a>一个好的数据库设计</h2><p>1 没有数据冗余：</p>
+<p>即一个字段在多个库里的表出现，那就是冗余，不仅浪费空间，且容易造成数据不一致。</p>
+<span id="more"></span>
+<p>2 数据完整且准确：</p>
+<p>确保一个表没有重复记录，且主键的值是唯一且不为空（表完整）。</p>
+<p>字段的用途清晰有效一致（字段完整）。</p>
+<p>表之间的关系是完整的，在其中的表更新数据，表中的记录是同步的（关系完整）。</p>
+<p>3 数据库易于修改和维护：对字段进行修改不会对其他表造成影响</p>
+<p>4 可以花费更少的时间修复数据库</p>
+<h2 id="一个错误的示范"><a href="#一个错误的示范" class="headerlink" title="一个错误的示范"></a>一个错误的示范</h2><p>大型数据会有数据重复的问题:</p>
+<p>1 使得表关系很多</p>
+<p>2 维护更新不容易，涉及表和记录太多</p>
+<p>3 磁盘和cpu利用低下</p>
+<p>4 错误和不一致增加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">student_id	name	dept	dept_phone	course	grade</span><br><span class="line">       1	张三	   计算机	67123467	  英语	 80</span><br><span class="line">       2	李四 	数学	    67123468	数学分析	 75</span><br><span class="line">       2	李四	    数学	    67123468	英语	     70</span><br><span class="line">       3	王二	    数学	    67123468	数学分析	 80</span><br></pre></td></tr></table></figure>
+<p>对于这样的一个表，可以观察出<br>1 插入异常：当插入一个学生，但如果他还没经过考试，就无法插入</p>
+<p>2 删除异常：当一个学院把英语课程撤销了，不再需要英语课程成绩后，会误删除掉张三学院信息。</p>
+<p>3 修改异常：当李四转院到计算机学院，如果仅仅修改第二条是不够的，第三条信息依旧错误。</p>
+<h2 id="避免错误示范的方式-范式"><a href="#避免错误示范的方式-范式" class="headerlink" title="避免错误示范的方式-范式"></a>避免错误示范的方式-范式</h2><p>1970年埃德加定义了第一范式，第二范式，第三范式的概念，后人完善了很多工作，提出第三范式的改版BC范式，还有第四范式，第五范式，DK范式，和第六范式等等。一般认为满足到第三范式即可，范式过高，虽然对关系型数据有好的约束，但是也导致了表增加，数据库操作多性能下降。</p>
+<h3 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h3><p>第一范式要点，在于列具有原子性，不可再分解，解决列重复问题。</p>
+<h3 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h3><p>在第一范式基础上，表需要有一个主键，非主键列必须完全依赖该主键。不能只依赖主键的一部分。解决对主键的依赖。</p>
+<h3 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h3><p>在满足第一第二范式的情况下，表不能包含已在其他表的非主键字段。</p>
+<h3 id="BC范式"><a href="#BC范式" class="headerlink" title="BC范式"></a>BC范式</h3><p>在第三范式的基础上，防止主键的某一列依赖主键的其他列。</p>
+<h3 id="第四范式"><a href="#第四范式" class="headerlink" title="第四范式"></a>第四范式</h3><p>非主属性不应该存在多值</p>
+<h3 id="反范式"><a href="#反范式" class="headerlink" title="反范式"></a>反范式</h3><p>将一个数据库表故意设计成非范式的形式，从而提高查询效。反范式的目的是避免大量的关联查询，在反范式的数据库里存在大量的冗余数据，虽然提高查询效率，但是却有数据不一致性的问题。</p>
+<h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><ul>
+<li>1 需求分析，一般是业务分析</li>
+<li>2 数据模型分析，实体和其属性的建立</li>
+<li>3 逻辑模型分析，表结构的建立，满足范式，主键不为null，关系是一对多还是多对多，引用的完整性等等</li>
+<li>4 物理设计，确定索引，分区等等，常见的索引方法有B+树，有clustering，还有hash法。</li>
+<li>5 测试优化，demo部署，进行测试，优化性能</li>
+<li>6 部署和维护，上生产的部署，维护和管理</li>
+</ul>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><p>sql分为四部分</p>
+<ul>
+<li><p>1 数据定义语言  (DDL)</p>
+</li>
+<li><p>2 数据操控语言  (DML)</p>
+</li>
+<li><p>3 数据控制语言  (DCL)</p>
+</li>
+<li><p>4 事务控制语言（TCL)<br>能做到的事情是</p>
+</li>
+<li><p>1 执行查询</p>
+</li>
+<li><p>2 检索数据</p>
+</li>
+<li><p>3 插入数据</p>
+</li>
+<li><p>4 更新数据</p>
+</li>
+<li><p>5 删除数据</p>
+</li>
+<li><p>6 创建库 </p>
+</li>
+<li><p>7 创建表</p>
+</li>
+<li><p>8 创建存储过程</p>
+</li>
+<li><p>9 创建视图</p>
+</li>
+<li><p>10 设置对表 视图 过程的权限<br>示例：创建</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE restaurant;</span><br><span class="line">CREATE TABLE menu (id Int, item varchar(10), date DATE);</span><br><span class="line"></span><br><span class="line">INSERT INTO menu</span><br><span class="line">VALUES </span><br><span class="line">(2, &#x27;西红柿鸡蛋&#x27;, &#x27;2023-01-16&#x27; ),</span><br><span class="line">(3, &#x27;清蒸鲈鱼&#x27;, &#x27;2023-01-16&#x27; );</span><br></pre></td></tr></table></figure>
+<p>检索：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM menu;</span><br><span class="line">SELECT id, item, date</span><br><span class="line">    FROM   menu  </span><br><span class="line">    WHERE  id = 3; </span><br></pre></td></tr></table></figure>
+<p>还有其他的子句<br>GROUP BY 通过按列分组来组织检索到的数据。</p>
+<p>HAVING 与 GROUP BY 相关。应用此子句时，它仅选择并返回那些具有指定条件 TRUE 的行。</p>
+<p>ORDER BY 对返回的结果集中的记录进行排序。</p>
+<p>DISTINCT 从结果集中删除重复项。</p>
+<p>LIMIT 控制查询检索的行数。</p>
+<p>ALL 返回所有匹配的行。</p>
+<p>HIGH_PRIORITY 确定 MySQL 必须在所有等待同一资源的 UPDATE 操作符之前执行 SELECT 语句。</p>
+<p>更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE menu</span><br><span class="line">SET item = &#x27;青椒鸡蛋&#x27;, date = ’2023-01-25‘</span><br><span class="line">WHERE id = 2;</span><br></pre></td></tr></table></figure>
+<p>删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM menu WHERE item_name=&#x27;青椒鸡蛋&#x27;;</span><br></pre></td></tr></table></figure>
+<h3 id="查询连续出现n次的数字"><a href="#查询连续出现n次的数字" class="headerlink" title="查询连续出现n次的数字"></a>查询连续出现n次的数字</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT num AS ConsecutiveNums</span><br><span class="line">FROM (</span><br><span class="line">  SELECT *, </span><br><span class="line">         @count := IF(@prev = num, @count + 1, 1) AS count, </span><br><span class="line">         @prev := num</span><br><span class="line">  FROM Logs, (SELECT @count := 0, @prev := NULL) AS vars</span><br><span class="line">  ORDER BY id</span><br><span class="line">) AS tmp</span><br><span class="line">WHERE count &gt;= 3</span><br><span class="line">GROUP BY num</span><br></pre></td></tr></table></figure>
+<h3 id="删除重复的电子邮箱"><a href="#删除重复的电子邮箱" class="headerlink" title="删除重复的电子邮箱"></a>删除重复的电子邮箱</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Delete p1.*</span><br><span class="line">FROM Person p1,</span><br><span class="line">    Person p2</span><br><span class="line">WHERE</span><br><span class="line">    p1.Email = p2.Email AND p1.Id &gt; p2.Id</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>SQL的连接主要是为了多表合并，Join操作允许这一点，多个表通过Join连接起来成为一个更大的表格，进而查找自己想要的数据。连接分四种。</p>
+<h3 id="1-内连接：返回两个表满足连接的条件"><a href="#1-内连接：返回两个表满足连接的条件" class="headerlink" title="1 内连接：返回两个表满足连接的条件"></a>1 内连接：返回两个表满足连接的条件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table1</span><br><span class="line">INNER JOIN table2</span><br><span class="line">ON table1.column_name = table2.column_name;</span><br><span class="line"></span><br><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table1, table2</span><br><span class="line">WHERE table1.column_name = table2.column_name;</span><br></pre></td></tr></table></figure>
+<p>自连接是一种特殊的内连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT e1.name</span><br><span class="line">FROM employee AS e1 INNER JOIN employee AS e2</span><br><span class="line">ON e1.department = e2.department</span><br><span class="line">      AND e2.name = &quot;Jim&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-左外连接：返回左表所有的行，以及右表满足连接的行"><a href="#2-左外连接：返回左表所有的行，以及右表满足连接的行" class="headerlink" title="2 左外连接：返回左表所有的行，以及右表满足连接的行"></a>2 左外连接：返回左表所有的行，以及右表满足连接的行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table1</span><br><span class="line">LEFT JOIN table2</span><br><span class="line">ON table1.column_name = table2.column_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-右外连接：返回右表所有的行，以及左表满足连接的行"><a href="#3-右外连接：返回右表所有的行，以及左表满足连接的行" class="headerlink" title="3 右外连接：返回右表所有的行，以及左表满足连接的行"></a>3 右外连接：返回右表所有的行，以及左表满足连接的行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table1</span><br><span class="line">RIGHT JOIN table2</span><br><span class="line">ON table1.column_name = table2.column_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充"><a href="#4-全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充" class="headerlink" title="4 全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充"></a>4 全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT column_name(s)</span><br><span class="line">FROM table1</span><br><span class="line">FULL OUTER JOIN table2</span><br><span class="line">ON table1.column_name = table2.column_name</span><br><span class="line">WHERE condition;</span><br></pre></td></tr></table></figure>
+
+<p>连接的利弊，尽可能减少三个表的join！</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><ul>
+<li>MySQL 的慢 SQL 优化一般如何来做？除此外还有什么方法优化?</li>
+<li>MySQL 的 explain 有用过吗？讲一讲数据库的慢查询</li>
+<li>如何定位一个慢查询，SQL 慢查询的常见优化步骤是什么?<br>围绕这三个问题进行解答</li>
+</ul>
+<p>SQL查询优化的策略一般包含：</p>
+<p>1 sql语句分析：首先保证合理性，正确性。</p>
+<p>2 索引优化：对索引的优化和使用。</p>
+<p>3 缓存优化：数据库缓存可以减少磁盘访问，意味着速度上升。</p>
+<p>4 查询重构：优化查询条件，减少连接，使用更合理的子查询。</p>
+<p>关键本质还是执行查询的过程，计算机计算的次数，所以减少该次数是关键。</p>
+<ul>
+<li>表大小：查询命中一个几百万行的表，上亿的表，当然很糟糕。</li>
+<li>连接：查询过程不必要的连接了多个表。</li>
+<li>聚合：不必要的聚合多行的临时表进行查询，当然浪费了很多计算量。<br>还有一些无法控制的，比如其他人也在做并行查询。</li>
+</ul>
+<p>还可以使用 EXPLAIN SELECT * FROM table_name WHERE conditions; </p>
+<p>也就是EXPLAIN语句来分析性能瓶颈。关注 selete_type, key, rows这三字段。</p>
+<h3 id="说说减少查询访问数目"><a href="#说说减少查询访问数目" class="headerlink" title="说说减少查询访问数目"></a>说说减少查询访问数目</h3><p>1 消除join，可以把单个查询分解为多个查询，稍后再进行连接，避免斗鱼的连接，子查询。</p>
+<p>2 避免使用 SELECT DISTINCT</p>
+<p>3 避免使用 SELECT *， 尽可能使用的是 SELECT 字段</p>
+<h3 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h3><p>skip</p>
+<h2 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h2><p>一些计算！</p>
+<p>围绕这三个问题进行</p>
+<ul>
+<li>为什么要 MySQL 要分库分表</li>
+<li>分库分表存在的问题及其解决方法</li>
+<li>现在有哪些成熟的分库分表的中间件<br>随着数据量不断增加，把一个大数据库拆分为若干的小库是必须，把一张大表拆份成若干个小表也是必须的。综上所述，就是把大的数据量分散到不同的数据库示例和表中。总共四种方式，垂直分库，水平分库，垂直分表，水平分表。</li>
+</ul>
+<h3 id="垂直分表："><a href="#垂直分表：" class="headerlink" title="垂直分表："></a>垂直分表：</h3><p>就是把字段进行拆份，适用于过多字段，且字段之间的联系较小的场景。</p>
+<p>1 减少IO冲突，锁表的几率：浏览商品详情和浏览商品信息的不会互相影响。</p>
+<p>2 发挥热数据的操作效率：商品信息操作高效不会被商品详情信息(图片，视频，长文本）的访问低效所拖累。</p>
+<h3 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h3><p>将一个大型的数据库的数据按照业务模块进行拆份，专库专用。</p>
+<ul>
+<li>1 解决业务的耦合，业务清晰。</li>
+<li>2 能够对不同业务分级管理，维护，监控，拓展（比如有些业务的信息迅速扩张，有些趋于停滞，投放的资源和人力是完全不一样的）。</li>
+<li>3 高并发的情况下，分库能提升IO，减少单库连接数目，提升性能。<br>应用于业务复杂，表间关联很小的场景。</li>
+</ul>
+<h3 id="水平分库"><a href="#水平分库" class="headerlink" title="水平分库"></a>水平分库</h3><p>根据库里的数据行进行拆份（比如1-10w行在库A，10w-20w行在库B，不影响表结构的本身)。</p>
+<p>1 解决单库数据量大并发瓶颈</p>
+<p>2 提升系统的稳定可用性，减少IO冲突，锁定几率</p>
+<p>水平切分后，却需要路由的工作，所以系统复杂程度变大。</p>
+<h3 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h3><p>和水平分库类似，对单个大表进行拆份，性质和水平分库类似，不同的是水平分库后的表会分散到不同的库实例里，水平分表的散落的小表依旧存在一个库里。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="分库分表后存在的问题"><a href="#分库分表后存在的问题" class="headerlink" title="分库分表后存在的问题"></a>分库分表后存在的问题</h2><h2 id="一些分库分表的中间件"><a href="#一些分库分表的中间件" class="headerlink" title="一些分库分表的中间件"></a>一些分库分表的中间件</h2><p>比如淘宝的TDDL，还有sharding-jdbc，还有mycat（读写分离，分库分表，容灾管理）</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="怎么去设计一个表的主键"><a href="#怎么去设计一个表的主键" class="headerlink" title="怎么去设计一个表的主键"></a>怎么去设计一个表的主键</h2><h2 id="实时设计一个用户表"><a href="#实时设计一个用户表" class="headerlink" title="实时设计一个用户表"></a>实时设计一个用户表</h2><h2 id="分页查找"><a href="#分页查找" class="headerlink" title="分页查找"></a>分页查找</h2></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/unfinish/">unfinish</a><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">TypeScript基本语法</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/"><span class="level-item">优化与灾备-后段架构一些总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/./img/myavatar.png" alt="Sam"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Sam</p><p class="is-size-6 is-block">极客，星际流浪者</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>现居深圳，2年达拉斯</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">41</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">19</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#一个好的数据库设计"><span class="level-left"><span class="level-item">1</span><span class="level-item">一个好的数据库设计</span></span></a></li><li><a class="level is-mobile" href="#一个错误的示范"><span class="level-left"><span class="level-item">2</span><span class="level-item">一个错误的示范</span></span></a></li><li><a class="level is-mobile" href="#避免错误示范的方式-范式"><span class="level-left"><span class="level-item">3</span><span class="level-item">避免错误示范的方式-范式</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#第一范式"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">第一范式</span></span></a></li><li><a class="level is-mobile" href="#第二范式"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">第二范式</span></span></a></li><li><a class="level is-mobile" href="#第三范式"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">第三范式</span></span></a></li><li><a class="level is-mobile" href="#BC范式"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">BC范式</span></span></a></li><li><a class="level is-mobile" href="#第四范式"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">第四范式</span></span></a></li><li><a class="level is-mobile" href="#反范式"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">反范式</span></span></a></li></ul></li><li><a class="level is-mobile" href="#设计过程"><span class="level-left"><span class="level-item">4</span><span class="level-item">设计过程</span></span></a></li><li><a class="level is-mobile" href="#SQL"><span class="level-left"><span class="level-item">5</span><span class="level-item">SQL</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#查询连续出现n次的数字"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">查询连续出现n次的数字</span></span></a></li><li><a class="level is-mobile" href="#删除重复的电子邮箱"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">删除重复的电子邮箱</span></span></a></li></ul></li><li><a class="level is-mobile" href="#连接"><span class="level-left"><span class="level-item">6</span><span class="level-item">连接</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-内连接：返回两个表满足连接的条件"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">1 内连接：返回两个表满足连接的条件</span></span></a></li><li><a class="level is-mobile" href="#2-左外连接：返回左表所有的行，以及右表满足连接的行"><span class="level-left"><span class="level-item">6.2</span><span class="level-item">2 左外连接：返回左表所有的行，以及右表满足连接的行</span></span></a></li><li><a class="level is-mobile" href="#3-右外连接：返回右表所有的行，以及左表满足连接的行"><span class="level-left"><span class="level-item">6.3</span><span class="level-item">3 右外连接：返回右表所有的行，以及左表满足连接的行</span></span></a></li><li><a class="level is-mobile" href="#4-全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充"><span class="level-left"><span class="level-item">6.4</span><span class="level-item">4 全连接：返回被连接的所有记录，缺少的匹配项目会通过null填充</span></span></a></li></ul></li><li><a class="level is-mobile" href="#查询优化"><span class="level-left"><span class="level-item">7</span><span class="level-item">查询优化</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#说说减少查询访问数目"><span class="level-left"><span class="level-item">7.1</span><span class="level-item">说说减少查询访问数目</span></span></a></li><li><a class="level is-mobile" href="#索引优化"><span class="level-left"><span class="level-item">7.2</span><span class="level-item">索引优化</span></span></a></li></ul></li><li><a class="level is-mobile" href="#分库分表"><span class="level-left"><span class="level-item">8</span><span class="level-item">分库分表</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#垂直分表："><span class="level-left"><span class="level-item">8.1</span><span class="level-item">垂直分表：</span></span></a></li><li><a class="level is-mobile" href="#垂直分库"><span class="level-left"><span class="level-item">8.2</span><span class="level-item">垂直分库</span></span></a></li><li><a class="level is-mobile" href="#水平分库"><span class="level-left"><span class="level-item">8.3</span><span class="level-item">水平分库</span></span></a></li><li><a class="level is-mobile" href="#水平分表"><span class="level-left"><span class="level-item">8.4</span><span class="level-item">水平分表</span></span></a></li></ul></li><li><a class="level is-mobile" href="#"><span class="level-left"><span class="level-item">9</span><span class="level-item"> </span></span></a></li><li><a class="level is-mobile" href="#分库分表后存在的问题"><span class="level-left"><span class="level-item">10</span><span class="level-item">分库分表后存在的问题</span></span></a></li><li><a class="level is-mobile" href="#一些分库分表的中间件"><span class="level-left"><span class="level-item">11</span><span class="level-item">一些分库分表的中间件</span></span></a></li><li><a class="level is-mobile" href="#-1"><span class="level-left"><span class="level-item">12</span><span class="level-item"> </span></span></a></li><li><a class="level is-mobile" href="#怎么去设计一个表的主键"><span class="level-left"><span class="level-item">13</span><span class="level-item">怎么去设计一个表的主键</span></span></a></li><li><a class="level is-mobile" href="#实时设计一个用户表"><span class="level-left"><span class="level-item">14</span><span class="level-item">实时设计一个用户表</span></span></a></li><li><a class="level is-mobile" href="#分页查找"><span class="level-left"><span class="level-item">15</span><span class="level-item">分页查找</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://google.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google</span></span><span class="level-right"><span class="level-item tag">google.com</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:22:02.589Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/ai%E5%BA%94%E7%94%A8%E5%B1%82/triton/triton%20+%20chatglm4%20(finish)/">triton + chatglm4 部署</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:21:30.768Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/redis(unfinish%209)/">redis一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:20:11.449Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/%E7%AE%97%E6%B3%95/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC(finish)/">滑动窗口最大值</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:59:19.717Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/">TypeScript基本语法</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:40:24.890Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/">关系型数据库的基础总结</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/"><span class="level-start"><span class="level-item">2024</span></span><span class="level-end"><span class="level-item tag">41</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">AI(人工智能)</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Agents/"><span class="tag">Agents</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-c/"><span class="tag">Language(c++)</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-python/"><span class="tag">Language(python)</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux%E7%B3%BB%E7%BB%9F/"><span class="tag">Linux系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Triton/"><span class="tag">Triton</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker%E5%AE%B9%E5%99%A8/"><span class="tag">docker容器</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"><span class="tag">llm(语言模型)</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/unfinish/"><span class="tag">unfinish</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/"><span class="tag">后段架构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">向量数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE/"><span class="tag">数据</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Sam</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>

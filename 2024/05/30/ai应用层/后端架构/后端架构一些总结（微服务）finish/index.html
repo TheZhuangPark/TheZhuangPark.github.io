@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>微服务-后段架构一些总结 - zeon&#039;s blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="zeon&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="最初的单机架构这种单机架构并非不好，而是大部分demo的初始状态。也是最简单，最低成本的状态。"><meta property="og:type" content="blog"><meta property="og:title" content="微服务-后段架构一些总结"><meta property="og:url" content="http://example.com/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/"><meta property="og:site_name" content="zeon&#039;s blog"><meta property="og:description" content="最初的单机架构这种单机架构并非不好，而是大部分demo的初始状态。也是最简单，最低成本的状态。"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2024-05-30T14:34:54.020Z"><meta property="article:modified_time" content="2024-05-18T16:00:00.000Z"><meta property="article:author" content="Sam"><meta property="article:tag" content="后段架构"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://example.com/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/"},"headline":"微服务-后段架构一些总结","image":["http://example.com/img/og_image.png"],"datePublished":"2024-05-30T14:34:54.020Z","dateModified":"2024-05-18T16:00:00.000Z","author":{"@type":"Person","name":"Sam"},"publisher":{"@type":"Organization","name":"zeon's blog","logo":{"@type":"ImageObject","url":"http://example.com/img/mylogo.png"}},"description":"最初的单机架构这种单机架构并非不好，而是大部分demo的初始状态。也是最简单，最低成本的状态。"}</script><link rel="canonical" href="http://example.com/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E5%BE%AE%E6%9C%8D%E5%8A%A1%EF%BC%89finish/"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&amp;family=Roboto+Mono"><link rel="stylesheet" href="/css/cyberpunk.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2024-05-30T14:34:54.020Z" title="5/30/2024, 10:34:54 PM">2024-05-30</time></span><span class="level-item">15 minutes read (About 2280 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">微服务-后段架构一些总结</h1><div class="content"><h2 id="最初的单机架构"><a href="#最初的单机架构" class="headerlink" title="最初的单机架构"></a>最初的单机架构</h2><p>这种单机架构并非不好，而是大部分demo的初始状态。也是最简单，最低成本的状态。</p>
+<span id="more"></span>
+
+<p>无论是服务端，还是网站，还是管理后台，数据库，都部署在一个服务器上。</p>
+<h2 id="多端导致的问题"><a href="#多端导致的问题" class="headerlink" title="多端导致的问题"></a>多端导致的问题</h2><ul>
+<li>1 网站和移动端和pc端其实很多业务逻辑相同的重复代码。</li>
+<li>2 不同端的数据有时候通过数据库共享，有时候接口调用传输，这个时候接口关系很混乱。</li>
+<li>3 应用会爆炸，为了提供接口逐渐的改得越来越大，归属混乱，小队成员各自为战。</li>
+<li>4 管理后台如果添加了数据分析，则变得很臃肿。</li>
+<li>5 数据库表结构为多个应用依赖，重构优化困难重重</li>
+<li>6 几乎所有应用到在一个数据库上操作，性能瓶颈出现。</li>
+<li>7 开发，维护，测试，部署越发困难，发布时带上未经测试的代码随时带来现网问题。</li>
+<li>8 公共功能互相扯皮。</li>
+</ul>
+<h2 id="微服务与烟囱管"><a href="#微服务与烟囱管" class="headerlink" title="微服务与烟囱管"></a>微服务与烟囱管</h2><p>微服务改造，最关键是识别除公共的业务能力。举个例子：一个电商平台的服务可以抽象为</p>
+<ul>
+<li>1 用户服务</li>
+<li>2 商品服务</li>
+<li>3 订单服务</li>
+<li>4 促销服务</li>
+<li>5 数据分析服务<br>后端应用只需要从这几个服务获取所需数据即可，所以微服务的架构会变成一个。</li>
+</ul>
+<p>轻盈的前端，和一层薄薄的服务层，还有最底层的数据库层。</p>
+<p>但是这种设计是烟囱式设计，缺点在于</p>
+<ul>
+<li>1 数据库成为性能的瓶颈，数据库故障则全完蛋</li>
+<li>2 数据库管理容易越加混乱，熵增加是万物的趋势，总有一个服务取另一个服务的数据</li>
+<li>3 数据库表被多个服务依赖，牵一发动全身，演进速度指数下降</li>
+</ul>
+<h2 id="微服务与异构"><a href="#微服务与异构" class="headerlink" title="微服务与异构"></a>微服务与异构</h2><p>数据库进行拆分，每个服务都有自己的直属的持久化层，各个服务自己负责。</p>
+<p>而且这样的拆份带来的时候消息通信，所以类似消息队列机制，如RabbitMQ，kalfka也需要。</p>
+<p>每个服务都可以使用异构的数据层。</p>
+<p>比如用户服务，使用的时候关系型数据库。</p>
+<p>商品服务，关系型数据库和缓存都可以上。</p>
+<p>数据分析服务，可以用上数据仓库，且和ES，和Spark整合在一起</p>
+<p>但是还是有跨服务联表查询等问题，但是依旧可以合理设计避免。</p>
+<h2 id="微服务的弱点，雪崩式宕机"><a href="#微服务的弱点，雪崩式宕机" class="headerlink" title="微服务的弱点，雪崩式宕机"></a>微服务的弱点，雪崩式宕机</h2><p>但是微服务的最大特征就是，垮台，而且修复困难。</p>
+<p>在以往的一台单机架构上，问题排查定位往往只需要看日志，查看整体调用栈。</p>
+<p>但是微服务只能一个一个服务器查看日志，调用，定位。</p>
+<p>而且服务之间的互相依赖关系也是关键，可能一个不起眼的微服务挂了，导致间接或者直接关联这个服务的服务也挂了，然后导致更多的服务挂。</p>
+<p>这个图上的节点的关系这个节点的连通分量基本都完蛋。</p>
+<p>所以：</p>
+<ul>
+<li>1 微服务的定位比较难（时序问题这种史诗级别日志甚至复现问题都很困难）</li>
+<li>2 稳定性下降，容易雪崩</li>
+<li>3 服务数目众多，部署，管理困难</li>
+<li>4 在开发进程前进的同时，还得保持服务间协同合作</li>
+<li>5 端到端的测试会涉及到多个服务，测试也变得异常复杂</li>
+</ul>
+<h2 id="监控的重要性"><a href="#监控的重要性" class="headerlink" title="监控的重要性"></a>监控的重要性</h2><p>到这一步，微服务的架构的弱点很明显，就是定位排查问题很难。</p>
+<p>所以一个扩展灵活的监控系统是必须的，做法就是让每个服务提供一个接口，实时报告自己的状态，有点像心跳，然后搭建监控系统，这个监控系统需要一个采集器，来实时采集各个服务的状态，并且以ui的方式呈现给运维者，当到达危险临界值，甚至会发送短信和邮件给管理者和运维者，和该服务的owner。</p>
+<p>PS:（这种采集器，UI开源社区很多）</p>
+<p>所以本质上，监控也是一个微服务，但是不是面向业务的微服务。</p>
+<h2 id="链路跟踪-日志分析"><a href="#链路跟踪-日志分析" class="headerlink" title="链路跟踪 &amp; 日志分析"></a>链路跟踪 &amp; 日志分析</h2><p>一个请求往往涉及内部多个服务的调用，为了弄清楚内部调用之间的关系，和时间，一般使用istio trace来实现链路跟踪。</p>
+<p>每个链路的节点，会有4个数据：</p>
+<p>1 tranceid，2 spandi 3 parentid 4 request time&amp;respond time</p>
+<p>（链路跟踪的理论可见google dapper，社区也有很多开源实现如zpikin）</p>
+<p>但是链路跟踪最后也只是定位到哪个服务有问题，并不能更细颗粒度定位</p>
+<p>更细的只有去该服务的日志分析。</p>
+<p>也就是ELK日志分析组件，</p>
+<ul>
+<li>1 E代表ElasticSearch：搜索引擎，日志存储</li>
+<li>2 L代表Logstash：日志采集器，接受日志，预处理输出到ElasticSearch</li>
+<li>3 Kibana：ui组件，通过ElasticSearch展示数据<br>在每个微服务里面部署日志采集agent，把数据传输到日志采集器里去。</li>
+</ul>
+<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p>在大量的服务，大量的接口下，容易调用不该调用的服务，本来一个只读的修改却误添加了数据，每次服务调用都应该有一层网关层进行权限校验，而且也可以作为提供接口的文档平台。</p>
+<p>网关层可以颗粒度很细，也可以颗粒度很高。</p>
+<p>微服务内部调用也可以设置网关，也可以不用设置。这个颗粒度就是微服务级别。</p>
+<p>甚至可以把微服务划分为几个区，绿区是读取数据的微服务，黄区是写数据的微服务，然后区域之间有网关把控。</p>
+<p>或者是直接最大的颗粒度，整体微服务外面就有一层网关。</p>
+<h2 id="服务注册与发现，动态扩容"><a href="#服务注册与发现，动态扩容" class="headerlink" title="服务注册与发现，动态扩容"></a>服务注册与发现，动态扩容</h2><p>在业务迅速扩展的时期，或者是遇到某些特殊时段，需要从4个服务实例，增加到40个服务实例。需要实时扩容和调整。</p>
+<ul>
+<li>1 新增实例</li>
+<li>2 将新增的实例注册到负载均衡或DNS上<br>但是也有更加聪明的做法，那就是弄出一个服务自动注册和发现的机制（注册发现微服务）</li>
+</ul>
+<p>一个新增的实例服务，启动部署之初就会把自己注册到发现微服务上。</p>
+<p>这个发现微服务，一方面做负载均衡的工作，另一方面会定时检查不健康的实例，去掉他们。</p>
+<p>甚至可以在注册服务的时候，加入一些元数据，服务版本，做A&#x2F;B Test等等。</p>
+<p>一般用一个redis就可以轻松实现，或者使用服务发现组件，zookeeper，eureka，consul，etcd</p>
+<h2 id="service-mesh-serviceless，FasS，PasS，IasS"><a href="#service-mesh-serviceless，FasS，PasS，IasS" class="headerlink" title="service-mesh, serviceless，FasS，PasS，IasS"></a>service-mesh, serviceless，FasS，PasS，IasS</h2><p>基于以上这些内容，一套完整的微服务框架，需要指标接口，链路跟踪注入，日志引流，服务注册发现，路由规则组件，熔断限流降级等功能。如果让每个微服务都自己实现这一整套不科学。</p>
+<p>需要抽取这些公共能力出来，然后每个微服务都需要按照这个公关能力的协议，进行开发。</p>
+<p>但是使用统一的微服务框架，升级成本很高，如果已有数百种微服务在线，那么升级一次所有都跟着升级。</p>
+<p>但是如果把这些公共能力都抽象到一个反向代理的组件，每个微服务都部署这样的一个代理组件，进行处理转发，这样的组件称作 sidecar，这里负责网络通信的部分叫数据平面，负责管理的叫空指平面，从而一起构成了service mesh的基本架构。</p>
+<ul>
+<li>IasS 这种就是腾讯云，亚麻云这样的云服务器提供商。</li>
+<li>Google App Engine就是PasS</li>
+<li>AWS Lambda就是FasS<br>打个比喻，IasS是买车，PasS是租车，FasS是打车。</li>
+</ul>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/">后段架构</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%BC%98%E5%8C%96%E4%B8%8E%E7%81%BE%E5%A4%87%EF%BC%89finish/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">优化与灾备-后段架构一些总结</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/05/30/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88feed%E6%B5%81%EF%BC%89finish/"><span class="level-item">feed流-后段架构一些总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/./img/myavatar.png" alt="Sam"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Sam</p><p class="is-size-6 is-block">极客，星际流浪者</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>现居深圳，2年达拉斯</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">41</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">19</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#最初的单机架构"><span class="level-left"><span class="level-item">1</span><span class="level-item">最初的单机架构</span></span></a></li><li><a class="level is-mobile" href="#多端导致的问题"><span class="level-left"><span class="level-item">2</span><span class="level-item">多端导致的问题</span></span></a></li><li><a class="level is-mobile" href="#微服务与烟囱管"><span class="level-left"><span class="level-item">3</span><span class="level-item">微服务与烟囱管</span></span></a></li><li><a class="level is-mobile" href="#微服务与异构"><span class="level-left"><span class="level-item">4</span><span class="level-item">微服务与异构</span></span></a></li><li><a class="level is-mobile" href="#微服务的弱点，雪崩式宕机"><span class="level-left"><span class="level-item">5</span><span class="level-item">微服务的弱点，雪崩式宕机</span></span></a></li><li><a class="level is-mobile" href="#监控的重要性"><span class="level-left"><span class="level-item">6</span><span class="level-item">监控的重要性</span></span></a></li><li><a class="level is-mobile" href="#链路跟踪-日志分析"><span class="level-left"><span class="level-item">7</span><span class="level-item">链路跟踪 &amp; 日志分析</span></span></a></li><li><a class="level is-mobile" href="#网关"><span class="level-left"><span class="level-item">8</span><span class="level-item">网关</span></span></a></li><li><a class="level is-mobile" href="#服务注册与发现，动态扩容"><span class="level-left"><span class="level-item">9</span><span class="level-item">服务注册与发现，动态扩容</span></span></a></li><li><a class="level is-mobile" href="#service-mesh-serviceless，FasS，PasS，IasS"><span class="level-left"><span class="level-item">10</span><span class="level-item">service-mesh, serviceless，FasS，PasS，IasS</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://google.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">google</span></span><span class="level-right"><span class="level-item tag">google.com</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:22:02.589Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/ai%E5%BA%94%E7%94%A8%E5%B1%82/triton/triton%20+%20chatglm4%20(finish)/">triton + chatglm4 部署</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:21:30.768Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/redis(unfinish%209)/">redis一些总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-17T15:20:11.449Z">2024-06-17</time></p><p class="title"><a href="/2024/06/17/%E7%AE%97%E6%B3%95/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC(finish)/">滑动窗口最大值</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:59:19.717Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/%E5%89%8D%E7%AB%AF/typescript%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%88finish%EF%BC%89/">TypeScript基本语法</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-06-03T14:40:24.890Z">2024-06-03</time></p><p class="title"><a href="/2024/06/03/ai%E5%BA%94%E7%94%A8%E5%B1%82/%E6%95%B0%E6%8D%AE%E5%BA%93/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%EF%BC%88%E7%B4%A2%E5%BC%95skip%EF%BC%89/">关系型数据库的基础总结</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/"><span class="level-start"><span class="level-item">2024</span></span><span class="level-end"><span class="level-item tag">41</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="tag">AI(人工智能)</span><span class="tag">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Agents/"><span class="tag">Agents</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-c/"><span class="tag">Language(c++)</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Language-python/"><span class="tag">Language(python)</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux%E7%B3%BB%E7%BB%9F/"><span class="tag">Linux系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Triton/"><span class="tag">Triton</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker%E5%AE%B9%E5%99%A8/"><span class="tag">docker容器</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm-%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/"><span class="tag">llm(语言模型)</span><span class="tag">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/unfinish/"><span class="tag">unfinish</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%8E%E6%AE%B5%E6%9E%B6%E6%9E%84/"><span class="tag">后段架构</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">向量数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="tag">操作系统</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE/"><span class="tag">数据</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/mylogo.png" alt="zeon&#039;s blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Sam</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2023</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
